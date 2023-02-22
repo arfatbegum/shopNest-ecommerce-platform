@@ -1,9 +1,10 @@
+import Header from "./components/Shared/Header/Header";
 
 
 function App() {
   return (
-    <div className="App">
-     
+    <div>
+      <Header></Header>
     </div>
   );
 }
