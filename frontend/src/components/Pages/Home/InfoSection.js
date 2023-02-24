@@ -1,15 +1,15 @@
 import React from 'react';
-import DeliveryTruck from "../../Assets/delivery-truck.svg";
-import Support from "../../Assets/support.svg";
-import Money from "../../Assets/money.svg";
-import Card from "../../Assets/credit-card.svg";
-import Gift from "../../Assets/gift.svg";
+import DeliveryTruck from "../../Assets/icons/delivery-truck.svg";
+import Support from "../../Assets/icons/support.svg";
+import Money from "../../Assets/icons/money.svg";
+import Card from "../../Assets/icons/credit-card.svg";
+import Gift from "../../Assets/icons/gift.svg";
 
 
 
 const InfoSection = () => {
     return (
-        <div className="2xl:container 2xl:mx-auto">
+        <section className="2xl:container 2xl:mx-auto">
             <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 lg:gap-5 md:gap-10 gap-12 lg:px-10 md:py-5 md:px-6 py-5 px-4">
                 <div className="flex justify-center items-center space-x-4 bg-white p-4 shadow-sm border-1 border-gray-200">
                     <img src={DeliveryTruck} alt="" className='w-16 h-16' />
@@ -47,7 +47,7 @@ const InfoSection = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
