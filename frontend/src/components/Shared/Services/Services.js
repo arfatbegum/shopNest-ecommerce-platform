@@ -9,7 +9,7 @@ const Services = () => {
     return (
         <section class="text-gray-500 body-font">
             <div class="2xl:container 2xl:mx-auto">
-                <div class="text-center grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 lg:gap-5 md:gap-10 gap-12 lg:px-10 md:py-5 md:px-6 py-5 px-4">
+                <div class="text-center grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 lg:gap-5 md:gap-10 lg:px-10 md:py-5 md:px-6 py-5 px-4">
                     <div class="">
                         <div class="bg-white shadow-md mx-auto border-1 border-gray-200 p-5">
                             <img src={Secure} alt="" className='w-16 h-16 mx-auto mb-3' />
