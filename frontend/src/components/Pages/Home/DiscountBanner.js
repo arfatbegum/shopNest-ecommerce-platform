@@ -3,7 +3,7 @@ import Watch from '../../Assets/watch-banner.jpg';
 import Perfume from '../../Assets/perfume.jpg';
 function DiscountBanner() {
   return (
-          <div className="hidden lg:block lg:max-w-[1480px] md:max-w-[696px] mx-auto md:px-6 px-4 py-8">
+          <div className="hidden lg:block lg:max-w-[1480px] md:max-w-[696px] mx-auto md:px-6 px-4 py-9">
             <div className="border-2 border-gray-200 shadow-sm lg:flex md:flex block">
               <div className="flex">
                 <div className="bg-primary max-w-[66px] w-full">
