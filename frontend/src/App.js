@@ -35,7 +35,7 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="compare-product" element={<CompareProduct />} />
           <Route path="wishlist" element={<Wishlist />} />
-          <Route path="login" element={<Signin />} />
+          <Route path="signin" element={<Signin />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="signup" element={<Signup />} />
           <Route path="reset-password" element={<ResetPassword />} />
