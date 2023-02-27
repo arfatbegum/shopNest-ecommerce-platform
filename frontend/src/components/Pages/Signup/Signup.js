@@ -14,7 +14,7 @@ const Signup = () => {
             <BreadCrumb title="Sign Up" />
             <div className='pb-16 lg:px-0 md:px-0 px-4'>
                 < div className="lg:w-[500px] md:w-[500px] w-full p-8 mx-auto border-2 border-gray-200 bg-white items-center text-center shadow-sm">
-                    <h1 className='textxl font-bold py-4'>New Account</h1>
+                    <h1 className='font-bold py-4'>New Account</h1>
                     <form onSubmit="" >
                         <input
                             className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-gray-300"
