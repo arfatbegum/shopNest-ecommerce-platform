@@ -1,4 +1,5 @@
 import React from 'react';
+import Blogs from './Blogs';
 import CategoryBanner from './CategoryBanner';
 import DiscountBanner from './DiscountBanner';
 import ElectronicsCategory from './ElectronicsCategory';
@@ -18,7 +19,8 @@ const Home = () => {
             <NewProducts />
             <DiscountBanner />
             <ElectronicsCategory />
-            <FashionAndAccessories/>
+            <FashionAndAccessories />
+            <Blogs/>
         </div>
     );
 };
