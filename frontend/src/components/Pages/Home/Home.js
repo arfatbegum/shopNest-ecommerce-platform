@@ -8,6 +8,7 @@ import FeaturedProducts from './FeaturedProducts';
 import Hero from './Hero';
 import InfoSection from './InfoSection';
 import NewProducts from './NewProducts';
+import TwoBanners from './TwoBanners';
 
 const Home = () => {
     return (
@@ -20,7 +21,8 @@ const Home = () => {
             <DiscountBanner />
             <ElectronicsCategory />
             <FashionAndAccessories />
-            <Blogs/>
+            <Blogs />
+            <TwoBanners/>
         </div>
     );
 };
