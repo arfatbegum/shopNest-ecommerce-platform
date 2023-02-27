@@ -2,6 +2,7 @@ import React from 'react';
 import CategoryBanner from './CategoryBanner';
 import DiscountBanner from './DiscountBanner';
 import ElectronicsCategory from './ElectronicsCategory';
+import FashionAndAccessories from './Fashion';
 import FeaturedProducts from './FeaturedProducts';
 import Hero from './Hero';
 import InfoSection from './InfoSection';
@@ -17,6 +18,7 @@ const Home = () => {
             <NewProducts />
             <DiscountBanner />
             <ElectronicsCategory />
+            <FashionAndAccessories/>
         </div>
     );
 };
