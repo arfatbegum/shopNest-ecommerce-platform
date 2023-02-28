@@ -3,6 +3,7 @@ import BreadCrumb from '../../Shared/BreadCrumb';
 import Meta from '../../Shared/Meta';
 import FilterAvailablity from './FilterAvailablity';
 import FilterCategories from './FilterCategories';
+import FilterPrices from './FilterPrices';
 
 const AllCategories = () => {
     return (
@@ -13,6 +14,7 @@ const AllCategories = () => {
                 <div className="lg:w-1/6 lg:block md:hidden hidden">
                     <FilterCategories />
                     <FilterAvailablity />
+                    <FilterPrices />
                 </div>
                 <div className="lg:w-5/6 w-full">
 
