@@ -6,6 +6,7 @@ import FilterCategories from './FilterCategories';
 import FilterColor from './FilterColor';
 import FilterPrices from './FilterPrices';
 import FilterSizes from './FilterSizes';
+import FilterTags from './FilterTags';
 
 const AllCategories = () => {
     return (
@@ -19,9 +20,11 @@ const AllCategories = () => {
                     <FilterPrices />
                     <FilterColor />
                     <FilterSizes />
+                    <FilterTags />
+                 
                 </div>
                 <div className="lg:w-5/6 w-full">
-
+                 
                 </div>
             </div>
         </>
