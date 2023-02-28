@@ -7,6 +7,7 @@ import FilterColor from './FilterColor';
 import FilterPrices from './FilterPrices';
 import FilterSizes from './FilterSizes';
 import FilterTags from './FilterTags';
+import RandomProduct from './RandomProduct';
 
 const AllCategories = () => {
     return (
@@ -21,10 +22,10 @@ const AllCategories = () => {
                     <FilterColor />
                     <FilterSizes />
                     <FilterTags />
-                 
+                    <RandomProduct />
                 </div>
                 <div className="lg:w-5/6 w-full">
-                 
+                   
                 </div>
             </div>
         </>
