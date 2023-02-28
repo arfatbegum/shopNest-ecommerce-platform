@@ -3,6 +3,7 @@ import BreadCrumb from '../../Shared/BreadCrumb';
 import Meta from '../../Shared/Meta';
 import FilterAvailablity from './FilterAvailablity';
 import FilterCategories from './FilterCategories';
+import FilterColor from './FilterColor';
 import FilterPrices from './FilterPrices';
 
 const AllCategories = () => {
@@ -15,6 +16,7 @@ const AllCategories = () => {
                     <FilterCategories />
                     <FilterAvailablity />
                     <FilterPrices />
+                    <FilterColor />
                 </div>
                 <div className="lg:w-5/6 w-full">
 
