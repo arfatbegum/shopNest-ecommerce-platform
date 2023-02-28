@@ -5,6 +5,7 @@ import FilterAvailablity from './FilterAvailablity';
 import FilterCategories from './FilterCategories';
 import FilterColor from './FilterColor';
 import FilterPrices from './FilterPrices';
+import FilterSizes from './FilterSizes';
 
 const AllCategories = () => {
     return (
@@ -17,6 +18,7 @@ const AllCategories = () => {
                     <FilterAvailablity />
                     <FilterPrices />
                     <FilterColor />
+                    <FilterSizes />
                 </div>
                 <div className="lg:w-5/6 w-full">
 
