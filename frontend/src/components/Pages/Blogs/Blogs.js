@@ -14,7 +14,7 @@ const Blogs = () => {
                     <BlogsCategories />
                 </div>
                 <div className="lg:w-5/6 w-full">
-                    <div className='grid grid-cols-3 gap-4'>
+                    <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
                         <Blog />
                         <Blog />
                         <Blog />

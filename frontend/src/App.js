@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import About from "./components/Pages/About/About";
 import AllCategories from "./components/Pages/AllCategories/AllCategories";
-import Blog from "./components/Pages/Blogs/BlogCard";
+import BlogDetails from "./components/Pages/Blogs/BlogDetails";
 import Blogs from "./components/Pages/Blogs/Blogs";
 import Cart from "./components/Pages/Cart/Cart";
 import Checkout from "./components/Pages/Checkout/Checkout";
@@ -30,7 +30,7 @@ function App() {
         <Route path="all-categories" element={<AllCategories />} />
         <Route path="product/:id" element={<ProductDetails />} />
         <Route path="blogs" element={<Blogs />} />
-        <Route path="blog/:id" element={<Blog />} />
+        <Route path="blog/:id" element={<BlogDetails />} />
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="compare-product" element={<CompareProduct />} />
