@@ -1,5 +1,6 @@
 import React from 'react';
-import Blogs from './Blogs';
+import Meta from '../../Shared/Meta';
+import BlogsSection from './BlogsSection';
 import CategoryBanner from './CategoryBanner';
 import DiscountBanner from './DiscountBanner';
 import ElectronicsCategory from './ElectronicsCategory';
@@ -13,6 +14,7 @@ import TwoBanners from './TwoBanners';
 const Home = () => {
     return (
         <div>
+            <Meta title={"Home - Shoppable"} />
             <Hero />
             <InfoSection />
             <CategoryBanner />
@@ -21,7 +23,7 @@ const Home = () => {
             <DiscountBanner />
             <ElectronicsCategory />
             <FashionAndAccessories />
-            <Blogs />
+            <BlogsSection />
             <TwoBanners/>
         </div>
     );

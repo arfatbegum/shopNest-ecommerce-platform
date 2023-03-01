@@ -1,7 +1,7 @@
 import React from 'react';
-import Blog from './Blog';
+import Blog from '../Blogs/BlogCard';
 
-const Blogs = () => {
+const BlogsSection = () => {
     return (
         <section class="text-gray-700 body-font">
             <div class="container px-10 py-7 mx-auto">
@@ -20,4 +20,4 @@ const Blogs = () => {
     );
 };
 
-export default Blogs;
+export default BlogsSection;
