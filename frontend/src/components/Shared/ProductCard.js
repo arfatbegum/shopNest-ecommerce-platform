@@ -4,7 +4,9 @@ import { MdAddShoppingCart } from "@react-icons/all-files/md/MdAddShoppingCart";
 import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
 import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
+import { Link } from 'react-router-dom';
 const ProductCard = () => {
+
     return (
         <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-white border-2 border-gray-100 flex justify-center items-center shadow-sm">
             <div className="text-center h-full overflow-hidden">
@@ -22,16 +24,16 @@ const ProductCard = () => {
                         />
                     </div>
                     <div className='w-full mx-auto'>
-                    <button className='flex items-center lg:mx-8 md:mx-7 mx-20 bg-primary text-white text-sm font-bold border-2 border-primary shadow-md rounded bottom-4 px-2 py-2 absolute opacity-0 group-hover:opacity-100 transition duration-500'>
-                        Add To Cart <MdAddShoppingCart className='text-xl ml-2'></MdAddShoppingCart>
-                    </button>
-                   </div>
+                        <button className='flex items-center lg:mx-8 md:mx-7 mx-20 bg-primary text-white text-sm font-bold border-2 border-primary shadow-md rounded bottom-4 px-2 py-2 absolute opacity-0 group-hover:opacity-100 transition duration-500'>
+                            Add To Cart <MdAddShoppingCart className='text-xl ml-2'></MdAddShoppingCart>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className="flex flex-col top-4 right-4 space-y-2 absolute opacity-0 group-hover:opacity-100 transition duration-500">
-                <button className=' bg-white border-2 border-gray-200'>
+                <Link to="product-details/:id" className=' bg-white border-2 border-gray-200'>
                     <AiOutlinePlusCircle className='text-xl text-primary m-2' />
-                </button>
+                </Link>
                 <button className=' bg-white border-2 border-gray-200'>
                     <AiOutlineEye className='text-xl text-primary m-2' />
                 </button>

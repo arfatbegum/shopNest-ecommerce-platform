@@ -14,35 +14,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.gr-12 {
-  width: 100%;
+.carousel .control-dots{
+  display: none;
 }
-.gr-6 {
-  width: 49%;
-}
-.gr-4 {
-  width: 32%;
-}
-.gr-3 {
-  width: 24%;
-}
-.gr-12 .product-card {
-  display: flex;
-  gap: 20px;
-}
-.gr-6 .product-image {
-  width: 100%;
-}
-.gr-6 .product-image img {
-  margin: auto;
-  display: block;
-}
-.gr-12 .product-card .product-image {
-  width: 270px;
-}
-.gr-12 .product-card .product-image {
-  height: auto;
-}
-.gr-12 .action-bar {
-  top: 17%;
+.carousel .carousel-status{
+  display: none;
 }
