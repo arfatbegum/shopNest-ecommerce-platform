@@ -2,7 +2,6 @@ import React from 'react';
 import ReactStars from "react-rating-stars-component";
 import { MdAddShoppingCart } from "@react-icons/all-files/md/MdAddShoppingCart";
 import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
-import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import { Link } from 'react-router-dom';
 const CompareProductCard = () => {
