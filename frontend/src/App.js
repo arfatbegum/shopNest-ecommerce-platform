@@ -5,7 +5,7 @@ import BlogDetails from "./components/Pages/Blogs/BlogDetails";
 import Blogs from "./components/Pages/Blogs/Blogs";
 import Cart from "./components/Pages/Cart/Cart";
 import Checkout from "./components/Pages/Checkout/Checkout";
-import CompareProduct from "./components/Pages/CompareProduct/CompareProduct";
+import CompareProducts from "./components/Pages/CompareProducts/CompareProducts";
 import Contact from "./components/Pages/Contact/Contact";
 import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
 import Home from "./components/Pages/Home/Home";
@@ -33,7 +33,7 @@ function App() {
         <Route path="blog/:id" element={<BlogDetails />} />
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<Checkout />} />
-        <Route path="compare-product" element={<CompareProduct />} />
+        <Route path="compare-product" element={<CompareProducts />} />
         <Route path="wishlist" element={<Wishlist />} />
         <Route path="signin" element={<Signin />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
