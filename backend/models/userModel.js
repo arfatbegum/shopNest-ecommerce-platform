@@ -30,7 +30,20 @@ var userSchema = new mongoose.Schema(
             type: String,
             default: "user",
         },
-    });
+        cart: {
+            type: Array,
+            default: [],
+        },
+        address: {
+            type: String,
+        },
+        wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+
+    },
+    {
+        timestamps: true,
+    }
+);
 
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
