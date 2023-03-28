@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const dbConnect = require("./config/dbConeect");
 const app = express();
 const dotenv = require("dotenv").config();
@@ -10,6 +11,7 @@ const { notFound, errorHandler } = require("./middlewares/errorhandler");
 dbConnect();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use("/api/user", authRouter);
 
