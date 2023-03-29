@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
 const dbConnect = require("./config/dbConeect");
 const app = express();
 const dotenv = require("dotenv").config();
@@ -10,6 +11,7 @@ const productRouter = require("./routes/productRoute");
 const { notFound, errorHandler } = require("./middlewares/errorhandler");
 
 dbConnect();
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
