@@ -52,6 +52,18 @@ const updateBlog = asyncHandler(async (req, res) => {
     }
 });
 
+//Delete a Blog
+const deleteBlog = asyncHandler(async (req, res) => {
+    const id = req.params;
+    validateMongoDbId(id);
+    try {
+        const deletedBlog = await Product.findOneAndDelete(id);
+        res.json(deletedBlog);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
 //Get All Blogs
 const getAllBlogs = asyncHandler(async (req, res) => {
     try {
@@ -62,4 +74,4 @@ const getAllBlogs = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createBlog, updateBlog, getBlog, getAllBlogs };
+module.exports = { createBlog, updateBlog, getBlog, deleteBlog, getAllBlogs };
