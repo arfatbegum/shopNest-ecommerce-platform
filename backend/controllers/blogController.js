@@ -16,4 +16,21 @@ const createBlog= asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createBlog };
+//Update a Blog
+const updateBlog = asyncHandler(async (req, res) => {
+    const id = req.params;
+    validateMongoDbId(id);
+    try {
+        if (req.body.title) {
+            req.body.slug = slugify(req.body.title);
+        }
+        const updateBlog = await Blog.findOneAndUpdate({ id }, req.body, {
+            new: true,
+        });
+        res.json(updateBlog);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+module.exports = { createBlog, updateBlog };
