@@ -1,12 +1,14 @@
 const express = require("express");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware");
-const { createBlog, updateBlog, getBlog, getAllBlogs, deleteBlog } = require("../controllers/blogController");
+const { createBlog, updateBlog, getBlog, getAllBlogs, deleteBlog, likeBlogs, disLikeBlogs } = require("../controllers/blogController");
 const router = express.Router();
 
 
 router.post("/", authMiddleware, isAdmin, createBlog);
 router.get("/", getAllBlogs);
 router.get("/:id", getBlog);
+router.put("/like-blogs", authMiddleware, likeBlogs);
+router.put("/disLike-blogs", authMiddleware, disLikeBlogs);
 router.put("/:id", authMiddleware, isAdmin, updateBlog);
 router.delete("/:id", authMiddleware, isAdmin, deleteBlog);
 
