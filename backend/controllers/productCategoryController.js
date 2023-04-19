@@ -13,12 +13,24 @@ const createProductCategory = asyncHandler(async (req, res) => {
 
 //Update a product Category
 const updateProductCategory = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    const { _id } = req.params;
     try {
-        const updateProductCategory = await Category.findOneAndUpdate(id, req.body, {
+        const updatedProductCategory = await Category.findOneAndUpdate(_id, req.body, {
             new: true,
         });
-        res.json(updateProductCategory);
+        res.json(updatedProductCategory);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+//Delete a product
+const deleteProductCategory = asyncHandler(async (req, res) => {
+    const { _id } = req.params;
+    console.log(_id);
+    try {
+        const deletedProductCategory = await Category.findOneAndDelete(_id);
+        res.json(deletedProductCategory);
     } catch (error) {
         throw new Error(error);
     }
@@ -26,5 +38,6 @@ const updateProductCategory = asyncHandler(async (req, res) => {
 
 module.exports = {
     createProductCategory,
-    updateProductCategory
+    updateProductCategory,
+    deleteProductCategory
 };
