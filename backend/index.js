@@ -11,6 +11,7 @@ const productRouter = require("./routes/productRoute");
 const blogRouter = require("./routes/blogRoute");
 const productCategoryRouter = require("./routes/productCategoryRoute");
 const blogCategoryRouter = require("./routes/blogCategoryRoute");
+const brandRouter = require("./routes/brandRoute");
 const { notFound, errorHandler } = require("./middlewares/errorhandler");
 
 dbConnect();
@@ -24,6 +25,7 @@ app.use("/api/product", productRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/product-category", productCategoryRouter);
 app.use("/api/blog-category", blogCategoryRouter);
+app.use("/api/brand", brandRouter);
 
 app.use(notFound);
 app.use(errorHandler);
