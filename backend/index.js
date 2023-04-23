@@ -12,6 +12,7 @@ const blogRouter = require("./routes/blogRoute");
 const productCategoryRouter = require("./routes/productCategoryRoute");
 const blogCategoryRouter = require("./routes/blogCategoryRoute");
 const brandRouter = require("./routes/brandRoute");
+const couponRouter = require("./routes/couponRoute");
 const { notFound, errorHandler } = require("./middlewares/errorhandler");
 
 dbConnect();
@@ -26,10 +27,11 @@ app.use("/api/blog", blogRouter);
 app.use("/api/product-category", productCategoryRouter);
 app.use("/api/blog-category", blogCategoryRouter);
 app.use("/api/brand", brandRouter);
+app.use("/api/coupon", couponRouter);
 
 app.use(notFound);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log(`Server is running  at PORT ${PORT}`);
-  });
+  console.log(`Server is running  at PORT ${PORT}`);
+});
