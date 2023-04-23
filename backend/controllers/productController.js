@@ -133,6 +133,59 @@ const addToWishlist = asyncHandler(async (req, res) => {
     }
 });
 
+//Add To Wishlist
+const rating = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { productId, star, comment } = req.body;
+    try {
+        const product = await Product.findById(productId);
+        const alreadyRated = product.ratings.find((userId) => userId.postedby.toString() === _id.toString());
+        if (alreadyRated) {
+            const updateRating = await Product.updateOne(productId,
+                {
+                    ratings: { $elemMatch: alreadyRated },
+                },
+                {
+                    $set: {
+                        "ratings.$.star": star,
+                        "ratings.$.comment": comment,
+                    },
+                },
+                {
+                    new: true,
+                });
+        } else {
+            const rateProduct = await Product.findByIdAndUpdate(productId,
+                {
+                    $push: {
+                        ratings: {
+                            star: star,
+                            comment: comment,
+                            postedby: _id,
+                        }
+                    }
+                }, {
+                new: true,
+            });
+        }
+        const grtAllRatings = await Product.findById(productId);
+        let totalRating = grtAllRatings.ratings.length;
+        let ratingSum = grtAllRatings.ratings
+            .map((rating) => rating.star)
+            .reduce((prev, curr) => prev + curr, 0);
+        let actualRating = Math.round(ratingSum / totalRating);
+        const allRatings = await Product.findByIdAndUpdate(productId, {
+            totalrating: actualRating,
+        }, {
+            new: true,
+        });
+        res.json(allRatings);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+
 
 
 module.exports = {
@@ -141,5 +194,6 @@ module.exports = {
     updateProduct,
     deleteProduct,
     getAllProducts,
-    addToWishlist
+    addToWishlist,
+    rating
 }
