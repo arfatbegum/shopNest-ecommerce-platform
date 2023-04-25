@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const Product = require("../models/productModel");
 const Cart = require("../models/cartModal");
 const Coupon = require("../models/couponModal");
+const Order = require("../models/orderModal");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../config/jsonwebtoken");
@@ -9,6 +10,7 @@ const validateMongoDbId = require("../utils/validateMongoDbId");
 const { generateRefreshToken } = require("../config/refreshToken");
 const sendEmail = require("./emailController");
 const crypto = require("crypto");
+const uniqid = require('uniqid');
 
 // Create a User
 const createUser = asyncHandler(async (req, res) => {
@@ -363,7 +365,7 @@ const addToCart = asyncHandler(async (req, res) => {
 
 // Get Cart 
 const getCart = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
+    const { _id } = req.user;
     validateMongoDbId(_id);
 
     try {
@@ -407,6 +409,91 @@ const applyCoupon = asyncHandler(async (req, res) => {
     await Cart.findByIdAndUpdate({ orderby: user._id }, { totalAfterDiscount }, { new: true });
 });
 
+//apply Coupon functionality
+const createOrder = asyncHandler(async (req, res) => {
+    const { COD, couponApplied } = req.body;
+    const { _id } = req.user;
+    validateMongoDbId(_id);
+    try {
+        if (!COD)
+            throw new Error("Cash on Delivery Failed");
+        const user = await User.findOne({ _id });
+        let userCart = await Cart.findOne({ orderby: user._id });
+        let totalAmount = 0;
+        if (couponApplied && userCart.totalAfterDiscount) {
+            totalAmount = userCart.totalAfterDiscount;
+        } else {
+            totalAmount = userCart.cartTotal;
+        }
+        let newOrder = await new Order({
+            products: userCart.products,
+            paymentIntent: {
+                id: uniqid(),
+                method: "COD",
+                amount: totalAmount,
+                status: "Cash on Delivery",
+                created: Date.now,
+                currency: "usd",
+            },
+            orderby: user._id,
+            orderStatus: "Cash on Delivery",
+        }).save();
+        let update = userCart.products.map((item) => {
+            return {
+                updateOne: {
+                    filter: { _id: item.product._id },
+                    update: { $inc: { quantity: -item.count, sold: +item.count } },
+                }
+            }
+        })
+        const updated = await Product.bulkWrite(update, {})
+        res.json({ message: "success" });
+    } catch (error) {
+        throw new Error(error);
+    }
+    let { cartTotal } = await Cart.findOne({ orderby: user._id }).populate("products.product")
+    let totalAfterDiscount = (cartTotal - (cartTotal * validCoupon.discount) / 100).toFixed(2);
+    await Cart.findByIdAndUpdate({ orderby: user._id }, { totalAfterDiscount }, { new: true });
+});
+
+// Get orders 
+const getOrders = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    validateMongoDbId(_id);
+
+    try {
+        const orders = await Order.findOne({ orderby: _id }).populate("products.product");
+        res.json(orders);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+
+// Update order 
+const updateOrderStatus = asyncHandler(async (req, res) => {
+    const { status } = req.body;
+    const { id } = req.params;
+    validateMongoDbId(id);
+    try {
+        const updatedOrderStatus = await Order.findByIdAndUpdate(
+            id,
+            {
+                orderStatus: status,
+                paymentIntent: {
+                    status: status,
+                }
+            },
+            {
+                new: true,
+            }
+        );
+        res.json(updatedOrderStatus);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
 module.exports = {
     createUser,
     signinUser,
@@ -427,5 +514,8 @@ module.exports = {
     addToCart,
     getCart,
     removeCart,
-    applyCoupon
+    applyCoupon,
+    createOrder,
+    getOrders,
+    updateOrderStatus
 };
