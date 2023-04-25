@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const Product = require("../models/productModel");
 const Cart = require("../models/cartModal");
+const Coupon = require("../models/couponModal");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../config/jsonwebtoken");
@@ -366,25 +367,44 @@ const getCart = asyncHandler(async (req, res) => {
     validateMongoDbId(_id);
 
     try {
-        const cart = await Cart.findOne({ orderby: _id}).populate("products.product");
+        const cart = await Cart.findOne({ orderby: _id }).populate("products.product");
         res.json(cart);
     } catch (error) {
         throw new Error(error);
     }
 });
 
-// Get Cart 
+// Remove Cart 
 const removeCart = asyncHandler(async (req, res) => {
     const { _id } = req.params;
     validateMongoDbId(_id);
 
     try {
         const user = await User.findOne({ _id });
-        const cart = await Cart.findOneAndRemove({ orderby: user._id});
+        const cart = await Cart.findOneAndRemove({ orderby: user._id });
         res.json(cart);
     } catch (error) {
         throw new Error(error);
     }
+});
+
+//apply Coupon functionality
+const applyCoupon = asyncHandler(async (req, res) => {
+    const { coupon } = req.body;
+    const { _id } = req.params;
+    validateMongoDbId(_id);
+    try {
+        const validCoupon = await Coupon.findOne({ name: coupon });
+        if (validCoupon === null)
+            throw new Error("Invalid Coupon");
+        res.json(validCoupon);
+    } catch (error) {
+        throw new Error(error);
+    }
+    const user = await User.findOne({ _id });
+    let { cartTotal } = await Cart.findOne({ orderby: user._id }).populate("products.product")
+    let totalAfterDiscount = (cartTotal - (cartTotal * validCoupon.discount) / 100).toFixed(2);
+    await Cart.findByIdAndUpdate({ orderby: user._id }, { totalAfterDiscount }, { new: true });
 });
 
 module.exports = {
@@ -406,5 +426,6 @@ module.exports = {
     saveAddress,
     addToCart,
     getCart,
-    removeCart
+    removeCart,
+    applyCoupon
 };
