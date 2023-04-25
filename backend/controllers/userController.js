@@ -281,16 +281,37 @@ const forgotPassword = asyncHandler(async (req, res) => {
     res.json(user);
 });
 
+//Save address
+const saveAddress = asyncHandler(async (req, res, next) => {
+    const { _id } = req.user;
+    validateMongoDbId(_id);
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            _id,
+            {
+                address: req?.body?.address,
+            },
+            {
+                new: true,
+            }
+        );
+        res.json(updatedUser);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+);
+//get wishlist
 const getWishlist = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     try {
         const findUser = await User.findById(_id).populate('wishlist');
         res.json(findUser);
-    } catch (error){
+    } catch (error) {
         throw new Error(error);
     }
 }
-)
+);
 
 module.exports = {
     createUser,
@@ -307,5 +328,6 @@ module.exports = {
     updatePassword,
     forgotPasswordToken,
     forgotPassword,
-    getWishlist
+    getWishlist,
+    saveAddress
 };

@@ -1,10 +1,10 @@
 const express = require("express");
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dbConnect = require("./config/dbConeect");
 const app = express();
-require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 const authRouter = require("./routes/authRoute");
 const productRouter = require("./routes/productRoute");
