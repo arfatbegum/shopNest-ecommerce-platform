@@ -50,6 +50,39 @@ const signinUser = asyncHandler(async (req, res) => {
     }
 });
 
+// Signin a Admin
+const signinAdmin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    // check if user exists or not
+    const findAdmin = await User.findOne({ email });
+    if (findAdmin.role !== 'Aadmin')
+        throw new Error('Not Authorised');
+    if (findAdmin && (await findAdmin.isPasswordMatched(password))) {
+        const refreshToken = await generateRefreshToken(findAdmin?._id);
+        const updateAdmin = await User.findByIdAndUpdate(
+            findAdmin.id,
+            {
+                refreshToken: refreshToken,
+            },
+            { new: true }
+        );
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            maxAge: 72 * 60 * 60 * 1000,
+        });
+        res.json({
+            _id: findAdmin?._id,
+            firstname: findAdmin?.firstname,
+            lastname: findAdmin?.lastname,
+            email: findAdmin?.email,
+            mobile: findAdmin?.mobile,
+            token: generateToken(findAdmin?._id),
+        });
+    } else {
+        throw new Error("Invalid Credentials");
+    }
+});
+
 // Sign Out functionality
 const SignOut = asyncHandler(async (req, res) => {
     const cookie = req.cookies;
@@ -219,9 +252,9 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
         await user.save();
         const resetURL = `Please follow this link to reset your password. This link is valid till 10 minutes.<a href='http://localhost:5000/api/user/forgot-password ${token}'>Click here</a>`
         const data = {
-            to: eamil, 
-            subject: "Forgot Password Link", 
-            text: "Hello", 
+            to: eamil,
+            subject: "Forgot Password Link",
+            text: "Hello",
             html: resetURL,
         }
         sendEmail(data);
@@ -238,7 +271,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
     const user = await User.findOne({
         passwordResetToken: hashedToken,
-        passwordResetExpires:{$gt: Date.now()}
+        passwordResetExpires: { $gt: Date.now() }
     });
     if (!user) throw new Error("Token Expired! Please try again later.");
     user.password = password;
@@ -251,6 +284,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 module.exports = {
     createUser,
     signinUser,
+    signinAdmin,
     SignOut,
     getallUsers,
     getUser,
