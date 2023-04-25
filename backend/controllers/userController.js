@@ -1,4 +1,6 @@
 const User = require("../models/userModel");
+const Product = require("../models/productModel");
+const Cart = require("../models/cartModal");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../config/jsonwebtoken");
@@ -6,6 +8,7 @@ const validateMongoDbId = require("../utils/validateMongoDbId");
 const { generateRefreshToken } = require("../config/refreshToken");
 const sendEmail = require("./emailController");
 const crypto = require("crypto");
+
 // Create a User
 const createUser = asyncHandler(async (req, res) => {
     const email = req.body.email;
@@ -187,6 +190,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     }
 });
 
+// Block User
 const blockUser = asyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongoDbId(id);
@@ -207,6 +211,7 @@ const blockUser = asyncHandler(async (req, res) => {
     }
 });
 
+// Unblock User
 const unblockUser = asyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongoDbId(id);
@@ -229,6 +234,7 @@ const unblockUser = asyncHandler(async (req, res) => {
     }
 });
 
+//Update Password
 const updatePassword = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const { password } = req.body;
@@ -243,6 +249,7 @@ const updatePassword = asyncHandler(async (req, res) => {
     }
 });
 
+//Save forgot Password Token
 const forgotPasswordToken = asyncHandler(async (req, res) => {
     const { eamil } = req.body;
     const user = await User.findOne({ eamil });
@@ -265,6 +272,7 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
     }
 });
 
+//Save forgot Password
 const forgotPassword = asyncHandler(async (req, res) => {
     const { password } = req.body;
     const { token } = req.params;
@@ -282,7 +290,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 });
 
 //Save address
-const saveAddress = asyncHandler(async (req, res, next) => {
+const saveAddress = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     validateMongoDbId(_id);
     try {
@@ -313,6 +321,72 @@ const getWishlist = asyncHandler(async (req, res) => {
 }
 );
 
+//Add To Cart functinality
+const addToCart = asyncHandler(async (req, res) => {
+    const { cart } = req.body;
+    const { _id } = req.user;
+    validateMongoDbId(_id);
+    try {
+        let products = [];
+        const user = await User.findById(_id);
+        //check if user already have product in cart
+        const alreadyExistCart = await Cart.findOne({ orderby: user._id });
+        if (alreadyExistCart) {
+            alreadyExistCart.remove();
+        }
+        for (let i = 0; i < cart.length; i++) {
+            let object = {};
+            object.product = cart[i]._id;
+            object.count = cart[i].count;
+            object.color = cart[i].color;
+            let getPrice = await Product.findById(cart[i]._id).select('price').exec();
+            object.price = getPrice.price;
+            products.push(object);
+        }
+
+        let cartTotal = 0;
+        for (let i = 0; i < products.length; i++) {
+            cartTotal = cartTotal + products[i].price * products[i].count;
+        }
+        let newCart = await new Cart({
+            products,
+            cartTotal,
+            orderby: user?._id,
+        }).save();
+        res.json(newCart);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+);
+
+// Get Cart 
+const getCart = asyncHandler(async (req, res) => {
+    const { _id } = req.params;
+    validateMongoDbId(_id);
+
+    try {
+        const cart = await Cart.findOne({ orderby: _id}).populate("products.product");
+        res.json(cart);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+// Get Cart 
+const removeCart = asyncHandler(async (req, res) => {
+    const { _id } = req.params;
+    validateMongoDbId(_id);
+
+    try {
+        const user = await User.findOne({ _id });
+        const cart = await Cart.findOneAndRemove({ orderby: user._id});
+        res.json(cart);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
 module.exports = {
     createUser,
     signinUser,
@@ -329,5 +403,8 @@ module.exports = {
     forgotPasswordToken,
     forgotPassword,
     getWishlist,
-    saveAddress
+    saveAddress,
+    addToCart,
+    getCart,
+    removeCart
 };
