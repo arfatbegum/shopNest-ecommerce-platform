@@ -10,10 +10,7 @@ var blogSchema = new mongoose.Schema({
         type: String,
         default: "Admin",
     },
-    image: {
-        type: String,
-        default: "https://www.thoughtco.com/thmb/9-TaSUt-qCdOp1Xh3P43mutTmeA=/2121x1414/filters:fill(auto,1)/GettyImages-887987150-5c770377c9e77c00011c82e6.jpg",
-    },
+    image: [],
     description: {
         type: String,
         required: true,
