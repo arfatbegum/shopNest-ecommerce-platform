@@ -187,10 +187,8 @@ const rating = asyncHandler(async (req, res) => {
     }
 });
 
-//Update a product
+//Upload images
 const uploadImages = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    validateMongoDbId(id);
     try {
         const uploader = (path) => cloudinaryUploadImg(path, 'images');
         const urls = [];
@@ -201,22 +199,26 @@ const uploadImages = asyncHandler(async (req, res) => {
             urls.push(newPath);
             fs.unlinkSync(path);
         }
-        const findProduct = await Product.findById(
-            id,
-            {
-                images: urls.map((file) => {
-                    return file;
-                })
-            },
-            {
-                new: true,
-            }
-        );
-        res.json(findProduct);
+        const images = urls.map((file) => {
+            return file;
+        });
+        res.json(images);
     } catch (error) {
         throw new Error(error);
     }
 });
+
+//delete a product
+const deleteImages = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleted = cloudinaryDeleteImg(id, 'images');
+        res.json({ message: "Deleted" });
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
 
 
 
@@ -228,5 +230,6 @@ module.exports = {
     getAllProducts,
     addToWishlist,
     rating,
-    uploadImages
+    uploadImages,
+    deleteImages
 }
