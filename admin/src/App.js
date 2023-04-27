@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
-import ResetPassword from "./components/Pages/ResetPassword/ResetPassword";
-import Signin from "./components/Pages/Signin/Signin";
+import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/pages/ResetPassword/ResetPassword";
+import Signin from "./components/pages/Signin/Signin";
+import Dashboard from "./components/pages/Dashboard/Dashboard";
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Signin />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
