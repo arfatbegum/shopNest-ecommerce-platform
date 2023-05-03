@@ -18,6 +18,9 @@ code {
 .ant-layout{
   height: 100vh;
 }
+.ant-layout .ant-layout-sider{
+  min-width: 230px !important;
+}
 .ant-menu .ant-menu-item .ant-menu-item-icon{
   font-size: 20px;
 }
