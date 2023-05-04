@@ -21,6 +21,9 @@ code {
 .ant-layout .ant-layout-sider{
   min-width: 230px !important;
 }
+.ant-layout .ant-layout-sider-collapsed{
+  min-width: 80px !important;
+}
 .ant-menu .ant-menu-item .ant-menu-item-icon{
   font-size: 20px;
 }
