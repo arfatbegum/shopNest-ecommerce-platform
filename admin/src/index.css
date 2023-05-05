@@ -16,7 +16,10 @@ code {
 }
 
 .ant-layout{
-  height: 100vh;
+  min-height: 100vh;
+}
+.ant-layout-content{
+  background: none !important;
 }
 .ant-layout .ant-layout-sider{
   min-width: 230px !important;

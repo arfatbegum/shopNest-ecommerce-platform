@@ -46,7 +46,7 @@ const OverviewCards = () => {
         </div>
         <div class="flex flex-wrap my-2">
           <div class="xl:w-1/4 md:w-1/2 p-2">
-            <div class=" p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
+            <div class="bg-white p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
               <AiOutlineCompass className='bg-blue-600 text-5xl mr-2 p-2 rounded-full text-white' />
               <div>
                 <h3 class="text-lg font-semibold">Total Orders</h3>
@@ -55,7 +55,7 @@ const OverviewCards = () => {
             </div>
           </div>
           <div class="xl:w-1/4 md:w-1/2 p-2">
-            <div class=" p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
+            <div class="bg-white p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
               <MdOutlinePendingActions className='bg-amber-400 text-5xl mr-2 p-2 rounded-full text-white' />
               <div>
                 <h3 class="text-lg font-semibold">Orders Pending</h3>
@@ -64,7 +64,7 @@ const OverviewCards = () => {
             </div>
           </div>
           <div class="xl:w-1/4 md:w-1/2 p-2">
-            <div class=" p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
+            <div class="bg-white p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
               <MdWifiProtectedSetup className='bg-green-600 text-5xl mr-2 p-2 rounded-full text-white' />
               <div>
                 <h3 class="text-lg font-semibold">Orders Processing</h3>
@@ -73,7 +73,7 @@ const OverviewCards = () => {
             </div>
           </div>
           <div class="xl:w-1/4 md:w-1/2 p-2">
-            <div class=" p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
+            <div class="bg-white p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
               <TbTruckDelivery className='bg-orange-400 text-5xl mr-2 p-2 rounded-full text-white' />
               <div>
                 <h3 class="text-lg font-semibold">Orders Delivered</h3>
