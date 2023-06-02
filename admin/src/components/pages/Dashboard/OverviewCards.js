@@ -28,7 +28,7 @@ const OverviewCards = () => {
             </div>
           </div>
           <div class="xl:w-1/4 md:w-1/2 p-2">
-            <div class="bg-blue-600 p-6 rounded-lg text-white">
+            <div class="bg-[#2f60b5] p-6 rounded-lg text-white">
               <MdOutlineCalendarMonth className='text-4xl mx-auto' />
               <h3 class="text-lg font-semibold mb-2 mt-1">This Month</h3>
               <h2 class="text-2xl font-bold title-font mb-2">$0.00</h2>
@@ -47,7 +47,7 @@ const OverviewCards = () => {
         <div class="flex flex-wrap my-2">
           <div class="xl:w-1/4 md:w-1/2 p-2">
             <div class="bg-white p-4 rounded-lg text-black flex items-center border border-gray-200 shadow-sm">
-              <AiOutlineCompass className='bg-blue-600 text-5xl mr-2 p-2 rounded-full text-white' />
+              <AiOutlineCompass className='bg-[#2f60b5] text-5xl mr-2 p-2 rounded-full text-white' />
               <div>
                 <h3 class="text-lg font-semibold">Total Orders</h3>
                 <h2 class="text-2xl font-bold title-font">56</h2>

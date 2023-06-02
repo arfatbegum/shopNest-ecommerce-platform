@@ -37,7 +37,7 @@ const columns = [
         render: () => (
             <Space size="middle">
                 <BiTrash className='text-red-600'/>
-                <BiEdit className='text-blue-700'/>
+                <BiEdit className='text-[#2f60b5]'/>
             </Space>
         ),
     },
