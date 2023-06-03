@@ -1,9 +1,12 @@
 import React from 'react';
+import StaffsList from './StaffsList';
+import Header from './Header';
 
 const OurStaff = () => {
     return (
         <div>
-             <h1>Staff</h1>
+            <Header />
+            <StaffsList/>
         </div>
     );
 };
