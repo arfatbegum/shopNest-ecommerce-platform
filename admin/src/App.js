@@ -7,7 +7,6 @@ import Orders from "./components/pages/Orders/Orders";
 import MainLayout from "./components/pages/MainLayout/MainLayout";
 import Customers from "./components/pages/Customers/Customers";
 import OurStaff from "./components/pages/OurStaff/OurStaff";
-import ProductCategories from "./components/pages/Products/ProductCategories";
 import Blogs from "./components/pages/Blogs/Blogs";
 import BlogCategories from "./components/pages/Blogs/BlogCategories";
 import Colors from "./components/pages/Catalog/Colors/Colors";
@@ -16,6 +15,7 @@ import Coupons from "./components/pages/Catalog/Coupons/Coupons";
 import Settings from "./components/pages/Settings/Settings";
 import Enquiries from "./components/pages/Enquiries/Enquiries";
 import Products from "./components/pages/Products/AllProducts/Products";
+import ProductCategories from "./components/pages/Products/ProductCategories";
 
 
 function App() {
