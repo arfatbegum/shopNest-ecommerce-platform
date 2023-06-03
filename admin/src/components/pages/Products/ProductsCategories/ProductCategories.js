@@ -1,6 +1,6 @@
 import React from 'react';
-import OpenDrawer from './ProductsCategories/OpenDrawer';
-import CategoryList from './ProductsCategories/CategoryList';
+import OpenDrawer from './OpenDrawer';
+import CategoryList from './CategoryList';
 
 const ProductCategories = () => {
     return (
