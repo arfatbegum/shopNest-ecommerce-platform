@@ -16,6 +16,7 @@ import ProductCategories from "./components/pages/Products/ProductsCategories/Pr
 import Blogs from "./components/pages/Blogs/Blogs/Blogs";
 import BlogCategories from "./components/pages/Blogs/BlogsCategories/BlogCategories";
 import EnquiryDetails from "./components/pages/Enquiries/EnquiryDetails";
+import OrderDetails from "./components/pages/Orders/OrderDetails";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="coupons" element={<Coupons />}></Route>
           <Route path="customers" element={<Customers />}></Route>
           <Route path="orders" element={<Orders />}></Route>
+          <Route path="orderDetails" element={<OrderDetails />}></Route>
           <Route path="staff" element={<OurStaff />}></Route>
           <Route path="enquiries" element={<Enquiries />}></Route>
           <Route path="enquiryDetails" element={<EnquiryDetails />}></Route>
