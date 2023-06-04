@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { AiOutlineSetting, AiOutlineAppstore, AiOutlineCompass, AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineAppstore, AiOutlineCompass, AiOutlineEdit } from 'react-icons/ai';
 import { BiStore, BiColor, BiCategory } from 'react-icons/bi';
 import { FiSlack, FiUsers } from 'react-icons/fi';
 import { FaShoppingBasket } from 'react-icons/fa';
-import { MdOutlineLocalGroceryStore, MdFormatSize, MdNotificationsNone } from 'react-icons/md';
+import { MdOutlineLocalGroceryStore, MdNotificationsNone } from 'react-icons/md';
 import { RiCoupon4Line } from 'react-icons/ri';
 import { HiOutlineUserGroup } from 'react-icons/hi';
 import { TbBrand4Chan } from 'react-icons/tb';
@@ -86,11 +86,6 @@ const MainLayout = () => {
                 label: 'brands',
               },
               {
-                key: 'sizes',
-                icon: <MdFormatSize />,
-                label: 'Sizes',
-              },
-              {
                 key: 'coupons',
                 icon: <RiCoupon4Line />,
                 label: 'Coupons',
@@ -110,11 +105,6 @@ const MainLayout = () => {
               key: 'staff',
               icon: <FiUsers />,
               label: 'Our Staff',
-            },
-            {
-              key: 'settings',
-              icon: <AiOutlineSetting />,
-              label: 'Settings',
             },
             {
               key: 'enquiries',
