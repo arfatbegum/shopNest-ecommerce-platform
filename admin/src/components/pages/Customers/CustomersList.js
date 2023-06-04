@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Switch, Table } from 'antd';
+import { Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 const columns = [

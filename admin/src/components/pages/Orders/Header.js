@@ -15,7 +15,7 @@ const Header = () => {
           defaultValue="Featured"
           className='ml-2'
           style={{
-            width: 200,
+            width: 500,
           }}
           onChange={handleChange}
           options={[
