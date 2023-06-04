@@ -15,6 +15,7 @@ import Products from "./components/pages/Products/AllProducts/Products";
 import ProductCategories from "./components/pages/Products/ProductsCategories/ProductCategories";
 import Blogs from "./components/pages/Blogs/Blogs/Blogs";
 import BlogCategories from "./components/pages/Blogs/BlogsCategories/BlogCategories";
+import EnquiryDetails from "./components/pages/Enquiries/EnquiryDetails";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="orders" element={<Orders />}></Route>
           <Route path="staff" element={<OurStaff />}></Route>
           <Route path="enquiries" element={<Enquiries />}></Route>
+          <Route path="enquiryDetails" element={<EnquiryDetails />}></Route>
         </Route>
       </Routes>
     </div>

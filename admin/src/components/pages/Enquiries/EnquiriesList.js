@@ -2,6 +2,8 @@ import React from 'react';
 import { Select, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
+import { FaSearchPlus } from 'react-icons/fa';
+
 const columns = [
     {
         title: 'SL. NO',
@@ -29,13 +31,7 @@ const columns = [
     },
     {
         title: 'ACTIONS',
-        dataIndex: 'actions',
-        render: () => (
-            <Space size="middle">
-                <BiEdit className='text-[#2f60b5] text-xl' />
-                <BiTrash className='text-red-600 text-xl' />
-            </Space>
-        ),
+        dataIndex: 'actions'
     },
 ];
 const data = [];
@@ -82,7 +78,13 @@ const EnquiriesList = () => {
                     />
                 </>
             ),
-            actions: <BiTrash />,
+            actions: (
+                <Space size="middle">
+                <BiEdit className='text-[#2f60b5] text-xl' />
+                    <BiTrash className='text-red-600 text-xl' />
+                    <FaSearchPlus className='text-[#2f60b5] text-lg' />
+                </Space>
+            ),
 
         });
     }

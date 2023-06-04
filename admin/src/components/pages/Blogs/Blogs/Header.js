@@ -13,8 +13,8 @@ const Header = () => {
   };
   const onSearch = (value) => console.log(value);
   return (
-    <>
-      <h1 className='font-semibold text-2xl text-black mb-4 uppercase'>All Blogs</h1>
+    <><h1 className='font-semibold text-2xl text-black mb-4 uppercase'>All Blogs</h1>
+      
       <div className='flex justify-between items-center mb-4'>
         <Search placeholder="Search Blog" onSearch={onSearch} width={700} height={40} />
         <Button
