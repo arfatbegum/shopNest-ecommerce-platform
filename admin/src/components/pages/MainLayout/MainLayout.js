@@ -29,7 +29,7 @@ const MainLayout = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['']}
+          defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             if (key === "signout") {
             } else {

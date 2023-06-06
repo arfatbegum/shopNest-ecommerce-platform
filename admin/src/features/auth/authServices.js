@@ -1,7 +1,7 @@
 import axios from "axios";
 import { base_url } from "../../utils/baseUrl";
-const login = async (user) => {
-  const response = await axios.post(`${base_url}user/admin-login`, user);
+const signin = async (user) => {
+  const response = await axios.post(`${base_url}user/signin-admin`, user);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
@@ -10,7 +10,7 @@ const login = async (user) => {
 
 
 const authService = {
-  login,
+  signin,
 };
 
 export default authService;

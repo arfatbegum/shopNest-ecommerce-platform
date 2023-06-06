@@ -12,11 +12,11 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
-export const login = createAsyncThunk(
-  "auth/login",
+export const signin = createAsyncThunk(
+  "auth/signin",
   async (userData, thunkAPI) => {
     try {
-      return await authService.login(userData);
+      return await authService.signin(userData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -29,17 +29,17 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (buildeer) => {
       buildeer
-          .addCase(login.pending, (state) => {
+          .addCase(signin.pending, (state) => {
               state.isLoading = true;
           })
-          .addCase(login.fulfilled, (state, action) => {
+          .addCase(signin.fulfilled, (state, action) => {
               state.isError = false;
               state.isLoading = false;
               state.isSuccess = true;
               state.user = action.payload;
               state.message = "success";
           })
-          .addCase(login.rejected, (state, action) => {
+          .addCase(signin.rejected, (state, action) => {
               state.isError = true;
               state.isSuccess = false;
               state.message = action.error;

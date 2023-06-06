@@ -12,11 +12,14 @@ const blogRouter = require("./routes/blogRoute");
 const productCategoryRouter = require("./routes/productCategoryRoute");
 const blogCategoryRouter = require("./routes/blogCategoryRoute");
 const colorRouter = require("./routes/colorRoute");
+const brandRouter = require("./routes/brandRoute");
 const couponRouter = require("./routes/couponRoute");
 const enquiryRouter = require("./routes/enquiryRoute");
 const { notFound, errorHandler } = require("./middlewares/errorhandler");
+const cors = require('cors');
 
 dbConnect();
+app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
