@@ -26,10 +26,6 @@ const columns = [
         dataIndex: 'date',
     },
     {
-        title: 'JOINING DATE',
-        dataIndex: 'id',
-    },
-    {
         title: 'ACTIONS',
         dataIndex: 'actions',
     },
@@ -53,11 +49,10 @@ const CustomersList = () => {
                 email: customerstate[i].email,
                 mobile: customerstate[i].mobile,
                 date: customerstate[i].createdAt,
-                id: customerstate[i]._id,
                 actions: (
                     <Space size="middle">
                         <BiEdit className='text-[#2f60b5] text-xl' />
-                        <BiTrash className='text-red-500 text-xl'/>
+                        <BiTrash className='text-red-500 text-xl' />
                     </Space>
                 ),
             });
