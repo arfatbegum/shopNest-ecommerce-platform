@@ -3,7 +3,7 @@ import AddProduct from './AddProduct';
 import { Button, Drawer, Select } from 'antd';
 import Search from 'antd/es/transfer/search';
 
-const OpenDrawer = () => {
+const Header = () => {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -17,19 +17,8 @@ const OpenDrawer = () => {
   };
   return (
     <>
+      <h3 className="font-bold text-xl text-black uppercase mb-5">All Products</h3>
       <div className='flex justify-between items-center mb-4'>
-        <Button
-          type="text"
-          onClick={showDrawer}
-          className='bg-[#2f60b5] text-white rounded font-medium mr-2 hover:bg-[#2f60b5]'
-          style={{
-            fontSize: '16px',
-            width: 130,
-            height: 40,
-          }}
-        >
-          Add Product
-        </Button>
         <Search placeholder="Search Products" onSearch={onSearch} width={700} height={40} />
         <Select
           defaultValue="Featured"
@@ -63,6 +52,18 @@ const OpenDrawer = () => {
             }
           ]}
         />
+        <Button
+          type="text"
+          onClick={showDrawer}
+          className='bg-[#2f60b5] text-white rounded font-medium ml-2 hover:bg-[#2f60b5]'
+          style={{
+            fontSize: '16px',
+            width: 130,
+            height: 40,
+          }}
+        >
+          Add Product
+        </Button>
       </div>
       <Drawer title="Add Product" width={700} placement="right" onClose={onClose} open={open}>
         <AddProduct />
@@ -71,4 +72,4 @@ const OpenDrawer = () => {
   );
 };
 
-export default OpenDrawer;
+export default Header;

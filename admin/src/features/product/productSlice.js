@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import productService from "./productService";
+import productServices from "./productServices";
 
 export const getProducts = createAsyncThunk(
   "product/get-products",
   async (thunkAPI) => {
     try {
-      return await productService.getProducts();
+      return await productServices.getProducts();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -15,7 +15,7 @@ export const createAProduct = createAsyncThunk(
   "product/create-product",
   async (productData, thunkAPI) => {
     try {
-      return await productService.createProduct(productData);
+      return await productServices.createProduct(productData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -26,7 +26,7 @@ export const updateAProduct = createAsyncThunk(
     "product/update-product",
     async (product, thunkAPI) => {
       try {
-        return await productService.updateProduct(product);
+        return await productServices.updateProduct(product);
       } catch (error) {
         return thunkAPI.rejectWithValue(error);
       }
@@ -37,7 +37,7 @@ export const updateAProduct = createAsyncThunk(
     "product/delete-product",
     async (id, thunkAPI) => {
       try {
-        return await productService.deleteProduct(id);
+        return await productServices.deleteProduct(id);
       } catch (error) {
         return thunkAPI.rejectWithValue(error);
       }

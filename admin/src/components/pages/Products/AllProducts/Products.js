@@ -1,10 +1,10 @@
 import React from 'react';
-import OpenDrawer from './OpenDrawer';
+import Header from './Header';
 import ProductsList from './ProductsList';
 const Products = () => {
     return (
         <div>
-            <OpenDrawer />
+            <Header />
             <ProductsList />
         </div>
     );
