@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Drawer} from 'antd';
+import { Button, Drawer } from 'antd';
 import Search from 'antd/es/transfer/search';
 import AddCoupon from './AddCoupon';
 
@@ -14,7 +14,9 @@ const Header = () => {
   const onSearch = (value) => console.log(value);
   return (
     <>
+      <h3 className="font-bold text-xl text-black uppercase mb-5">All Coupons</h3>
       <div className='flex justify-between items-center mb-4'>
+        <Search placeholder="Search Coupon" onSearch={onSearch} width={700} height={40} />
         <Button
           type="text"
           onClick={showDrawer}
@@ -27,10 +29,9 @@ const Header = () => {
         >
           Add Coupon
         </Button>
-        <Search placeholder="Search Coupon" onSearch={onSearch} width={700} height={40} />
       </div>
       <Drawer title="Add Coupon" width={700} placement="right" onClose={onClose} open={open}>
-        <AddCoupon/>
+        <AddCoupon onClose={onClose} />
       </Drawer>
     </>
   );
