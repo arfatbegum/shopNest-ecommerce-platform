@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
-import { Modal, Space, Table } from 'antd';
+import { Drawer, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
-import {
-    deleteABrand,
-    getBrands,
-    resetState,
-} from "../../../../features/brand/brandSlice.js";
+import { deleteABrand, getBrands, resetState } from "../../../../features/brand/brandSlice.js";
+import UpdateBrand from './UpdateBrand.js';
 
 const columns = [
     {
@@ -28,6 +25,7 @@ const columns = [
 
 const BrandsList = () => {
     const [open, setOpen] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
     const [brandId, setbrandId] = useState("");
 
     const showModal = (e) => {
@@ -38,6 +36,16 @@ const BrandsList = () => {
     const hideModal = () => {
         setOpen(false);
     };
+
+    const showDrawer = (e) => {
+        setOpenDrawer(true);
+        setbrandId(brandState[e]._id);
+    };
+
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(resetState());
@@ -53,7 +61,10 @@ const BrandsList = () => {
             name: brandState[i].title,
             action: (
                 <Space size="middle">
-                    <BiEdit className='text-[#2f60b5] text-xl' />
+                    <BiEdit
+                        className='text-[#2f60b5] text-xl'
+                        onClick={() => showDrawer(i)}
+                    />
                     <BiTrash
                         className='text-red-600 text-xl'
                         onClick={() => showModal(brandState[i]._id)}
@@ -87,6 +98,9 @@ const BrandsList = () => {
             >
                 Are you sure you want to delete this brand?
             </Modal>
+            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                <UpdateBrand brandId={brandId} onClose={onClose} />
+            </Drawer>
             <Table columns={columns} dataSource={data1} />
         </div>
     );

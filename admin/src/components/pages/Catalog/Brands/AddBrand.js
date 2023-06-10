@@ -3,17 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import {
-  createBrand,
-  getBrands,
-  resetState,
-} from "../../../../features/brand/brandSlice";
+import { createBrand, getBrands, resetState } from "../../../../features/brand/brandSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Brand Name is Required"),
 });
 
-const AddBrand = ({onClose}) => {
+const AddBrand = ({ onClose }) => {
   const dispatch = useDispatch();
   const newBrand = useSelector((state) => state.brand);
   const {
