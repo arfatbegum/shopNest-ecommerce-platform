@@ -5,6 +5,8 @@ import { AiOutlineAppstore, AiOutlineCompass, AiOutlineEdit } from 'react-icons/
 import { BiStore, BiColor, BiCategory } from 'react-icons/bi';
 import { FiSlack, FiUsers } from 'react-icons/fi';
 import { FaShoppingBasket } from 'react-icons/fa';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { MdOutlineLocalGroceryStore, MdNotificationsNone } from 'react-icons/md';
 import { RiCoupon4Line } from 'react-icons/ri';
 import { HiOutlineUserGroup } from 'react-icons/hi';
@@ -149,6 +151,17 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={250}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+          />
           <Outlet></Outlet>
         </Content>
       </Layout>

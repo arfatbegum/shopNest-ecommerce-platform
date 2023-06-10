@@ -1,11 +1,11 @@
 import React from 'react';
-import OpenDrawer from './OpenDrawer';
+import Header from './Header';
 import CategoryList from './CategoryList';
 
 const ProductCategories = () => {
     return (
         <div>
-            <OpenDrawer />
+            <Header />
             <CategoryList/>
         </div>
     );

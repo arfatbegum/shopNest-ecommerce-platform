@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import AddCategory from '../../Catalog/Colors/AddColor';
+import AddCategory from '../../Products/ProductsCategories/AddCategory';
 import { Button, Drawer} from 'antd';
 import Search from 'antd/es/transfer/search';
 
-const OpenDrawer = () => {
+const Header = () => {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -30,10 +30,10 @@ const OpenDrawer = () => {
         <Search placeholder="Search Category" onSearch={onSearch} width={700} height={40} />
       </div>
       <Drawer title="Add Category" width={700} placement="right" onClose={onClose} open={open}>
-        <AddCategory />
+        <AddCategory onClose={onClose} />
       </Drawer>
     </>
   );
 };
 
-export default OpenDrawer;
+export default Header;

@@ -1,21 +1,21 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import productCategoryServices from "./productCategoryServices";
+import pCategoryServices from "./productCategoryServices";
 
 export const getCategories = createAsyncThunk(
   "productCategory/get-categories",
   async (thunkAPI) => {
     try {
-      return await productCategoryServices.getProductCategories();
+      return await pCategoryServices.getProductCategories();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-export const createProductCategory = createAsyncThunk(
+export const createCategory = createAsyncThunk(
   "productCategory/create-category",
   async (categoryData, thunkAPI) => {
     try {
-      return await productCategoryServices.createProductCategory(categoryData);
+      return await pCategoryServices.createCategory(categoryData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -23,9 +23,9 @@ export const createProductCategory = createAsyncThunk(
 );
 export const updateAProductCategory = createAsyncThunk(
   "productCategory/update-category",
-  async (category, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      return await productCategoryServices.updateProductCategory(category);
+      return await pCategoryServices.updateProductCategory(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -36,17 +36,20 @@ export const deleteAProductCategory = createAsyncThunk(
   "productCategory/delete-category",
   async (id, thunkAPI) => {
     try {
-      return await productCategoryServices.deleteProductCategory(id);
-    } catch (error) {
+      const result = await pCategoryServices.deleteProductCategory(id);
+      console.log(result); // Log the result after the delete operation
+      return result;
+          } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
+ 
 );
 export const getAProductCategory = createAsyncThunk(
   "productCategory/get-product-category",
   async (id, thunkAPI) => {
     try {
-      return await productCategoryServices.getProductCategory(id);
+      return await pCategoryServices.getProductCategory(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -82,16 +85,16 @@ export const productCategorySlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(createProductCategory.pending, (state) => {
+      .addCase(createCategory.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createProductCategory.fulfilled, (state, action) => {
+      .addCase(createCategory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.createdCategory = action.payload;
       })
-      .addCase(createProductCategory.rejected, (state, action) => {
+      .addCase(createCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
@@ -119,7 +122,7 @@ export const productCategorySlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedCategory = action.payload;
+        state.deletedCategory = action.payload; // Assign the deleted category
       })
       .addCase(deleteAProductCategory.rejected, (state, action) => {
         state.isLoading = false;
@@ -135,6 +138,7 @@ export const productCategorySlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.categoryName = action.payload.title;
+        console.log(state.categoryName);
       })
       .addCase(getAProductCategory.rejected, (state, action) => {
         state.isLoading = false;
