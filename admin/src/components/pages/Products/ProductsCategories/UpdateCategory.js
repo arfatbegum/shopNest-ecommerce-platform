@@ -4,16 +4,15 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { getAProductCategory, getCategories, resetState, updateAProductCategory } from '../../../../features/productCategories/productCategorySlice';
 
-
 const UpdateCategory = ({ categoryId, onClose }) => {
     const dispatch = useDispatch();
-    const category = useSelector((state) => state.productCategory.pCategories);
+    const updateCategory = useSelector((state) => state.productCategory.pCategories);
     const {
         isSuccess,
         isError,
         categoryName,
         updatedCategory,
-    } = category;
+    } = updateCategory;
 
     useEffect(() => {
         if (categoryId !== undefined) {
@@ -41,12 +40,12 @@ const UpdateCategory = ({ categoryId, onClose }) => {
             if (categoryId !== undefined) {
                 const data = { _id: categoryId, productCategoryData: values };
                 dispatch(updateAProductCategory(data));
-                dispatch(resetState());
-                dispatch(getCategories());
-                console.log(data)
                 onClose()
+                setTimeout(() => {
+                    dispatch(resetState());
+                    dispatch(getCategories());
+                }, 300);
             }
-
         }
     });
 

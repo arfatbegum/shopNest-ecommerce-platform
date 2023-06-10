@@ -20,7 +20,6 @@ const getProductCategory = async (id) => {
 };
 
 const deleteProductCategory = async (id) => {
-  console.log(id)
   const response = await axios.delete(`${base_url}product-category/${id}`, config);
 
   return response.data;

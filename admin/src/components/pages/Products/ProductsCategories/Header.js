@@ -14,11 +14,13 @@ const Header = () => {
   const onSearch = (value) => console.log(value);
   return (
     <>
-      <div className='flex justify-between items-center mb-4'>
+      <h3 className="font-bold text-xl text-black uppercase mb-5">All Product Categories</h3>
+      <div className='flex justify-between items-center mb-4'>    
+        <Search placeholder="Search Category" onSearch={onSearch} width={700} height={40} />
         <Button
           type="text"
           onClick={showDrawer}
-          className='bg-[#2f60b5] text-white rounded font-medium mr-2 hover:bg-[#2f60b5]'
+          className='bg-[#2f60b5] text-white rounded font-medium ml-2 hover:bg-[#2f60b5]'
           style={{
             fontSize: '16px',
             width: 130,
@@ -27,7 +29,6 @@ const Header = () => {
         >
           Add Category
         </Button>
-        <Search placeholder="Search Category" onSearch={onSearch} width={700} height={40} />
       </div>
       <Drawer title="Add Category" width={700} placement="right" onClose={onClose} open={open}>
         <AddCategory onClose={onClose} />

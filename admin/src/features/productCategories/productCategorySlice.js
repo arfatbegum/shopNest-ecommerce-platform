@@ -37,7 +37,6 @@ export const deleteAProductCategory = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const result = await pCategoryServices.deleteProductCategory(id);
-      console.log(result); // Log the result after the delete operation
       return result;
           } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -138,7 +137,6 @@ export const productCategorySlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.categoryName = action.payload.title;
-        console.log(state.categoryName);
       })
       .addCase(getAProductCategory.rejected, (state, action) => {
         state.isLoading = false;

@@ -21,32 +21,30 @@ const columns = [
 ];
 
 const CategoryList = () => {
-    const [openUpdateDrawer, setOpenUpdateDrawer] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
     const [open, setOpen] = useState(false);
     const [productCategoryId, setProductCategoryId] = useState("");
     const dispatch = useDispatch();
 
     const showDrawer = (e) => {
         const categoryData = productCategoryStat[e];
-        setOpenUpdateDrawer(true);
+        setOpenDrawer(true);
         setProductCategoryId(categoryData._id);
     };
-    
+
     const onClose = () => {
-        setOpenUpdateDrawer(false);
+        setOpenDrawer(false);
     };
 
     const showModal = (e) => {
-        console.log(e); // Check if the correct category ID is logged
         setOpen(true);
         setProductCategoryId(e);
-      }
+    }
 
     const hideModal = () => {
         setOpen(false);
     };
 
-    
     useEffect(() => {
         dispatch(resetState());
         dispatch(getCategories());
@@ -70,19 +68,18 @@ const CategoryList = () => {
                         onClick={() => showModal(productCategoryStat[i]._id)}
                     />
                 </Space>
-                
+
             ),
         });
     }
 
     const deleteCategory = () => {
-        console.log(productCategoryId); // Check if the correct category ID is logged
         dispatch(deleteAProductCategory(productCategoryId));
         setOpen(false);
         setTimeout(() => {
-          dispatch(getCategories());
+            dispatch(getCategories());
         }, 100);
-      }
+    }
     return (
         <div>
             <Table columns={columns} dataSource={data1} />
@@ -99,8 +96,8 @@ const CategoryList = () => {
             >
                 Are you sure you want to delete this Product Category?
             </Modal>
-            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openUpdateDrawer}>
-                <UpdateCategory categoryId={productCategoryId}  onClose={onClose}/>
+            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                <UpdateCategory categoryId={productCategoryId} onClose={onClose} />
             </Drawer>
         </div>
     );

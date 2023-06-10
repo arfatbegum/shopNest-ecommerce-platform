@@ -26,24 +26,25 @@ const getProductCategory = asyncHandler(async (req, res) => {
 
 //Update a product Category
 const updateProductCategory = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
+    const { id } = req.params;
+    validateMongoDbId(id);
     try {
-        const updatedProductCategory = await ProductCategory.findOneAndUpdate(_id, req.body, {
+        const updatedCategory = await ProductCategory.findByIdAndUpdate(id, req.body, {
             new: true,
         });
-        res.json(updatedProductCategory);
+        res.json(updatedCategory);
     } catch (error) {
         throw new Error(error);
     }
 });
 
-//Delete a product Category
+//Delete a product category
 const deleteProductCategory = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
-    console.log(_id);
+    const { id } = req.params;
+    validateMongoDbId(id);
     try {
-        const deletedProductCategory = await ProductCategory.findOneAndDelete(_id);
-        res.json(deletedProductCategory);
+        const deletedCategory = await ProductCategory.findByIdAndDelete(id);
+        res.json(deletedCategory);
     } catch (error) {
         throw new Error(error);
     }
