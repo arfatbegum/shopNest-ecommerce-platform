@@ -1,13 +1,16 @@
-import React from 'react';
-import { Select, Space, Table } from 'antd';
+import React, { useEffect } from 'react';
+import { Modal, Space, Table } from 'antd';
 import { useState } from 'react';
-import { BiTrash, BiEdit } from 'react-icons/bi';
+import { BiTrash } from 'react-icons/bi';
 import { FaSearchPlus } from 'react-icons/fa';
+import { deleteAEnquiry, updateAEnquiry, getEnquiries, resetState } from '../../../features/enquiry/enquirySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
 const columns = [
     {
         title: 'SL. NO',
-        dataIndex: 'number',
+        dataIndex: 'key',
     },
     {
         title: 'NAME',
@@ -18,8 +21,8 @@ const columns = [
         dataIndex: 'email',
     },
     {
-        title: 'PHONE NO.',
-        dataIndex: 'phone',
+        title: 'MOBILE',
+        dataIndex: 'mobile',
     },
     {
         title: 'DATE',
@@ -34,72 +37,94 @@ const columns = [
         dataIndex: 'actions'
     },
 ];
-const data = [];
 
 const EnquiriesList = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
+    const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+    const [enquiryId, setEnquiryId] = useState("");
+
+    const showModal = (e) => {
+        setOpen(true);
+        setEnquiryId(e);
     };
-    for (let i = 1; i < 46; i++) {
-        data.push({
-            key: i,
-            number: i,
-            name: `Alicia Brown ${i}`,
-            email: `admin@gmail.com ${i}`,
-            phone: `0533431648 ${i}`,
-            date: Date.now(),
+
+    const hideModal = () => {
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        dispatch(resetState());
+        dispatch(getEnquiries());
+    }, [dispatch]);
+
+    const enquiryState = useSelector((state) => state.enquiry.enquiries);
+
+    const data1 = [];
+    for (let i = 0; i < enquiryState.length; i++) {
+        data1.push({
+            key: i + 1,
+            name: enquiryState[i].name,
+            email: enquiryState[i].email,
+            mobile: enquiryState[i].mobile,
+            date: enquiryState[i].createdAt,
             status: (
-                <>
-                    <Select
-                        defaultValue="Submitted"
-                        style={{
-                            width: 120,
-                          }}
-                        onChange={handleChange}
-                        options={[
-                            {
-                                options: [
-                                    {
-                                        value: 'Submitted',
-                                    },
-                                    {
-                                        value: 'Contacted',
-                                    },
-                                    {
-                                        value: 'In Progress',
-                                    },
-                                    {
-                                        value: 'Resolved',
-                                    },
-                                ],
-                            }
-                        ]}
-                    />
-                </>
+                <select
+                    name=""
+                    defaultValue={enquiryState[i].status ? enquiryState[i].status : "Submitted"}
+                    className="p-2"
+                    onChange={(e) => setEnquiryStatus(e.target.value, enquiryState[i]._id)}
+                >
+                    <option value="Submitted">Submitted</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
             ),
+
             actions: (
                 <Space size="middle">
-                <BiEdit className='text-[#2f60b5] text-xl' />
-                    <BiTrash className='text-red-600 text-xl' />
-                    <FaSearchPlus className='text-[#2f60b5] text-lg' />
+                    <BiTrash
+                        className='text-red-600 text-xl'
+                        onClick={() => showModal(enquiryState[i]._id)}
+                    />
+                    <Link to={`/admin/enquiryDetails/${enquiryState[i]._id}`} >
+                        <FaSearchPlus className='text-[#2f60b5] text-lg' />
+                    </Link>
                 </Space>
             ),
-
         });
     }
+    const setEnquiryStatus = (e, i) => {
+        console.log(e, i);
+        const data = { id: i, enqData: e };
+        dispatch(updateAEnquiry(data));
+    };
 
-    const onSelectChange = (newSelectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
+    const deleteEnquiry = (e) => {
+        dispatch(deleteAEnquiry(e));
+
+        setOpen(false);
+        setTimeout(() => {
+            dispatch(getEnquiries());
+        }, 100);
     };
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-    };
+
     return (
         <div>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={data1} />
+            <Modal
+                title="Confirmation"
+                centered
+                open={open}
+                onOk={() => {
+                    deleteEnquiry(enquiryId);
+                }}
+                onCancel={hideModal}
+                okText="Ok"
+                cancelText="Cancel"
+            >
+                Are you sure you want to delete this brand?
+            </Modal>
         </div>
     );
 };

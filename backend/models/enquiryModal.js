@@ -18,7 +18,7 @@ var enquirySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    message: {
+    comment: {
         type: String,
         required: true,
     },
@@ -27,7 +27,11 @@ var enquirySchema = new mongoose.Schema({
         default: "Submitted",
         enum: ["Submitted", "Contacted", "In progress"]
     },
-});
+},
+    {
+        timestamps: true,
+    }
+);
 
 
 module.exports = mongoose.model('Enquiry', enquirySchema);

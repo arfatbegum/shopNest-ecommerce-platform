@@ -26,9 +26,9 @@ const getEnquiry = asyncHandler(async (req, res) => {
 
 //Update a Enquiry
 const updateEnquiry = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
+    const { id } = req.params;
     try {
-        const updatedEnquiry = await Enquiry.findOneAndUpdate(_id, req.body, {
+        const updatedEnquiry = await Enquiry.findByIdAndUpdate(id, req.body, {
             new: true,
         });
         res.json(updatedEnquiry);
