@@ -3,7 +3,8 @@ import authReducer from "../features/auth/authSlice";
 import customerReducer from "../features/customers/customerSlice";
 import productReducer from "../features/product/productSlice";
 import productCategoryReducer from "../features/productCategories/productCategorySlice";
-import barndCategoryReducer from "../features/brand/brandSlice";
+import barndReducer from "../features/brand/brandSlice";
+import colorReducer from "../features/color/colorSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         customer: customerReducer,
         product: productReducer,
         productCategory: productCategoryReducer,
-        brand: barndCategoryReducer,
+        brand: barndReducer,
+        color: colorReducer,
     },
 });
