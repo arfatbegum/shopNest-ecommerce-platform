@@ -1,62 +1,93 @@
-import React from 'react';
-import { Space, Switch, Table } from 'antd';
+import React, { useEffect } from 'react';
+import { Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
+import { useDispatch, useSelector } from "react-redux";
+import {
+    deleteABrand,
+    getBrands,
+    resetState,
+} from "../../../../features/brand/brandSlice.js";
+
 const columns = [
     {
-        title: 'SL. NO',
-        dataIndex: 'number',
+        title: "SNo",
+        dataIndex: "key",
     },
     {
-        title: 'IMAGE',
-        dataIndex: 'image',
+        title: "Name",
+        dataIndex: "name",
+        sorter: (a, b) => a.name.length - b.name.length,
     },
     {
-        title: 'NAME',
-        dataIndex: 'name',
+        title: "Action",
+        dataIndex: "action",
     },
-    {
-        title: 'PUBLISHED',
-        dataIndex: 'published',
-    },
-        {
-        title: 'ACTIONS',
-        dataIndex: 'actions',
-        render: () => (
-            <Space size="middle">
-                <BiEdit className='text-[#2f60b5] text-xl' />
-                <BiTrash className='text-red-600 text-xl' />
-            </Space>
-        ),
-    },
-];
-const data = [];
-for (let i = 1; i < 46; i++) {
-    data.push({
-        key: i,
-        number: i,
-        image: <img src='https://1000logos.net/wp-content/uploads/2016/11/Chanel-logo.png' alt='img' className='w-24 h-12'/>,
-        name: `Red ${i}`,
-        published:<Switch size="small" defaultChecked />,
-        actions: <BiTrash />,
+]
 
-    });
-}
 
 const BrandsList = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [brandId, setbrandId] = useState("");
 
-    const onSelectChange = (newSelectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
+    const showModal = (e) => {
+        setOpen(true);
+        setbrandId(e);
     };
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
+
+    const hideModal = () => {
+        setOpen(false);
     };
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(resetState());
+        dispatch(getBrands());
+    }, [dispatch]);
+
+    const brandState = useSelector((state) => state.brand.brands);
+
+    const data1 = [];
+    for (let i = 0; i < brandState.length; i++) {
+        data1.push({
+            key: i + 1,
+            name: brandState[i].title,
+            action: (
+                <Space size="middle">
+                    <BiEdit className='text-[#2f60b5] text-xl' />
+                    <BiTrash
+                        className='text-red-600 text-xl'
+                        onClick={() => showModal(brandState[i]._id)}
+                    />
+                </Space>
+            ),
+
+        });
+    }
+    const deleteBrand = (e) => {
+        dispatch(deleteABrand(e));
+
+        setOpen(false);
+        setTimeout(() => {
+            dispatch(getBrands());
+        }, 100);
+    };
+
     return (
         <div>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <Modal
+                title="Confirmation"
+                centered
+                open={open}
+                onOk={() => {
+                    deleteBrand(brandId);
+                }}
+                onCancel={hideModal}
+                okText="Ok"
+                cancelText="Cancel"
+            >
+                Are you sure you want to delete this brand?
+            </Modal>
+            <Table columns={columns} dataSource={data1} />
         </div>
     );
 };

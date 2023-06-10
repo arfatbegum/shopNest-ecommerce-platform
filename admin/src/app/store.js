@@ -11,6 +11,6 @@ export const store = configureStore({
         customer: customerReducer,
         product: productReducer,
         productCategory: productCategoryReducer,
-        brandCategory: barndCategoryReducer,
+        brand: barndCategoryReducer,
     },
 });

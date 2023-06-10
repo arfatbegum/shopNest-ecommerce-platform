@@ -39,15 +39,15 @@ const updateBrand = asyncHandler(async (req, res) => {
 
 //Delete a Brand
 const deleteBrand = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
-    console.log(_id);
+    const { id } = req.params;
+    validateMongoDbId(id);
     try {
-        const deletedBrand = await Brand.findOneAndDelete(_id);
-        res.json(deletedBrand);
+      const deletedBrand = await Brand.findByIdAndDelete(id);
+      res.json(deletedBrand);
     } catch (error) {
-        throw new Error(error);
+      throw new Error(error);
     }
-});
+  });
 
 //Get All Brand
 const getAllBrand = asyncHandler(async (req, res) => {
