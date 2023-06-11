@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { Space, Switch, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Drawer, Modal, Space, Switch, Table } from 'antd';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { FaSearchPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from '../../../../features/product/productSlice';
+import { deleteAProduct, getProducts } from '../../../../features/product/productSlice';
+import UpdateProduct from './UpdateProduct';
 
 
 const columns = [
@@ -22,10 +23,6 @@ const columns = [
     {
         title: 'CATEGORY',
         dataIndex: 'category',
-    },
-    {
-        title: 'COLOR',
-        dataIndex: 'color',
     },
     {
         title: 'BRAND',
@@ -58,7 +55,30 @@ const columns = [
 ];
 
 const ProductsList = () => {
+    const [open, setOpen] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [productId, setProductId] = useState("");
+
+    const showModal = (e) => {
+        setOpen(true);
+        setProductId(e);
+    };
+
+    const hideModal = () => {
+        setOpen(false);
+    };
+
+    const showDrawer = (e) => {
+        setOpenDrawer(true);
+        setProductId(productState[e]._id);
+    };
+
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
+
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch]);
@@ -69,11 +89,10 @@ const ProductsList = () => {
     for (let i = 0; i < productState.length; i++) {
         data1.push({
             key: i + 1,
-            image: <img src='' alt='img' className='w-16 h-16' />,
+            image: <img src={productState[i]?.images[0]?.url} alt='img' className='w-16 h-16' />,
             name: productState[i].name,
             brand: productState[i].brand,
             category: productState[i].category,
-            color: productState[i].color,
             price: <div className='font-semibold'>${productState[i].price}</div>,
             salePrice: <div className='font-semibold'>${productState[i].salePrice}</div>,
             quantity: productState[i].quantity,
@@ -84,17 +103,48 @@ const ProductsList = () => {
             published: <div className='text-center'><Switch size="small" defaultChecked /></div>,
             actions: (
                 <Space size="middle">
-                    <BiEdit className='text-[#2f60b5] text-xl' />
-                    <BiTrash className='text-red-600 text-xl' />
+                    <BiEdit className='text-[#2f60b5] text-xl'
+                    onClick={() => showDrawer(i)}
+                    />
+                    <BiTrash
+                        className='text-red-600 text-xl'
+                        onClick={() => showModal(productState[i]._id)}
+                    />
                     <FaSearchPlus className='text-[#2f60b5] text-lg' />
                 </Space>
             ),
 
         });
     }
+
+    const deleteProduct = (e) => {
+        dispatch(deleteAProduct(e));
+
+        setOpen(false);
+        setTimeout(() => {
+            dispatch(getProducts());
+        }, 100);
+    };
+
     return (
         <div>
             <Table columns={columns} dataSource={data1} />
+            <Modal
+                title="Confirmation"
+                centered
+                open={open}
+                onOk={() => {
+                    deleteProduct(productId);
+                }}
+                onCancel={hideModal}
+                okText="Ok"
+                cancelText="Cancel"
+            >
+                Are you sure you want to delete this brand?
+            </Modal>
+            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                <UpdateProduct productId={productId} onClose={onClose} />
+            </Drawer>
         </div>
     );
 };

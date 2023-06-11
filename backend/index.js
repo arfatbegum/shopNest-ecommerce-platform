@@ -15,6 +15,7 @@ const colorRouter = require("./routes/colorRoute");
 const brandRouter = require("./routes/brandRoute");
 const couponRouter = require("./routes/couponRoute");
 const enquiryRouter = require("./routes/enquiryRoute");
+const uploadRouter = require("./routes/uploadRoute");
 const { notFound, errorHandler } = require("./middlewares/errorhandler");
 const cors = require('cors');
 
@@ -34,6 +35,7 @@ app.use("/api/brand", brandRouter);
 app.use("/api/color", colorRouter);
 app.use("/api/coupon", couponRouter);
 app.use("/api/enquiry", enquiryRouter);
+app.use("/api/upload", uploadRouter);
 
 app.use(notFound);
 app.use(errorHandler);

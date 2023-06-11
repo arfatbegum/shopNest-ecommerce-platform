@@ -66,7 +66,7 @@ const Header = () => {
         </Button>
       </div>
       <Drawer title="Add Product" width={700} placement="right" onClose={onClose} open={open}>
-        <AddProduct />
+        <AddProduct onClose={onClose}/>
       </Drawer>
     </>
   );
