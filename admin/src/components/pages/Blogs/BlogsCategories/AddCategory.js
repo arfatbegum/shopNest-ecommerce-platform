@@ -1,19 +1,77 @@
-import React from 'react';
+import { React, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import {
+  createNewblogCategory,
+  getCategories,
+  resetState,
+} from "../../../../features/blogCategories/blogCategorySlice.js";
 
+let schema = yup.object().shape({
+  title: yup.string().required("Category Name is Required"),
+});
+const AddCategory = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const newCategory = useSelector((state) => state.blogCategory);
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    createdCategory,
+    blogCategoryName,
+  } = newCategory;
 
-const AddCategory = () => {
+  useEffect(() => {
+    if (isSuccess && createdCategory) {
+      toast.success("Category Added Successfullly!");
+    }
+    if (isError) {
+      toast.error("Something Went Wrong!");
+    }
+  }, [isSuccess, isError, isLoading, createdCategory]);
 
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      title: blogCategoryName || "",
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      dispatch(createNewblogCategory(values));
+      formik.resetForm();
+      onClose()
+      setTimeout(() => {
+        dispatch(resetState());
+        dispatch(getCategories());
+      }, 300);
+    }
+  });
   return (
-    <div class="w-full">
-      <form class="px-8 pb-8 mb-4">
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-            Category Title/Name
+    <div>
+      <form className="px-8 pb-8 mb-4" onSubmit={formik.handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Blog Title/Name
           </label>
-          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Category Title/Name" />
+          <input
+            className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Blog Categpry Title/Name"
+            onChange={formik.handleChange("title")}
+            onBlur={formik.handleBlur("title")}
+            value={formik.values.title}
+          />
+          <p class="text-red-500 text-xs italic text-start mb-5">
+            {formik.touched.title && formik.errors.title}
+          </p>
         </div>
-        <div class="flex items-center justify-between">
-          <button class="bg-[#2f60b5] hover:bg-[#2f60b5] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-[#2f60b5] hover:bg-[#2f60b5] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
             Add Category
           </button>
         </div>

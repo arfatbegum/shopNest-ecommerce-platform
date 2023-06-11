@@ -14,7 +14,7 @@ const createBlogCategory = async (blogCategory) => {
 };
 const updateBlogCategory = async (blogCategory) => {
   const response = await axios.put(
-    `${base_url}blog-category/${blogCategory.id}`,
+    `${base_url}blog-category/${blogCategory._id}`,
     { title: blogCategory.blogCategoryData.title },
     config
   );

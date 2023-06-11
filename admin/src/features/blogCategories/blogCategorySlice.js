@@ -55,7 +55,7 @@ export const deleteABlogCategory = createAsyncThunk(
 );
 export const resetState = createAction("Reset_all");
 const initialState = {
-  bCategories: [],
+  blogCategories: [],
   isError: false,
   isLoading: false,
   isSuccess: false,

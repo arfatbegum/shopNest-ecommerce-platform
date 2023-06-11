@@ -26,9 +26,9 @@ const getBlogCategory = asyncHandler(async (req, res) => {
 
 //Update a Blog Category
 const updateBlogCategory = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
+    const { id } = req.params;
     try {
-        const updatedBlogCategory = await BlogCategory.findOneAndUpdate(_id, req.body, {
+        const updatedBlogCategory = await BlogCategory.findByIdAndUpdate(id, req.body, {
             new: true,
         });
         res.json(updatedBlogCategory);
@@ -39,10 +39,10 @@ const updateBlogCategory = asyncHandler(async (req, res) => {
 
 //Delete a Blog Category
 const deleteBlogCategory = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
-    console.log(_id);
+    const { id } = req.params;
+    console.log(id);
     try {
-        const deletedBlogCategory = await BlogCategory.findOneAndDelete(_id);
+        const deletedBlogCategory = await BlogCategory.findByIdAndDelete(id);
         res.json(deletedBlogCategory);
     } catch (error) {
         throw new Error(error);
