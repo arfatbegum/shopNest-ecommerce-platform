@@ -1,83 +1,67 @@
-import React from 'react';
-import { Space, Table } from 'antd';
-import { useState } from 'react';
+import React, { useEffect } from 'react';
+import { Table } from 'antd';
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { BiTrash, BiEdit } from 'react-icons/bi';
+import { getOrders } from "../../../features/auth/authSlice";
+import { FaSearchPlus } from 'react-icons/fa';
 const columns = [
     {
         title: 'SL. NO',
-        dataIndex: 'number',
+        dataIndex: 'key',
     },
     {
         title: 'CUSTOMER NAME',
         dataIndex: 'name',
     },
+
     {
-        title: 'EMAIL',
-        dataIndex: 'email',
+        title: "Date",
+        dataIndex: "date",
     },
     {
         title: 'AMOUNT',
         dataIndex: 'amount',
     },
     {
-        title: 'METHOD',
-        dataIndex: 'method',
-    },
-    {
-        title: 'PHONE NO.',
-        dataIndex: 'phone',
-    },
-    {
-        title: 'JOINING DATE',
-        dataIndex: 'date',
-    },
-    {
-        title: 'STATUS',
-        dataIndex: 'status',
-    },
-    {
         title: 'ACTIONS',
         dataIndex: 'actions',
-        render: () => (
-            <Space size="middle">
-                <BiEdit className='text-[#2f60b5] text-xl' />
-                <BiTrash className='text-red-600 text-xl' />
-            </Space>
-        ),
     },
 ];
-const data = [];
-for (let i = 1; i < 46; i++) {
-    data.push({
-        key: i,
-        number: i,
-        image: <img src='https://www.nasa.gov/sites/default/files/thumbnails/image/alicia_brown.jpg' alt='img' className='w-16 h-16' />,
-        name: `Alicia Brown ${i}`,
-        email: `customer@gmail.com ${i}`,
-        amount: <p className='font-medium uppercase'>$160</p>,
-        method:<p className='font-medium uppercase'>cash</p>,
-        phone: `0533431648 ${i}`,
-        date: Date.now(),
-        status: <p className='bg-green-600 text-white text-center rounded font-medium py-1'>Processing</p>,
-        actions: <BiTrash />,
-
-    });
-}
 
 const OrdersList = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getOrders());
+    }, [dispatch]);
 
-    const onSelectChange = (newSelectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-    };
+    const orderState = useSelector((state) => state.auth.orders);
+
+    const data1 = [];
+    for (let i = 0; i < orderState.length; i++) {
+        data1.push({
+            key: i + 1,
+            name: orderState[i].orderby.firstname,
+            amount: orderState[i].paymentIntent.amount,
+            date: new Date(orderState[i].createdAt).toLocaleString(),
+            action: (
+                <>
+                    <Link to="/">
+                        <BiEdit className='text-[#2f60b5] text-xl' />
+                    </Link>
+                    <Link to="/">
+                        <BiTrash className='text-red-600 text-xl' />
+                    </Link>
+                    <Link to={`/admin/orderDetails/${orderState[i]._id}`} >
+                        <FaSearchPlus className='text-[#2f60b5] text-lg' />
+                    </Link>
+                </>
+            ),
+        });
+    }
     return (
         <div>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={data1} />
         </div>
     );
 };

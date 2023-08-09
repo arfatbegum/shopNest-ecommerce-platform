@@ -1,6 +1,9 @@
 import { Space, Table } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BiEdit, BiTrash } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getOrderByUser } from '../../../features/auth/authSlice';
 
 const columns = [
     {
@@ -39,16 +42,24 @@ const columns = [
 ];
 
 const OrderDetails = () => {
+    const location = useLocation();
+    const dispatch = useDispatch();
+
+    const userId = location.pathname.split("/")[3];
+    useEffect(() => {
+        dispatch(getOrderByUser(userId));
+    }, []);
+    const orderState = useSelector((state) => state.auth.orderbyuser[0].products);
     const data1 = [];
     for (let i = 0; i < 3; i++) {
         data1.push({
             key: i + 1,
-            name: `Smart Watch ${i}`,
-            brand: `Apple ${i}`,
-            count: 2,
-            amount: 123,
-            color: `Brown ${i}`,
-            date: Date.now(),
+            name: orderState[i].product.title,
+            brand: orderState[i].product.brand,
+            count: orderState[i].count,
+            amount: orderState[i].product.price,
+            color: orderState[i].product.color,
+            date: orderState[i].product.createdAt,
             action: (
                 <>
                     <Space size="middle">
