@@ -41,13 +41,13 @@ const getBlog = asyncHandler(async (req, res) => {
 
 //Update a Blog
 const updateBlog = asyncHandler(async (req, res) => {
-    const id = req.params;
+    const { id } = req.params;
     validateMongoDbId(id);
     try {
         if (req.body.title) {
             req.body.slug = slugify(req.body.title);
         }
-        const updateBlog = await Blog.findOneAndUpdate({ id }, req.body, {
+        const updateBlog = await Blog.findByIdAndUpdate(id, req.body, {
             new: true,
         });
         res.json(updateBlog);
@@ -58,10 +58,10 @@ const updateBlog = asyncHandler(async (req, res) => {
 
 //Delete a Blog
 const deleteBlog = asyncHandler(async (req, res) => {
-    const id = req.params;
+    const { id } = req.params;
     validateMongoDbId(id);
     try {
-        const deletedBlog = await Product.findOneAndDelete(id);
+        const deletedBlog = await Product.findByIdAndDelete(id);
         res.json(deletedBlog);
     } catch (error) {
         throw new Error(error);
