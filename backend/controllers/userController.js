@@ -90,7 +90,7 @@ const signinAdmin = asyncHandler(async (req, res) => {
 });
 
 // Sign Out functionality
-const SignOut = asyncHandler(async (req, res) => {
+const signOut = asyncHandler(async (req, res) => {
     const cookie = req.cookies;
     if (!cookie?.refreshToken) throw new Error("No Refresh Token in Cookies");
     const refreshToken = cookie.refreshToken;
@@ -181,11 +181,11 @@ const updatedUser = asyncHandler(async (req, res) => {
 // Delete a single user
 const deleteUser = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    validateMongoDbId(id );
+    validateMongoDbId(id);
     try {
         const deleteAUser = await User.findByIdAndDelete(id);
         res.json(deleteAUser);
-        
+
     } catch (error) {
         throw new Error(error);
         console.log(error)
@@ -497,7 +497,7 @@ module.exports = {
     createUser,
     signinUser,
     signinAdmin,
-    SignOut,
+    signOut,
     getallUsers,
     getUser,
     updatedUser,
