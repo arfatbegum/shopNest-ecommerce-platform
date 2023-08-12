@@ -35,6 +35,17 @@ export const signin = createAsyncThunk(
     }
 );
 
+export const getWishlists = createAsyncThunk(
+    "auth/wishlist",
+    async (_, thunkAPI) => {
+        try {
+            return await authService.getWishlist();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 
 export const authSlice = createSlice({
     name: "auth",
@@ -69,6 +80,22 @@ export const authSlice = createSlice({
                 state.message = "success";
             })
             .addCase(signin.rejected, (state, action) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+                state.isLoading = false;
+            })
+            .addCase(getWishlists.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getWishlists.fulfilled, (state, action) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.wishlist = action.payload;
+                state.message = "success";
+            })
+            .addCase(getWishlists.rejected, (state, action) => {
                 state.isError = true;
                 state.isSuccess = false;
                 state.message = action.error;

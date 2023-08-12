@@ -5,9 +5,19 @@ import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
 import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToWishlist } from '../../redux/features/products/productSlice';
+import { toast } from 'react-toastify';
 
 
 const ProductCard = ({ product }) => {
+    const dispatch = useDispatch();
+
+    const handleAddToWishlist = (id) => {
+        dispatch(addToWishlist(id))
+        toast.success("Add to wishlist")
+    }
+
     return (
         <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-white border-2 border-gray-100 flex justify-center items-center shadow-sm">
             <div className="text-center h-full overflow-hidden">
@@ -39,7 +49,7 @@ const ProductCard = ({ product }) => {
                 <button className=' bg-white border-2 border-gray-200'>
                     <AiOutlinePlusCircle className='text-xl text-primary m-2' />
                 </button>
-                <button className='bg-white border-2 border-gray-200'>
+                <button onClick={(e) => { handleAddToWishlist(product?._id) }} className='bg-white border-2 border-gray-200'>
                     <FiHeart className='text-xl text-primary m-2'></FiHeart>
                 </button>
             </div>
