@@ -189,7 +189,7 @@ const uploadImages = asyncHandler(async (req, res) => {
             fs.unlinkSync(path);
         }
         const findBlog = await Blog.findById(
-            id,
+            _id,
             {
                 images: urls.map((file) => {
                     return file;

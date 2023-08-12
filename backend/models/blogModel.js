@@ -10,7 +10,7 @@ var blogSchema = new mongoose.Schema({
         type: String,
         default: "Admin",
     },
-    image: [],
+    images: [],
     description: {
         type: String,
         required: true,

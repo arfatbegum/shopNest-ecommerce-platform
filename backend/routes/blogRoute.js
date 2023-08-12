@@ -4,11 +4,10 @@ const { createBlog, updateBlog, getBlog, getAllBlogs, deleteBlog, likeBlogs, dis
 const { blogImgResize, uploadImg } = require("../middlewares/uploadImages");
 const router = express.Router();
 
-
+router.get("/:id", getBlog);
 router.post("/", authMiddleware, isAdmin, createBlog);
 router.put("/upload/:id", authMiddleware, isAdmin, uploadImg.array("images", 10), blogImgResize, uploadImages);
 router.get("/", getAllBlogs);
-router.get("/:id", getBlog);
 router.put("/like-blogs", authMiddleware, likeBlogs);
 router.put("/disLike-blogs", authMiddleware, disLikeBlogs);
 router.put("/:id", authMiddleware, isAdmin, updateBlog);

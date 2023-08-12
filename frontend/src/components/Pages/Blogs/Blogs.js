@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BreadCrumb from '../../Shared/BreadCrumb';
 import Meta from '../../Shared/Meta';
-import Blog from './BlogCard';
+import BlogCard from './BlogCard';
 import BlogsCategories from './BlogsCategories';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBlogs } from '../../../redux/features/blog/blogSlice';
 
 const Blogs = () => {
+    const dispatch = useDispatch();
+    const blogs = useSelector((state) => state?.blog?.blogs);
+
+    useEffect(() => {
+        dispatch(getAllBlogs());
+    }, [dispatch]);
+
     return (
         <>
             <Meta title={"Blogs - Shoppable"} />
@@ -15,9 +24,9 @@ const Blogs = () => {
                 </div>
                 <div className="lg:w-5/6 w-full">
                     <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
-                        <Blog />
-                        <Blog />
-                        <Blog />
+                        {blogs?.map((blog) => (
+                            <BlogCard key={blog._id} blog={blog} />
+                        ))}
                     </div>
                 </div>
             </div>
