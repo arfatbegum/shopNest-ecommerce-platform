@@ -16,12 +16,12 @@ import Github from '../../Assets/icons/github.svg';
 import Paypal from '../../Assets/icons/paypal.svg';
 import Stripe from '../../Assets/icons/stripe.svg';
 
-const ProductInfo = () => {
+const ProductInfo = ({ product }) => {
     return (
         <div className="lg:w-2/3 w-full lg:px-8 p-2 flex justify-start items-start flex-col">
             <div className='lg:flex items-center'>
                 <div className='lg:w-2/3 w-full'>
-                    <h2 className=" lg:text-2xl text-xl text-gray-800 font-semibold">Plain White Tshirt</h2>
+                    <h2 className=" lg:text-2xl text-xl text-gray-800 font-semibold">{product.name}</h2>
                     <div className="flex justify-start items-center gap-4">
                         <ReactStars
                             count={5}
@@ -32,7 +32,7 @@ const ProductInfo = () => {
                         />
                         <p className=" font-normal text-sm leading-3 hover:text-gray-700 duration-100 cursor-pointer text-gray-500 underline">18 reviews</p>
                     </div>
-                    <p className="font-bold text-2xl leading-6 text-primary mr-4 my-4">$190.00</p>
+                    <p className="font-bold text-2xl leading-6 text-primary mr-4 my-4">${product.price}</p>
                     <div className="mt-2">
                         <p id="text" className=" font-semibold text-base leading-4 text-gray-800">
                             color
@@ -116,23 +116,23 @@ const ProductInfo = () => {
                 <div className='lg:w-1/3 w-full bg-blue-100  bg-opacity-50 rounded-lg border-opacity-50 p-6 border-2 border-primary'>
                     <div class="list-none">
                         <li className='flex items-center justify-start mb-4'>
-                            <GrDeliver className='text-4xl mr-4'/>
+                            <GrDeliver className='text-4xl mr-4' />
                             Free shipping apply to all orders over SAR 400
                         </li>
                         <li className='flex items-center justify-start mb-4'>
-                            <AiOutlineHome className='text-2xl mr-4'/>
+                            <AiOutlineHome className='text-2xl mr-4' />
                             Home Delivery within 4 Days
                         </li>
                         <li className='flex items-center justify-start mb-4'>
-                        <GrDeliver className='text-xl mr-4'/>
+                            <GrDeliver className='text-xl mr-4' />
                             Cash on Delivery Available
                         </li>
                         <li className='flex items-center justify-start mb-4'>
-                            <MdCompareArrows className='text-2xl mr-4'/>
+                            <MdCompareArrows className='text-2xl mr-4' />
                             2 Days returns money back guarantee
                         </li>
                         <li className='flex items-center justify-start mb-4'>
-                            <BsBrightnessHigh className='text-2xl mr-4'/>
+                            <BsBrightnessHigh className='text-2xl mr-4' />
                             2 years Warranty
                         </li>
                     </div>

@@ -5,6 +5,8 @@ import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
 import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import { Link } from 'react-router-dom';
+
+
 const ProductCard = ({ product }) => {
     return (
         <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-white border-2 border-gray-100 flex justify-center items-center shadow-sm">
@@ -31,7 +33,7 @@ const ProductCard = ({ product }) => {
                 </div>
             </div>
             <div className="flex flex-col top-4 right-4 space-y-2 absolute opacity-0 group-hover:opacity-100 transition duration-500">
-                <Link to={`product-details/${product?._id}`} className=' bg-white border-2 border-gray-200'>
+                <Link to={`/product-details/${product?._id}`} className=' bg-white border-2 border-gray-200'>
                     <AiOutlineEye className='text-xl text-primary m-2' />
                 </Link>
                 <button className=' bg-white border-2 border-gray-200'>
