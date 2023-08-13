@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
         toast.success("Add to wishlist")
         setTimeout(() => {
             dispatch(getWishlists());
-        }, 100)
+        }, 1000)
     }
 
     return (

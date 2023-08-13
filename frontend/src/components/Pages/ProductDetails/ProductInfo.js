@@ -26,7 +26,7 @@ const ProductInfo = ({ product }) => {
                         <ReactStars
                             count={5}
                             size={22}
-                            value={3}
+                            value={product.totalrating}
                             edit={false}
                             activeColor="#e6bd00"
                         />
