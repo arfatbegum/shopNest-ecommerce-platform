@@ -30,8 +30,8 @@ const Home = () => {
             <FeaturedProducts products={productState} />
             <NewProducts products={productState} />
             <DiscountBanner />
-            <ElectronicsCategory />
-            <FashionAndAccessories />
+            <ElectronicsCategory products={productState} />
+            <FashionAndAccessories products={productState} />
             <BlogsSection />
             <TwoBanners />
         </div>
