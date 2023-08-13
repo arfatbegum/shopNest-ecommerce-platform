@@ -5,8 +5,19 @@ import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import { RiArrowDropDownLine } from "@react-icons/all-files/ri/RiArrowDropDownLine";
 import { BiGitCompare } from "@react-icons/all-files/bi/BiGitCompare";
 import { BiUserCircle } from "@react-icons/all-files/bi/BiUserCircle";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getWishlists } from '../../../redux/features/user/userSlice';
+
 
 const Searchbar = () => {
+    const dispatch = useDispatch();
+    const wishlistState = useSelector((state) => state.auth.wishlist);
+
+    useEffect(() => {
+        dispatch(getWishlists());
+    }, [dispatch]);
+
     return (
         <div className="lg:navbar md:navbar p-4 lg:py-4 lg:px-10 md:py-4 md:px-10 navbar-none ">
             <div className='lg:navbar-start flex'>
@@ -51,7 +62,11 @@ const Searchbar = () => {
             <div className="lg:navbar-end pt-5">
                 <div className="flex lg:px-0 px-5 gap-5 items-center lg:justify-center justify-between">
                     <Link to="compare-product"><BiGitCompare className='text-3xl mx-auto' /><span className='text-xs'>Compare</span></Link>
-                    <Link to="wishlist"><FiHeart className='text-3xl mx-auto' /><span className='text-xs'>Wishlist</span></Link>
+                    <div className="indicator">
+                        <span className="indicator-item badge badge-secondary">{wishlistState?.wishlist?.length}</span>
+                        <Link to="wishlist"><FiHeart className='text-3xl mx-auto' /><span className='text-xs'>Wishlist </span></Link>
+                    </div>
+
                     <Link to="cart"><MdAddShoppingCart className='text-3xl mx-auto' /><span className='text-xs'>Cart</span></Link>
                     <Link to="signup"><BiUserCircle className='text-3xl mx-auto' /><span className='text-xs'>Sign Up</span></Link>
                 </div>

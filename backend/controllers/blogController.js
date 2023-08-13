@@ -174,36 +174,6 @@ const disLikeBlogs = asyncHandler(async (req, res) => {
     }
 });
 
-//Update a product
-const uploadImages = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    validateMongoDbId(id);
-    try {
-        const uploader = (path) => cloudinaryUploadImg(path, 'images');
-        const urls = [];
-        const files = req.files;
-        for (const file of files) {
-            const { path } = file;
-            const newPath = await uploader(path);
-            urls.push(newPath);
-            fs.unlinkSync(path);
-        }
-        const findBlog = await Blog.findById(
-            _id,
-            {
-                images: urls.map((file) => {
-                    return file;
-                })
-            },
-            {
-                new: true,
-            }
-        );
-        res.json(findBlog);
-    } catch (error) {
-        throw new Error(error);
-    }
-});
 
 module.exports = {
     createBlog,
@@ -212,6 +182,5 @@ module.exports = {
     deleteBlog,
     getAllBlogs,
     likeBlogs,
-    disLikeBlogs,
-    uploadImages
+    disLikeBlogs
 };

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToWishlist } from '../../redux/features/products/productSlice';
 import { toast } from 'react-toastify';
+import { getWishlists } from '../../redux/features/user/userSlice';
 
 
 const ProductCard = ({ product }) => {
@@ -16,6 +17,9 @@ const ProductCard = ({ product }) => {
     const handleAddToWishlist = (id) => {
         dispatch(addToWishlist(id))
         toast.success("Add to wishlist")
+        setTimeout(() => {
+            dispatch(getWishlists());
+        }, 100)
     }
 
     return (

@@ -15,11 +15,19 @@ const getBlog = async (blogId) => {
     }
 };
 
+const getBlogCategories = async () => {
+    const response = await axios.get(`${base_url}blog-category`);
+    if (response.data) {
+        return response.data;
+    }
+};
+
 
 
 const blogService = {
     getBlogs,
     getBlog,
+    getBlogCategories
 };
 
 export default blogService;

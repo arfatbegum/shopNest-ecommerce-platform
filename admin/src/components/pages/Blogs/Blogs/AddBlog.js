@@ -21,7 +21,7 @@ const AddBlog = ({ onClose }) => {
   const imgState = useSelector((state) => state.upload.images);
   const blogCategoryState = useSelector((state) => state.blogCategory.blogCategories);
   const newBlog = useSelector((state) => state.blog);
-  const { isSuccess, isError, isLoading, createdBlog, blogImages } = newBlog;
+  const { isSuccess, isError, isLoading, createdBlog } = newBlog;
 
   useEffect(() => {
     dispatch(resetState());
@@ -44,10 +44,10 @@ const AddBlog = ({ onClose }) => {
       url: i.url,
     });
   });
-  console.log(img);
+
   useEffect(() => {
     formik.values.images = img;
-  }, [blogImages]);
+  }, [img]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -128,6 +128,9 @@ const AddBlog = ({ onClose }) => {
               {formik.touched.description && formik.errors.description}
             </p>
           </div>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Blog Images
+          </label>
           <div className="shadow appearance-none border rounded p-5 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             <Dropzone
               onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
