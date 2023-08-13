@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Meta from '../../Shared/Meta';
 import BlogsSection from './BlogsSection';
 import CategoryBanner from './CategoryBanner';
@@ -10,21 +10,30 @@ import Hero from './Hero';
 import InfoSection from './InfoSection';
 import NewProducts from './NewProducts';
 import TwoBanners from './TwoBanners';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../../../redux/features/products/productSlice';
 
 const Home = () => {
+    const dispatch = useDispatch();
+    const productState = useSelector((state) => state?.product?.products);
+
+    useEffect(() => {
+        dispatch(getAllProducts());
+    }, [dispatch]);
+
     return (
         <div>
             <Meta title={"Home - Shoppable"} />
             <Hero />
             <InfoSection />
             <CategoryBanner />
-            <FeaturedProducts />
-            <NewProducts />
+            <FeaturedProducts products={productState} />
+            <NewProducts products={productState} />
             <DiscountBanner />
             <ElectronicsCategory />
             <FashionAndAccessories />
             <BlogsSection />
-            <TwoBanners/>
+            <TwoBanners />
         </div>
     );
 };
