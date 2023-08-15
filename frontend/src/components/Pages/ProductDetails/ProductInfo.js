@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
 import { MdAddShoppingCart } from "@react-icons/all-files/md/MdAddShoppingCart";
@@ -15,8 +15,33 @@ import Linkedin from '../../Assets/icons/linkedin.svg';
 import Github from '../../Assets/icons/github.svg';
 import Paypal from '../../Assets/icons/paypal.svg';
 import Stripe from '../../Assets/icons/stripe.svg';
+import { addToCart } from '../../../redux/features/user/userSlice';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 const ProductInfo = ({ product }) => {
+    const dispatch = useDispatch();
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState(null);
+
+    const handleAddToCart = () => {
+        if (color === null) {
+            toast.error("Please Choose Color")
+        } else {
+            dispatch(addToCart({ productId: product._id, quantity, color, price: product.price }))
+            toast.success("Add to Cart")
+        }
+    }
+
+    const incrementQuantity = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
+
+    const decrementQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(prevQuantity => prevQuantity - 1);
+        }
+    };
     return (
         <div className="lg:w-2/3 w-full lg:px-8 p-2 flex justify-start items-start flex-col">
             <div className='lg:flex items-center'>
@@ -38,21 +63,24 @@ const ProductInfo = ({ product }) => {
                             color
                         </p>
                         <div className=" flex space-x-2 my-4">
-                            <div tabIndex="0" className="focus:outline-none ring-1 ring-offset-2 ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-gray-50"></div>
-                            <div tabIndex="0" className="focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-red-700"></div>
-                            <div tabIndex="0" className="focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-yellow-300"></div>
+                            {product.color && product.color.map((clr) => (
+                                <div
+                                    onClick={() => setColor(clr._id)}
+                                    key={clr._id}
+                                    tabIndex="0"
+                                    className={`focus:outline-none ring-1 ring-offset-2 ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-[${clr.colorCode}]`}
+                                ></div>
+                            ))}
+
                         </div>
                     </div>
                     <div className="mt-2 mb-4 ">
-                        <p className="font-semibold text-base leading-4 text-gray-800 mb-4">Quantity</p>
-                        <input
-                            type="number"
-                            name=""
-                            min={1}
-                            max={10}
-                            className="w-[55px] text-center px-2 bg-white border border-gray-300 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out"
-                            id=""
-                        />
+                        <p p className="font-semibold text-base leading-4 text-gray-800 mb-4" > Quantity</p>
+                        <div className="flex items-center ">
+                            <button className='border border-gray-200 px-4' onClick={decrementQuantity}>-</button>
+                            <span className='border border-gray-200 px-4' >{quantity}</span>
+                            <button className='border border-gray-200 px-4' onClick={incrementQuantity}>+</button>
+                        </div>
                     </div>
                     <div className="w-full">
                         <p className="font-semibold text-base leading-4 text-gray-800">Size</p>
@@ -77,7 +105,7 @@ const ProductInfo = ({ product }) => {
                     <p className=" mt-4 font-normal text-sm leading-3 text-gray-500 hover:text-gray-600 duration-100 underline cursor-pointer">Find the perfect size?<span className='underline ml-2'>Size guide</span></p>
 
                     <div className="flex space-x-2 mt-7">
-                        <button className='flex items-center bg-primary text-white text-sm font-bold border-2 border-primary shadow-sm rounded bottom-4 px-6 py-2'>
+                        <button onClick={() => handleAddToCart(product._id)} className='flex items-center bg-primary text-white text-sm font-bold border-2 border-primary shadow-sm rounded bottom-4 px-6 py-2'>
                             Add To Cart <MdAddShoppingCart className='text-xl ml-2'></MdAddShoppingCart>
                         </button>
                         <button className='bg-white border border-primary rounded shadow-sm '>
@@ -138,7 +166,7 @@ const ProductInfo = ({ product }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

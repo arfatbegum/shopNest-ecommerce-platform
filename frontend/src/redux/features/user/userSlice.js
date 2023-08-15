@@ -46,6 +46,38 @@ export const getWishlists = createAsyncThunk(
     }
 );
 
+export const addToCart = createAsyncThunk(
+    "auth/addToCart",
+    async (cartData, thunkAPI) => {
+        try {
+            return await authService.addToCart(cartData);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const getCart = createAsyncThunk(
+    "auth/getCart",
+    async (_, thunkAPI) => {
+        try {
+            return await authService.getCartProduct();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const deleteCart = createAsyncThunk(
+    "auth/removeCart",
+    async (id, thunkAPI) => {
+        try {
+            return await authService.removeFromCart(id);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
 
 export const authSlice = createSlice({
     name: "auth",
@@ -96,6 +128,55 @@ export const authSlice = createSlice({
                 state.message = "success";
             })
             .addCase(getWishlists.rejected, (state, action) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+                state.isLoading = false;
+            })
+            .addCase(addToCart.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(addToCart.fulfilled, (state, action) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.cart = action.payload;
+                state.message = "success";
+            })
+
+            .addCase(addToCart.rejected, (state, action) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+                state.isLoading = false;
+            })
+            .addCase(getCart.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCart.fulfilled, (state, action) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.cart = action.payload;
+                state.message = "success";
+            })
+            .addCase(getCart.rejected, (state, action) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+                state.isLoading = false;
+            })
+            .addCase(deleteCart.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(deleteCart.fulfilled, (state, action) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.cart = action.payload;
+                state.message = "success";
+            })
+            .addCase(deleteCart.rejected, (state, action) => {
                 state.isError = true;
                 state.isSuccess = false;
                 state.message = action.error;

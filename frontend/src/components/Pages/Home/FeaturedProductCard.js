@@ -27,7 +27,7 @@ const FeaturedProductCard = ({ product }) => {
                     <div>
                         <img src={product?.images && product.images[0] ? product.images[0].url : 'fallback-image-url'} alt={product.name} className="" />
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mt-2">
+                    <div className="grid grid-cols-2 gap-4 mt-6">
                         <img src={product?.images && product.images[1] ? product.images[1].url : 'fallback-image-url'} className="" alt="kitchen" />
                         <img src={product?.images && product.images[2] ? product.images[2].url : 'fallback-image-url'} className="" alt="sitting room" />
                     </div>
@@ -35,7 +35,7 @@ const FeaturedProductCard = ({ product }) => {
                 <div className="lg:w-1/2">
                     <div className="mt-6 md:mt-8 lg:mt-0 flex justify-start items-start w-full flex-col space-y-2">
                         <h2 class="tracking-widest text-sm title-font font-bold text-primary mb-1">{product?.brand}</h2>
-                        <h2 className="text-lg text-gray-800 font-semibold">{product?.name}</h2>
+                        <h2 className="text-lg text-gray-800 font-semibold">{product?.name.slice(0, 35)}...</h2>
                         <ReactStars
                             count={5}
                             size={24}

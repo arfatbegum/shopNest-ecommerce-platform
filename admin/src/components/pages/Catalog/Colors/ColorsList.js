@@ -16,6 +16,10 @@ const columns = [
         dataIndex: 'name',
     },
     {
+        title: 'Code',
+        dataIndex: 'code',
+    },
+    {
         title: 'ACTIONS',
         dataIndex: 'actions',
     },
@@ -56,6 +60,7 @@ const ColorsList = () => {
         data1.push({
             key: i + 1,
             name: colorState[i].title,
+            code: colorState[i].colorCode,
             actions: (
                 <Space size="middle">
                     <BiEdit

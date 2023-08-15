@@ -7,6 +7,7 @@ import { createColor, getColors, resetState } from "../../../../features/color/c
 
 let schema = yup.object().shape({
   title: yup.string().required("Color Name is Required"),
+  colorCode: yup.string().required("Color Name is Required"),
 });
 
 const AddBrand = ({ onClose }) => {
@@ -33,6 +34,7 @@ const AddBrand = ({ onClose }) => {
     enableReinitialize: true,
     initialValues: {
       title: colorName || "",
+      colorCode: ""
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -64,6 +66,22 @@ const AddBrand = ({ onClose }) => {
         </div>
         <p className="text-red-500 text-xs italic text-start mb-5">
           {formik.touched.title && formik.errors.title}
+        </p>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Color Code
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Product Title/Name"
+            onChange={formik.handleChange("colorCode")}
+            onBlur={formik.handleBlur("colorCode")}
+            value={formik.values.colorCode}
+          />
+        </div>
+        <p className="text-red-500 text-xs italic text-start mb-5">
+          {formik.touched.colorCode && formik.errors.colorCode}
         </p>
         <div className="flex items-center justify-between">
           <button

@@ -25,13 +25,17 @@ let schema = yup.object().shape({
     .array()
     .min(1, "Pick at least one color")
     .required("Color is Required"),
+  colorCode: yup
+    .array()
+    .min(1, "Pick at least one color")
+    .required("Color is Required"),
   quantity: yup.number().required("Quantity is Required"),
 });
 
 const AddProduct = ({ onClose }) => {
   const dispatch = useDispatch();
   const [color, setColor] = useState([]);
-
+  const [colorCode, setColorCode] = useState([]);
   useEffect(() => {
     dispatch(getBrands());
     dispatch(getCategories());
@@ -61,6 +65,14 @@ const AddProduct = ({ onClose }) => {
       value: i._id,
     });
   });
+
+  const colorCodeOption = [];
+  colorState.forEach((i) => {
+    colorCodeOption.push({
+      label: i.colorCode,
+      value: i._id,
+    });
+  });
   const img = [];
   imgState.forEach((i) => {
     img.push({
@@ -71,8 +83,9 @@ const AddProduct = ({ onClose }) => {
 
   useEffect(() => {
     formik.values.color = color ? color : " ";
+    formik.values.colorCode = colorCode ? colorCode : " ";
     formik.values.images = img;
-  }, [color, img]);
+  }, [colorCode, color, img]);
 
   const formik = useFormik({
     initialValues: {
@@ -84,11 +97,13 @@ const AddProduct = ({ onClose }) => {
       category: "",
       tags: "",
       color: "",
+      colorCode: "",
       quantity: "",
       images: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
+      console.log(values)
       dispatch(createAProduct(values));
       formik.resetForm();
       onClose();
@@ -102,6 +117,10 @@ const AddProduct = ({ onClose }) => {
 
   const handleColors = (e) => {
     setColor(e);
+  };
+
+  const handleColorsCode = (e) => {
+    setColorCode(e);
   };
 
   return (
@@ -138,7 +157,9 @@ const AddProduct = ({ onClose }) => {
               name="description"
               onChange={formik.handleChange("description")}
               value={formik.values.description}
+
             />
+            <div dangerouslySetInnerHTML={{ __html: formik.values.description }} />
             <p className="text-red-500 text-xs italic text-start mb-5">
               {formik.touched.description && formik.errors.description}
             </p>
@@ -262,6 +283,23 @@ const AddProduct = ({ onClose }) => {
             />
             <p className="text-red-500 text-xs italic text-start mb-5">
               {formik.touched.color && formik.errors.color}
+            </p>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+              Product Color Code
+            </label>
+            <Select
+              mode="multiple"
+              allowClear
+              className="w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Select colors"
+              defaultValue={colorCode}
+              onChange={(i) => handleColorsCode(i)}
+              options={colorCodeOption}
+            />
+            <p className="text-red-500 text-xs italic text-start mb-5">
+              {formik.touched.colorCode && formik.errors.colorCode}
             </p>
           </div>
           <div className="mb-4">

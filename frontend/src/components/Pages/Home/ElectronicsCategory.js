@@ -11,7 +11,7 @@ const ElectronicsCategory = ({ products }) => {
                 </div>
                 <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-1 gap-5 items-center mt-8">
                     {products?.slice(-6).map((product) => {
-                        if (product.category === "electronic") {
+                        if (product.category === "Electronics") {
                             return <ProductCard key={product._id} product={product} />
                         }
                     })}

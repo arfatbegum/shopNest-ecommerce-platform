@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { TiArrowRightOutline } from "@react-icons/all-files/ti/TiArrowRightOutline";
 
-const OrderSummary = () => {
+const OrderSummary = ({ cart }) => {
+    const calculateSubtotal = () => {
+        if (!Array.isArray(cart)) {
+            return 0;
+        }
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    };
     return (
         <div className='lg:w-2/6 w-full'>
             <div className='bg-white w-full mb-5'>
@@ -10,7 +16,7 @@ const OrderSummary = () => {
                 <div className='p-4'>
                     <div className='flex justify-between py-2 text-md font-bold text-gray-900'>
                         <h4>SubTotal</h4>
-                        <h4>$100</h4>
+                        <h4>${calculateSubtotal()}</h4>
                     </div>
                     <p className='py-2'>Taxes and shipping calculated at checkout</p>
                 </div>
@@ -20,7 +26,7 @@ const OrderSummary = () => {
                 <Link to="/checkout">
                     Proceed To Checkout
                 </Link>
-                <TiArrowRightOutline className='text-xl ml-1 mt-1'/>
+                <TiArrowRightOutline className='text-xl ml-1 mt-1' />
             </button>
         </div>
     );

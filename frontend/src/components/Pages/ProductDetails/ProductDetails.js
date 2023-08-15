@@ -15,7 +15,7 @@ const ProductDetails = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const product = useSelector((state) => state?.product?.products);
-    console.log(product)
+
     const [component, setComponent] = useState(<ProductDescription product={product} />);
     const getComponent = (value) => {
         setComponent(value);

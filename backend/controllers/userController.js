@@ -325,50 +325,44 @@ const getWishlist = asyncHandler(async (req, res) => {
 
 //Add To Cart functinality
 const addToCart = asyncHandler(async (req, res) => {
-    const { cart } = req.body;
+    const { productId, color, quantity, price } = req.body;
     const { _id } = req.user;
     validateMongoDbId(_id);
     try {
-        let products = [];
-        const user = await User.findById(_id);
-        //check if user already have product in cart
-        const alreadyExistCart = await Cart.findOne({ orderby: user._id });
-        if (alreadyExistCart) {
-            alreadyExistCart.remove();
-        }
-        for (let i = 0; i < cart.length; i++) {
-            let object = {};
-            object.product = cart[i]._id;
-            object.count = cart[i].count;
-            object.color = cart[i].color;
-            let getPrice = await Product.findById(cart[i]._id).select('price').exec();
-            object.price = getPrice.price;
-            products.push(object);
-        }
+        // Check if the same product is already in the user's cart
+        const existingCartItem = await Cart.findOne({
+            userId: _id,
+            productId
+        });
 
-        let cartTotal = 0;
-        for (let i = 0; i < products.length; i++) {
-            cartTotal = cartTotal + products[i].price * products[i].count;
+        if (existingCartItem) {
+            // If the product is already in the cart, update its quantity
+            existingCartItem.quantity += quantity;
+            await existingCartItem.save();
+            res.json(existingCartItem);
+        } else {
+            // If the product is not in the cart, create a new cart item
+            const newCart = await new Cart({
+                userId: _id,
+                productId,
+                color,
+                quantity,
+                price
+            }).save();
+            res.json(newCart);
         }
-        let newCart = await new Cart({
-            products,
-            cartTotal,
-            orderby: user?._id,
-        }).save();
-        res.json(newCart);
     } catch (error) {
         throw new Error(error);
     }
-}
-);
+});
+
 
 // Get Cart 
 const getCart = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     validateMongoDbId(_id);
-
     try {
-        const cart = await Cart.findOne({ orderby: _id }).populate("products.product");
+        const cart = await Cart.find({ userId: _id }).populate("productId").populate("color");
         res.json(cart);
     } catch (error) {
         throw new Error(error);
@@ -377,12 +371,10 @@ const getCart = asyncHandler(async (req, res) => {
 
 // Remove Cart 
 const removeCart = asyncHandler(async (req, res) => {
-    const { _id } = req.params;
-    validateMongoDbId(_id);
-
+    const { id } = req.params;
+    validateMongoDbId(id);
     try {
-        const user = await User.findOne({ _id });
-        const cart = await Cart.findOneAndRemove({ orderby: user._id });
+        const cart = await Cart.findByIdAndDelete(id);
         res.json(cart);
     } catch (error) {
         throw new Error(error);
