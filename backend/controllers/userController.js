@@ -369,6 +369,20 @@ const getCart = asyncHandler(async (req, res) => {
     }
 });
 
+// update Cart 
+const updateCart = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { newQuantity } = req.body;
+
+    try {
+        const updatedCart = await Cart.findByIdAndUpdate(id, { quantity: newQuantity }, { new: true });
+        res.json(updatedCart);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+
 // Remove Cart 
 const removeCart = asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -508,5 +522,6 @@ module.exports = {
     applyCoupon,
     createOrder,
     getOrders,
-    updateOrderStatus
+    updateOrderStatus,
+    updateCart
 };

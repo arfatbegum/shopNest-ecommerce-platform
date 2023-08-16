@@ -15,14 +15,13 @@ const Cart = () => {
     useEffect(() => {
         dispatch(getCart());
     }, [dispatch]);
-
     
     const handleRemoveFromCart = (id) => {
         dispatch(deleteCart(id))
         toast.success("Remove from cart Successfully!")
         setTimeout(() => {
             dispatch(getCart());
-        }, 1000)
+        }, 200)
     }
 
     return (

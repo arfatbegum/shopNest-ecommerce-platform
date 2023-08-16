@@ -33,7 +33,7 @@ const Signin = () => {
     });
     const authState = useSelector((state) => state);
 
-    const { user, isError, isSuccess, isLoading, message } = authState.auth;
+    const { user, isError, isSuccess, isLoading } = authState.auth;
 
     useEffect(() => {
         if (isSuccess) {
@@ -50,10 +50,7 @@ const Signin = () => {
             <div className='pb-16 lg:px-0 md:px-0 px-4'>
                 < div className="lg:w-[500px] md:w-[500px] w-full p-8 mx-auto border-2 border-gray-200 bg-white items-center text-center shadow-sm">
                     <h1 className='textxl font-bold py-4'>Login</h1>
-                    <p class="text-red-500 text-xs italic">
-                        {message.message === "Rejected" ? "You are not Register User" : ""}
-                    </p>
-                    <form onSubmit={formik.handleSubmit} >
+                                     <form onSubmit={formik.handleSubmit} >
                         <input
                             className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-gray-300"
                             placeholder='Email'
