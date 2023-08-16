@@ -154,7 +154,6 @@ export const authSlice = createSlice({
                 state.cart = action.payload;
                 state.message = "success";
             })
-
             .addCase(addToCart.rejected, (state, action) => {
                 state.isError = true;
                 state.isSuccess = false;
