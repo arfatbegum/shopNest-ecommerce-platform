@@ -59,7 +59,7 @@ const Signin = () => {
                             onBlur={formik.handleBlur("email")}
                             value={formik.values.email}
                         />
-                        <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.email && formik.errors.email}</p>
+                        <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.email && formik.errors.email}</p>
                         <div className='relative'>
                             <input
                                 placeholder="Password"
@@ -70,7 +70,7 @@ const Signin = () => {
                                 value={formik.values.password}
                             />
                             <p className="absolute top-3 right-5 cursor-pointer" onClick={() => setShowPass(!showPass)}><BsEyeSlash /></p>
-                            <p class="text-red-500 text-xs italic text-start"> {formik.touched.password && formik.errors.password}</p>
+                            <p className="text-red-500 text-xs italic text-start"> {formik.touched.password && formik.errors.password}</p>
                         </div>
                         <div className="text-center mb-3 pb-1 justify-between">
                             <br /> <button className=" hover:underline text-gray-400 mt-3">Forgot password?</button>

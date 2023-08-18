@@ -72,7 +72,7 @@ const Signup = () => {
                             onBlur={formik.handleBlur("firstname")}
                             value={formik.values.firstname}
                         />
-                        <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.name && formik.errors.name}</p>
+                        <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.name && formik.errors.name}</p>
                         <input
                             className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-gray-300"
                             placeholder='Name'
@@ -81,7 +81,7 @@ const Signup = () => {
                             onBlur={formik.handleBlur("lastname")}
                             value={formik.values.lastname}
                         />
-                        <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.name && formik.errors.name}</p>
+                        <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.name && formik.errors.name}</p>
                         <input
                             className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-gray-300"
                             placeholder='Email'
@@ -90,7 +90,7 @@ const Signup = () => {
                             onBlur={formik.handleBlur("email")}
                             value={formik.values.email}
                         />
-                        <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.email && formik.errors.email}</p>
+                        <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.email && formik.errors.email}</p>
                         <input
                             className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-gray-300"
                             placeholder='Mobile Number'
@@ -99,7 +99,7 @@ const Signup = () => {
                             onBlur={formik.handleBlur("mobile")}
                             value={formik.values.mobile}
                         />
-                        <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.mobile && formik.errors.mobile}</p>
+                        <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.mobile && formik.errors.mobile}</p>
                         <div className='relative'>
                             <input
                                 placeholder="Password"
@@ -110,7 +110,7 @@ const Signup = () => {
                                 value={formik.values.password}
                             />
                             <p className="absolute top-3 right-5 cursor-pointer" onClick={() => setShowPass(!showPass)}><BsEyeSlash /></p>
-                            <p class="text-red-500 text-xs italic text-start"> {formik.touched.password && formik.errors.password}</p>
+                            <p className="text-red-500 text-xs italic text-start"> {formik.touched.password && formik.errors.password}</p>
                         </div>
                         <div className="text-center mb-3 pb-1 justify-between">
                             <label htmlFor="remember" className="text-sm font-medium text-primary mb-2">Already Have an account? <Link to='/signin' className='hover:underline'>Sign In</Link></label>

@@ -9,8 +9,8 @@ const Contact = () => {
         <>
             <Meta title={"Contact Us"} />
             <BreadCrumb title="Contact Us" />
-            <div class="text-gray-600 body-font px-8">
-                <div class="container px-0 lg:px-5 pb-8 mx-auto flex sm:flex-nowrap flex-wrap">
+            <div className="text-gray-600 body-font px-8">
+                <div className="container px-0 lg:px-5 pb-8 mx-auto flex sm:flex-nowrap flex-wrap">
                     <ContactForm />
                     <ContactInfo />
                 </div>

@@ -62,7 +62,7 @@ const AddProductCategory = ({ onClose }) => {
             onBlur={formik.handleBlur("title")}
             value={formik.values.title}
           />
-          <p class="text-red-500 text-xs italic text-start mb-5">
+          <p className="text-red-500 text-xs italic text-start mb-5">
             {formik.touched.title && formik.errors.title}
           </p>
         </div>

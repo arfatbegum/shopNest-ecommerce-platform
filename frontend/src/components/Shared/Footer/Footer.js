@@ -7,7 +7,7 @@ import NewsLetter from './NewsLetter';
 
 const Footer = () => {
     return (
-        <footer class="bg-gray-100">
+        <footer className="bg-gray-100">
             <NewsLetter />
             <MainFooter />
             <BottomFooter/>

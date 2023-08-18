@@ -35,7 +35,7 @@ const ShippingDetails = () => {
     const isFormValid = Object.keys(formik.errors).length === 0 && formik.touched;
 
     return (
-        <div class="lg:w-4/6 w-full bg-white h-full lg:mb-0 mb-4">
+        <div className="lg:w-4/6 w-full bg-white h-full lg:mb-0 mb-4">
             <form onSubmit={formik.handleSubmit} className="col-span-4 lg:p-10 p-5">
                 <h1 className='text-gray-600 font-semibold text-lg mb-5'>Shipping Address</h1>
                 <input
@@ -45,7 +45,7 @@ const ShippingDetails = () => {
                     onChange={formik.handleChange("firstname")}
                     onBlur={formik.handleBlur("firstname")}
                     value={formik.values.firstname} />
-                <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.firstname && formik.errors.firstname}</p>
+                <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.firstname && formik.errors.firstname}</p>
                 <input
                     className="mb-3 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-none"
                     placeholder='Last Name'
@@ -53,7 +53,7 @@ const ShippingDetails = () => {
                     onChange={formik.handleChange("lastname")}
                     onBlur={formik.handleBlur("lastname")}
                     value={formik.values.lastname} />
-                <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.lastname && formik.errors.lastname}</p>
+                <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.lastname && formik.errors.lastname}</p>
                 <input
                     type='text'
                     className="border mb-3 text-gray-900 text-sm block w-full p-2.5 outline-none"
@@ -61,7 +61,7 @@ const ShippingDetails = () => {
                     onChange={formik.handleChange("address")}
                     onBlur={formik.handleBlur("address")}
                     value={formik.values.address} />
-                <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.address && formik.errors.address}</p>
+                <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.address && formik.errors.address}</p>
                 <div >
                     <select
                         name="country"
@@ -73,7 +73,7 @@ const ShippingDetails = () => {
                         <option value="Saudi Arabia" className="text-gray-900">Saudi Arabia</option>
                     </select>
                 </div>
-                <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.country && formik.errors.country}</p>
+                <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.country && formik.errors.country}</p>
                 <input
                     placeholder="Apartment No"
                     className="border border-gray-300 mb-3 text-gray-900 text-sm block w-full p-2.5 outline-none"
@@ -81,7 +81,7 @@ const ShippingDetails = () => {
                     onChange={formik.handleChange("apartmentNo")}
                     onBlur={formik.handleBlur("apartmentNo")}
                     value={formik.values.apartmentNo} />
-                <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.apartmentNo && formik.errors.apartmentNo}</p>
+                <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.apartmentNo && formik.errors.apartmentNo}</p>
                 <input
                     className="mb-2 mr-3 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-none"
                     placeholder='City'
@@ -89,7 +89,7 @@ const ShippingDetails = () => {
                     onChange={formik.handleChange("city")}
                     onBlur={formik.handleBlur("city")}
                     value={formik.values.city} />
-                <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.city && formik.errors.city}</p>
+                <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.city && formik.errors.city}</p>
                 <input
                     className="mb-2 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 outline-none"
                     placeholder='Zip Code'
@@ -97,7 +97,7 @@ const ShippingDetails = () => {
                     onChange={formik.handleChange("zipcode")}
                     onBlur={formik.handleBlur("zipcode")}
                     value={formik.values.zipcode} />
-                <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.zipcode && formik.errors.zipcode}</p>
+                <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.zipcode && formik.errors.zipcode}</p>
                 <div className="flex justify-between items-center mt-5">
                     <span className="flex hover:text-secondary">
                         <TiArrowBackOutline className='text-xl mr-1' />

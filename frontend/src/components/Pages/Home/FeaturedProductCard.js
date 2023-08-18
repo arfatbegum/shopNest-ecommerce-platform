@@ -34,12 +34,12 @@ const FeaturedProductCard = ({ product }) => {
                 </div>
                 <div className="lg:w-1/2">
                     <div className="mt-6 md:mt-8 lg:mt-0 flex justify-start items-start w-full flex-col space-y-2">
-                        <h2 class="tracking-widest text-sm title-font font-bold text-primary mb-1">{product?.brand}</h2>
+                        <h2 className="tracking-widest text-sm title-font font-bold text-primary mb-1">{product?.brand}</h2>
                         <h2 className="text-lg text-gray-800 font-semibold">{product?.name.slice(0, 35)}...</h2>
                         <ReactStars
                             count={5}
                             size={24}
-                            value={product?.totalrating}
+                            value={Number(product?.totalrating)}
                             edit={false}
                             activeColor="#e6bd00"
                         />

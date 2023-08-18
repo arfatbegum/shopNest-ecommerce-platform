@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
                         <ReactStars
                             count={5}
                             size={22}
-                            value={product?.totalrating}
+                            value={Number(product?.totalrating)}
                             edit={false}
                             activeColor="#e6bd00"
                         />

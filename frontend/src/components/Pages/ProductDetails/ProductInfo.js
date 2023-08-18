@@ -51,7 +51,7 @@ const ProductInfo = ({ product }) => {
                         <ReactStars
                             count={5}
                             size={22}
-                            value={product.totalrating}
+                            value={Number(product?.totalrating)}
                             edit={false}
                             activeColor="#e6bd00"
                         />
@@ -115,7 +115,7 @@ const ProductInfo = ({ product }) => {
                             <BiGitCompare className='text-4xl text-primary px-2' />
                         </button>
                     </div>
-                    <div class="flex justify-start space-x-2 mt-5">
+                    <div className="flex justify-start space-x-2 mt-5">
                         <Link to="https://www.facebook.com/arfat.akter.98/">
                             <img src={Facebook} alt="" className='w-6 h-6' />
                         </Link>
@@ -133,7 +133,7 @@ const ProductInfo = ({ product }) => {
                         </Link>
                     </div>
                     <div className='flex justify-start items-center space-x-2'>
-                        <span class="">
+                        <span className="">
                             <img src={Paypal} alt="" className='w-16 h-16' />
                         </span>
                         <span>
@@ -142,7 +142,7 @@ const ProductInfo = ({ product }) => {
                     </div>
                 </div>
                 <div className='lg:w-1/3 w-full bg-blue-100  bg-opacity-50 rounded-lg border-opacity-50 p-6 border-2 border-primary'>
-                    <div class="list-none">
+                    <div className="list-none">
                         <li className='flex items-center justify-start mb-4'>
                             <GrDeliver className='text-4xl mr-4' />
                             Free shipping apply to all orders over SAR 400

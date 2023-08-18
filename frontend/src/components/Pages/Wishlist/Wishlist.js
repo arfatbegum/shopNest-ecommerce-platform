@@ -27,7 +27,7 @@ const Wishlist = () => {
         <div>
             <Meta title={"Wishlist - Shoppable"} />
             <BreadCrumb title="Wishlist" />
-            <div class="container px-10 mx-auto mb-8">
+            <div className="container px-10 mx-auto mb-8">
                 {wishlistState?.wishlist?.length > 0 ? (
                     <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-1 gap-5 items-center">
                         {wishlistState?.wishlist?.map((product) => (

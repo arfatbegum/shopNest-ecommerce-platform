@@ -44,7 +44,7 @@ const Signin = () => {
             <div className='px-4'>
                 < div className="lg:w-[500px] md:w-[500px] w-full p-8 m-auto my-44 border-2 border-gray-200 bg-white items-center text-center shadow-sm">
                     <h1 className='text-xl font-bold py-4'>Login</h1>
-                    <p class="text-red-500 text-xs italic">
+                    <p className="text-red-500 text-xs italic">
                         {message.message === "Rejected" ? "You are not an Admin" : ""}
                     </p>
                     <form onSubmit={formik.handleSubmit} >
@@ -56,7 +56,7 @@ const Signin = () => {
                             onBlur={formik.handleBlur("email")}
                             value={formik.values.email}
                         />
-                        <p class="text-red-500 text-xs italic text-start mb-5">{formik.touched.email && formik.errors.email}</p>
+                        <p className="text-red-500 text-xs italic text-start mb-5">{formik.touched.email && formik.errors.email}</p>
                         <div className='relative'>
                             <input
                                 placeholder="Password"
@@ -67,7 +67,7 @@ const Signin = () => {
                                 value={formik.values.password}
                             />
                             <p className="absolute top-3 right-5 cursor-pointer" onClick={() => setShowPass(!showPass)}><BsEyeSlash /></p>
-                            <p class="text-red-500 text-xs italic text-start"> {formik.touched.password && formik.errors.password}</p>
+                            <p className="text-red-500 text-xs italic text-start"> {formik.touched.password && formik.errors.password}</p>
                         </div>
                         <div className="text-center mb-3 pb-1 justify-between">
                             <br /> <button className=" hover:underline text-gray-400 mt-3">Forgot password?</button>

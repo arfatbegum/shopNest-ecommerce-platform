@@ -47,7 +47,7 @@ const data = [
 ];
 const BarCharts = () => {
     return (
-        <div class="bg-white p-4 rounded-lg text-black border border-gray-200 shadow-sm">
+        <div className="bg-white p-4 rounded-lg text-black border border-gray-200 shadow-sm">
             <h1 className='text-lg font-medium p-4'>Weekly Sales</h1>
             <BarChart
                 width={550}

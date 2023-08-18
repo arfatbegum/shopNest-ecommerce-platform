@@ -60,26 +60,26 @@ const UpdateCoupon = ({ couponId, onClose }) => {
     });
 
     return (
-        <div class="w-full">
-            <form class="px-8 pb-8 mb-4" onSubmit={formik.handleSubmit}>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+        <div className="w-full">
+            <form className="px-8 pb-8 mb-4" onSubmit={formik.handleSubmit}>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                         Coupon Title/Name
                     </label>
                     <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" p
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" p
                         laceholder="Coupon Title/Name"
                         onChange={formik.handleChange("name")}
                         onBlur={formik.handleBlur("name")}
                         value={formik.values.name}
                     />
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                         DISCOUNT
                     </label>
                     <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="number"
                         placeholder="Coupon Discount"
                         onChange={formik.handleChange("discount")}
@@ -87,12 +87,12 @@ const UpdateCoupon = ({ couponId, onClose }) => {
                         value={formik.values.discount}
                     />
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                         EXPIRY DATE
                     </label>
                     <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="date"
                         placeholder="Product Title/Name"
                         onChange={formik.handleChange("expiry")}
@@ -100,9 +100,9 @@ const UpdateCoupon = ({ couponId, onClose }) => {
                         value={formik.values.expiry}
                     />
                 </div>
-                <div class="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                     <button
-                        class="bg-[#2f60b5] hover:bg-[#2f60b5] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-[#2f60b5] hover:bg-[#2f60b5] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit">
                         Update Coupon
                     </button>

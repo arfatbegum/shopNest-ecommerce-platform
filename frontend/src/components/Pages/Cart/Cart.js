@@ -28,8 +28,8 @@ const Cart = () => {
         <>
             <Meta title={"Shopping Cart - Shoppable"} />
             <BreadCrumb title="Shopping Cart" />
-            <div class="overflow-x-auto mx-10">
-                <div class="min-w-screen bg-gray-100 lg:flex justify-between gap-4 font-sans mb-10">
+            <div className="overflow-x-auto mx-10">
+                <div className="min-w-screen bg-gray-100 lg:flex justify-between gap-4 font-sans mb-10">
                     <ProductTable cart={cartState} handleRemoveFromCart={handleRemoveFromCart} />
                     <OrderSummary cart={cartState} />
                 </div>

@@ -4,32 +4,32 @@ import { TiArrowBackOutline } from "@react-icons/all-files/ti/TiArrowBackOutline
 
 const OrderDetails = ({ cart }) => {
     return (
-        <div class="lg:w-4/6 w-full">
-            <div class="bg-white rounded">
-                <table class="min-w-max w-full table-auto">
+        <div className="lg:w-4/6 w-full">
+            <div className="bg-white rounded">
+                <table className="min-w-max w-full table-auto">
                     <thead>
-                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">Items</th>
-                            <th class="py-3 px-6 text-left">Colors</th>
-                            <th class="py-3 px-6 text-center">Price</th>
+                        <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th className="py-3 px-6 text-left">Items</th>
+                            <th className="py-3 px-6 text-left">Colors</th>
+                            <th className="py-3 px-6 text-center">Price</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-700 text-sm font-normal">
+                    <tbody className="text-gray-700 text-sm font-normal">
                         {cart?.map((cartItem) => (
-                            <tr key={cartItem._id} class="border-b border-gray-200 bg-white">
-                                <td class="py-3 px-6 text-left">
-                                    <div class="flex items-center">
-                                        <div class="mr-2">
-                                            <img class="w-24 h-24" src={cartItem?.images && cartItem.images[0] ? cartItem.images[0].url : 'fallback-image-url'} alt='' />
+                            <tr key={cartItem._id} className="border-b border-gray-200 bg-white">
+                                <td className="py-3 px-6 text-left">
+                                    <div className="flex items-center">
+                                        <div className="mr-2">
+                                            <img className="w-24 h-24" src={cartItem?.images && cartItem.images[0] ? cartItem.images[0].url : 'fallback-image-url'} alt='' />
                                         </div>
                                         <span>{cartItem.name}</span>
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-left">
+                                <td className="py-3 px-6 text-left">
                                     <span>{cartItem?.color.title}</span>
                                 </td>
-                                <td class="py-3 px-6 text-center">
-                                    <span class="">${cartItem.price}</span>
+                                <td className="py-3 px-6 text-center">
+                                    <span className="">${cartItem.price}</span>
                                 </td>
                             </tr>
                         ))}

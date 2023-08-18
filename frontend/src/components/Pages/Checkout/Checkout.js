@@ -18,8 +18,8 @@ const Checkout = () => {
         <>
             <Meta title={"Checkout - Shoppable"} />
             <BreadCrumb title="Checkout" />
-            <div class="overflow-x-auto lg:mx-10 mx-4">
-                <div class="min-w-screen lg:flex justify-between gap-4 font-sans mb-10">
+            <div className="overflow-x-auto lg:mx-10 mx-4">
+                <div className="min-w-screen lg:flex justify-between gap-4 font-sans mb-10">
                     <ShippingDetails/>
                     <OrderSummary cart={cartState} />
                 </div>
