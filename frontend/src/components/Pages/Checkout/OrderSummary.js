@@ -1,6 +1,6 @@
 const OrderSummary = ({ cart }) => {
-    const shippingFee = 15;
-    const taxRate = 0.15;
+    const shippingFee = cart && cart.length > 0 ? 15 : 0;
+    const taxRate = cart && cart.length > 0 ? 0.15 : 0;
 
     const calculateSubtotal = () => {
         if (!Array.isArray(cart)) {
@@ -12,13 +12,17 @@ const OrderSummary = ({ cart }) => {
     };
 
     const calculateTax = (subtotal) => {
-        return subtotal * taxRate;
+        const tax = subtotal * taxRate;
+        return isNaN(tax) ? 0 : tax;
     };
 
     const calculateTotal = () => {
         const { subtotal } = calculateSubtotal();
         const tax = calculateTax(subtotal);
-        return subtotal + shippingFee + tax;
+        const total = subtotal + shippingFee + tax;
+
+        // If total is NaN, return 0
+        return isNaN(total) ? 0 : total;
     };
 
     const { subtotal, totalQuantity } = calculateSubtotal();
@@ -34,7 +38,7 @@ const OrderSummary = ({ cart }) => {
                                 <img src={cartItem?.images && cartItem.images[0] ? cartItem.images[0].url : 'fallback-image-url'} className='w-12 h-12' alt="" />
                                 <span className="badge badge-sm indicator-item bg-primary py-3 font-bold border-none text-white">{cartItem.quantity}</span>
                             </div>
-                            <h1 className='font-semibold text-gray-700'>{cartItem.name}</h1>
+                            <h1 className='font-semibold text-gray-700'>{cartItem?.productId?.name}</h1>
                         </div>
                         <h3 className='font-semibold text-gray-700'>${cartItem.price}</h3>
                     </div>

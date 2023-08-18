@@ -17,6 +17,7 @@ import Wishlist from "./components/Pages/Wishlist/Wishlist";
 import Footer from "./components/Shared/Footer/Footer";
 import Header from "./components/Shared/Header/Header";
 import Services from "./components/Shared/Services/Services";
+import Payment from "./components/Pages/Payment/Payment";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="blog/:id" element={<BlogDetails />} />
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="payment" element={<Payment />} />
         <Route path="compare-product" element={<CompareProducts />} />
         <Route path="wishlist" element={<Wishlist />} />
         <Route path="signin" element={<Signin />} />

@@ -5,6 +5,7 @@ import ShippingDetails from "./ShippingDetails";
 import OrderSummary from "./OrderSummary";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../../redux/features/user/userSlice";
+
 const Checkout = () => {
     const dispatch = useDispatch();
     const cartState = useSelector((state) => state.auth.cart);
@@ -19,8 +20,8 @@ const Checkout = () => {
             <BreadCrumb title="Checkout" />
             <div class="overflow-x-auto lg:mx-10 mx-4">
                 <div class="min-w-screen lg:flex justify-between gap-4 font-sans mb-10">
-                    <ShippingDetails />
-                    <OrderSummary cart={cartState } />
+                    <ShippingDetails/>
+                    <OrderSummary cart={cartState} />
                 </div>
             </div>
         </>

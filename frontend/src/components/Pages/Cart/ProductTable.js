@@ -13,7 +13,7 @@ const ProductTable = ({ cart, handleRemoveFromCart }) => {
             dispatch(updateCart({ id: cartItem._id, newQuantity }));
         }
     };
-    
+
     const incrementQuantity = (cartItem) => {
         const newQuantity = cartItem.quantity + 1;
         dispatch(updateCart({ id: cartItem._id, newQuantity }));
@@ -34,7 +34,7 @@ const ProductTable = ({ cart, handleRemoveFromCart }) => {
                         </tr>
                     </thead>
                     <tbody class="text-gray-700 text-sm font-normal">
-                        {cart?.map((cartItem) => (
+                        {cart && cart.length > 0 && cart?.map((cartItem) => (
                             <tr class="border-b border-gray-200 bg-white">
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">

@@ -5,8 +5,9 @@ import { config } from "../../../utils/axiosconfig";
 const signup = async (user) => {
     const response = await axios.post(`${base_url}user/signup`, user);
     if (response.data) {
-        return response.data;
+        localStorage.setItem("user", JSON.stringify(response.data));
     }
+    return response.data;
 };
 
 const signin = async (user) => {
@@ -52,6 +53,13 @@ const removeFromCart = async (id) => {
     }
 };
 
+const createOrders= async (orderData) => {
+    const response = await axios.post(`${base_url}user/create-order`, orderData, config);
+    if (response.data) {
+        return response.data;
+    }
+};
+
 
 
 const authService = {
@@ -61,7 +69,8 @@ const authService = {
     addToCart,
     getCartProduct,
     removeFromCart,
-    updateCart
+    updateCart,
+    createOrders
 };
 
 export default authService;

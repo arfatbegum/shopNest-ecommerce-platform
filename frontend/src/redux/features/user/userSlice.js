@@ -90,10 +90,31 @@ export const deleteCart = createAsyncThunk(
     }
 );
 
+export const createOrder = createAsyncThunk(
+    "auth/createOrder",
+    async (orderData, thunkAPI) => {
+        try {
+            return await authService.createOrders(orderData);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const resetCartState = (state) => {
+    state.cart = [];
+    state.message = "Cart reset";
+  };
+
+  
 export const authSlice = createSlice({
     name: "auth",
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        resetCart: (state) => {
+          state.cart = [];
+        },
+      },
     extraReducers: (builder) => {
         builder
             .addCase(signup.pending, (state) => {
@@ -211,8 +232,25 @@ export const authSlice = createSlice({
                 state.isSuccess = false;
                 state.message = action.error;
                 state.isLoading = false;
-            });
+            })
+            .addCase(createOrder.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(createOrder.fulfilled, (state, action) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.orders = action.payload;
+                state.message = "success";
+            })
+            .addCase(createOrder.rejected, (state, action) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.payload.error;
+                state.isLoading = false;
+            })
     },
 });
 
+export const { resetCart } = authSlice.actions;
 export default authSlice.reducer;

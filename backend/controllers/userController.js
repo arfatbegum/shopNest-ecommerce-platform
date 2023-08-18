@@ -11,6 +11,15 @@ const { generateRefreshToken } = require("../config/refreshToken");
 const sendEmail = require("./emailController");
 const crypto = require("crypto");
 const uniqid = require('uniqid');
+const paypal = require('paypal-rest-sdk');
+
+// Configure PayPal SDK with your sandbox (test) credentials
+paypal.configure({
+    mode: 'sandbox',
+    client_id: process.env.PAYPAL_CLIENT_ID,
+    client_secret: process.env.PAYPAL_SECRET,
+})
+
 
 // Create a User
 const createUser = asyncHandler(async (req, res) => {
@@ -414,52 +423,72 @@ const applyCoupon = asyncHandler(async (req, res) => {
     await Cart.findByIdAndUpdate({ orderby: user._id }, { totalAfterDiscount }, { new: true });
 });
 
-//apply Coupon functionality
+
 const createOrder = asyncHandler(async (req, res) => {
-    const { COD, couponApplied } = req.body;
+    const { shippingInfo, orderItems, totalPrice, totalPriceAfterDiscount, paymentInfo } = req.body;
     const { _id } = req.user;
     validateMongoDbId(_id);
+
     try {
-        if (!COD)
-            throw new Error("Cash on Delivery Failed");
-        const user = await User.findOne({ _id });
-        let userCart = await Cart.findOne({ orderby: user._id });
-        let totalAmount = 0;
-        if (couponApplied && userCart.totalAfterDiscount) {
-            totalAmount = userCart.totalAfterDiscount;
-        } else {
-            totalAmount = userCart.cartTotal;
-        }
-        let newOrder = await new Order({
-            products: userCart.products,
-            paymentIntent: {
-                id: uniqid(),
-                method: "COD",
-                amount: totalAmount,
-                status: "Cash on Delivery",
-                created: Date.now,
-                currency: "usd",
+        const order = await Order.create({
+            shippingInfo,
+            orderItems,
+            totalPrice,
+            totalPriceAfterDiscount,
+            paymentInfo,
+            user: _id,
+        });
+
+        const paymentAmount = parseFloat(totalPriceAfterDiscount).toFixed(2);
+
+        const createPaymentJson = {
+            intent: 'sale',
+            payer: {
+                payment_method: 'paypal',
             },
-            orderby: user._id,
-            orderStatus: "Cash on Delivery",
-        }).save();
-        let update = userCart.products.map((item) => {
-            return {
-                updateOne: {
-                    filter: { _id: item.product._id },
-                    update: { $inc: { quantity: -item.count, sold: +item.count } },
+            redirect_urls: {
+                return_url: 'http://localhost:3000/success',
+                cancel_url: 'http://localhost:3000/cancel',
+            },
+            transactions: [
+                {
+                    amount: {
+                        total: paymentAmount,
+                        currency: 'USD',
+                    },
+                    description: 'Your order description here',
+                },
+            ],
+        };
+
+        // Create a PayPal payment
+        paypal.payment.create(createPaymentJson, async function (error, payment) {
+            if (error) {
+                return res.status(500).json({ error: 'Error processing payment' });
+            } else {
+                // Save the PayPal payment ID and payment information to the order
+                order.paypalPaymentId = payment.id;
+                order.paymentInfo = paymentInfo; // Save paymentInfo to the order
+                await order.save();
+
+                // Clear the user's cart after successfully creating the order
+                req.user.cart = [];
+                await req.user.save();
+                // Redirect the user to PayPal's approval URL
+                for (let i = 0; i < payment.links.length; i++) {
+                    if (payment.links[i].rel === 'approval_url') {
+                        return res.json({ approvalUrl: payment.links[i].href });
+                    }
                 }
             }
-        })
-        const updated = await Product.bulkWrite(update, {})
-        res.json({ message: "success" });
+        });
     } catch (error) {
         throw new Error(error);
     }
-    let { cartTotal } = await Cart.findOne({ orderby: user._id }).populate("products.product")
-    let totalAfterDiscount = (cartTotal - (cartTotal * validCoupon.discount) / 100).toFixed(2);
-    await Cart.findByIdAndUpdate({ orderby: user._id }, { totalAfterDiscount }, { new: true });
 });
+
+
+
 
 // Get orders 
 const getOrders = asyncHandler(async (req, res) => {
