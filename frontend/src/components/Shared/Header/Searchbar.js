@@ -13,7 +13,7 @@ import { getWishlists } from '../../../redux/features/user/userSlice';
 const Searchbar = () => {
     const dispatch = useDispatch();
     const wishlistState = useSelector((state) => state.auth.wishlist);
-
+    const user = useSelector((state) => state?.auth?.user);
     useEffect(() => {
         dispatch(getWishlists());
     }, [dispatch]);
@@ -68,7 +68,22 @@ const Searchbar = () => {
                     </div>
 
                     <Link to="cart"><MdAddShoppingCart className='text-3xl mx-auto' /><span className='text-xs'>Cart</span></Link>
-                    <Link to="signup"><BiUserCircle className='text-3xl mx-auto' /><span className='text-xs'>Sign Up</span></Link>
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0}><BiUserCircle className='text-3xl mx-auto' /><span className='text-xs'>Account</span></label>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52 text-gray-800 text-sm">
+                            <h1 className='px-4 pt-4 text-sm font-bold text-center'>My Account</h1>
+                            <div className="avatar mx-auto py-5">
+                                <div className="w-24 rounded-full">
+                                    <img src="https://picsum.photos/200/300" alt=''/>
+                                </div>
+                            </div>
+                            <p className="text-gray-600 my-2 text-center">{user?.firstname} {user?.lastname}</p>
+                            <p className="text-gray-600 text-center border-b border-b-gray-200 pb-4">{user?.email}</p>
+                            <Link className='px-4 py-2 border-b border-gray-200' to="my-orders">My Orders</Link>
+                            <Link className='px-4 py-2 border-b border-gray-200' to="signup">Sign up</Link>
+                            <Link className='px-4 pb-4 pt-2' to="signin">Sign in</Link>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

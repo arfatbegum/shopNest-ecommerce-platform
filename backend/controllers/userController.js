@@ -10,7 +10,6 @@ const validateMongoDbId = require("../utils/validateMongoDbId");
 const { generateRefreshToken } = require("../config/refreshToken");
 const sendEmail = require("./emailController");
 const crypto = require("crypto");
-const uniqid = require('uniqid');
 const paypal = require('paypal-rest-sdk');
 
 // Configure PayPal SDK with your sandbox (test) credentials
@@ -489,18 +488,22 @@ const createOrder = asyncHandler(async (req, res) => {
 
 
 
-
-// Get orders 
-const getOrders = asyncHandler(async (req, res) => {
+// Get orders for a specific user
+const getUserOrders = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    validateMongoDbId(_id);
+    const userOrders = await Order.find({ user: _id })
+      .populate("orderItems.productId")
+      .populate("orderItems.color");
+    res.json(userOrders);
+  });
+  
 
-    try {
-        const orders = await Order.findOne({ orderby: _id }).populate("products.product");
-        res.json(orders);
-    } catch (error) {
-        throw new Error(error);
-    }
+// Get all orders
+const getOrders = asyncHandler(async (req, res) => {
+    const orders = await Order.find()
+        .populate("orderItems.productId")
+        .populate("orderItems.color");
+    res.json(orders);
 });
 
 
@@ -551,6 +554,7 @@ module.exports = {
     applyCoupon,
     createOrder,
     getOrders,
+    getUserOrders,
     updateOrderStatus,
     updateCart
 };

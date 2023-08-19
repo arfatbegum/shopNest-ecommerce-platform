@@ -53,14 +53,19 @@ const removeFromCart = async (id) => {
     }
 };
 
-const createOrders= async (orderData) => {
+const createOrders = async (orderData) => {
     const response = await axios.post(`${base_url}user/create-order`, orderData, config);
     if (response.data) {
         return response.data;
     }
 };
 
-
+const getUserOrders = async () => {
+    const response = await axios.get(`${base_url}user/orders`, config);
+    if (response.data) {
+        return response.data;
+    }
+};
 
 const authService = {
     signup,
@@ -70,7 +75,8 @@ const authService = {
     getCartProduct,
     removeFromCart,
     updateCart,
-    createOrders
+    createOrders,
+    getUserOrders
 };
 
 export default authService;

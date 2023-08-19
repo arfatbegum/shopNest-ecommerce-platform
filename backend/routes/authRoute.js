@@ -1,5 +1,5 @@
 const express = require("express");
-const { createUser, signinUser, getallUsers, getUser, deleteUser, updatedUser, blockUser, unblockUser, handleRefreshToken, signOut, updatePassword, forgotPasswordToken, forgotPassword, signinAdmin, getWishlist, saveAddress, addToCart, getCart, removeCart, applyCoupon, createOrder, getOrders, updateOrderStatus, updateCart } = require("../controllers/userController");
+const { createUser, signinUser, getallUsers, getUser, deleteUser, updatedUser, blockUser, unblockUser, handleRefreshToken, signOut, updatePassword, forgotPasswordToken, forgotPassword, signinAdmin, getWishlist, saveAddress, addToCart, getCart, removeCart, applyCoupon, createOrder, getOrders, updateOrderStatus, updateCart, getUserOrders } = require("../controllers/userController");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
@@ -11,12 +11,13 @@ router.post("/create-order", authMiddleware, createOrder);
 router.post("/apply-coupon", authMiddleware, applyCoupon);
 router.put("/cart/:id", authMiddleware, updateCart);
 router.get("/all-users", getallUsers);
+router.get("/orders", authMiddleware, getUserOrders);
 router.get("/wishlist", authMiddleware, getWishlist);
 router.get("/cart", authMiddleware, getCart);
 router.get("/:id", authMiddleware, isAdmin, getUser);
 router.get("/refresh", handleRefreshToken);
 router.get("/signout", signOut);
-router.get("/orders", authMiddleware, getOrders);
+router.get("/all-orders", authMiddleware, isAdmin, getOrders);
 router.delete("/cart/:id", authMiddleware, removeCart);
 router.delete("/:id", authMiddleware, isAdmin, deleteUser);
 router.put("/update-password", authMiddleware, updatePassword);

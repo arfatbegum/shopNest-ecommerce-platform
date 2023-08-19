@@ -19,6 +19,7 @@ import Header from "./components/Shared/Header/Header";
 import Services from "./components/Shared/Services/Services";
 import Payment from "./components/Pages/Payment/Payment";
 import PrivateRoute from "./routes/PrivateRoutes";
+import MyOrders from "./components/Pages/MyOrders/MyOrders";
 
 
 function App() {
@@ -33,15 +34,16 @@ function App() {
         <Route path="product-details/:id" element={<ProductDetails />} />
         <Route path="blogs" element={<Blogs />} />
         <Route path="blog/:id" element={<BlogDetails />} />
+        <Route path="signin" element={<Signin />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>} />
         <Route path="cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
         <Route path="checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
         <Route path="payment" element={<PrivateRoute><Payment /></PrivateRoute>} />
         <Route path="compare-product" element={<PrivateRoute><CompareProducts /></PrivateRoute>} />
         <Route path="wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
-        <Route path="signin" element={<Signin />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="reset-password" element={<ResetPassword />} />
       </Routes>
       <Services />
       <Footer />
