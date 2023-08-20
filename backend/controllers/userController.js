@@ -97,29 +97,6 @@ const signinAdmin = asyncHandler(async (req, res) => {
     }
 });
 
-// Sign Out functionality
-const signOut = asyncHandler(async (req, res) => {
-    const cookie = req.cookies;
-    if (!cookie?.refreshToken) throw new Error("No Refresh Token in Cookies");
-    const refreshToken = cookie.refreshToken;
-    const user = await User.findOne({ refreshToken });
-    if (!user) {
-        res.clearCookie("refreshToken", {
-            httpOnly: true,
-            secure: true,
-        });
-        return res.sendStatus(204);
-    }
-    await User.findOneAndUpdate(refreshToken, {
-        refreshToken: "",
-    });
-    res.clearCookie("refreshToken", {
-        httpOnly: true,
-        secure: true,
-    });
-    res.sendStatus(204);
-});
-
 // handle refresh token
 const handleRefreshToken = asyncHandler(async (req, res) => {
     const cookie = req.cookies;
@@ -135,7 +112,6 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
         res.json({ accessToken });
     });
 });
-
 
 // Get all users
 const getallUsers = asyncHandler(async (req, res) => {
@@ -535,7 +511,6 @@ module.exports = {
     createUser,
     signinUser,
     signinAdmin,
-    signOut,
     getallUsers,
     getUser,
     updatedUser,

@@ -18,6 +18,11 @@ const Searchbar = () => {
         dispatch(getWishlists());
     }, [dispatch]);
 
+    const handleSignOut = () => {
+        localStorage.clear();
+        window.location.reload();
+    }
+
     return (
         <div className="lg:navbar md:navbar p-4 lg:py-4 lg:px-10 md:py-4 md:px-10 navbar-none ">
             <div className='lg:navbar-start flex'>
@@ -66,22 +71,31 @@ const Searchbar = () => {
                         <span className="indicator-item badge badge-secondary">{wishlistState?.wishlist?.length}</span>
                         <Link to="wishlist"><FiHeart className='text-3xl mx-auto' /><span className='text-xs'>Wishlist </span></Link>
                     </div>
-
                     <Link to="cart"><MdAddShoppingCart className='text-3xl mx-auto' /><span className='text-xs'>Cart</span></Link>
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0}><BiUserCircle className='text-3xl mx-auto' /><span className='text-xs'>Account</span></label>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52 text-gray-800 text-sm">
-                            <h1 className='px-4 pt-4 text-sm font-bold text-center'>My Account</h1>
-                            <div className="avatar mx-auto py-5">
-                                <div className="w-24 rounded-full">
-                                    <img src="https://picsum.photos/200/300" alt=''/>
-                                </div>
-                            </div>
-                            <p className="text-gray-600 my-2 text-center">{user?.firstname} {user?.lastname}</p>
-                            <p className="text-gray-600 text-center border-b border-b-gray-200 pb-4">{user?.email}</p>
-                            <Link className='px-4 py-2 border-b border-gray-200' to="my-orders">My Orders</Link>
-                            <Link className='px-4 py-2 border-b border-gray-200' to="signup">Sign up</Link>
-                            <Link className='px-4 pb-4 pt-2' to="signin">Sign in</Link>
+                            {user === null ? (
+                                <>
+                                <h1 className='px-4 pt-4 text-sm font-bold mb-1'>My Account</h1>
+                                    <Link className='px-4 py-2 border-b border-gray-200' to="signup">Sign up</Link>
+                                    <Link className='px-4 pb-4 pt-2' to="signin">Sign in</Link>
+                                </>
+                            ) : (
+                                <>
+                                    <h1 className='px-4 pt-4 text-sm font-bold text-center'>My Account</h1>
+                                    <div className="avatar mx-auto py-5">
+                                        <div className="w-24 rounded-full">
+                                            <img src="https://picsum.photos/200/300" alt='' />
+                                        </div>
+                                    </div>
+                                    <p className="text-gray-600 my-2 text-center">{user?.firstname} {user?.lastname}</p>
+                                    <p className="text-gray-600 text-center border-b border-b-gray-200 pb-4">{user?.email}</p>
+                                    <Link className='px-4 py-2 border-b border-gray-200' to="my-orders">My Orders</Link>
+                                    <button onClick={handleSignOut} className='px-4 pb-4 pt-2' >Sign out</button>
+
+                                </>
+                            )}
                         </ul>
                     </div>
                 </div>
