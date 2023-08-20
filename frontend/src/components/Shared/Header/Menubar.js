@@ -36,7 +36,7 @@ const Menubar = () => {
                     <li><Link to="/">HOME</Link></li>
                     <li><Link to="contact">CONTACT US</Link></li>
                     <li><Link to="blogs">BLOG</Link></li>
-                    <li><Link to="shipping&returns">SHIPPING & RETURNS</Link></li>
+                    <li><Link to="policy">SHIPPING & RETURNS</Link></li>
                     <li><Link to="hotDeals">HOT DEALS</Link></li>
                 </ul>
             </div>

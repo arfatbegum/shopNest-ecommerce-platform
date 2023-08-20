@@ -20,6 +20,7 @@ import Services from "./components/Shared/Services/Services";
 import Payment from "./components/Pages/Payment/Payment";
 import PrivateRoute from "./routes/PrivateRoutes";
 import MyOrders from "./components/Pages/MyOrders/MyOrders";
+import Policy from "./components/Pages/Policy/Policy";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="product-details/:id" element={<ProductDetails />} />
         <Route path="blogs" element={<Blogs />} />
         <Route path="blog/:id" element={<BlogDetails />} />
+        <Route path="policy" element={<Policy />} />
         <Route path="signin" element={<Signin />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="signup" element={<Signup />} />
