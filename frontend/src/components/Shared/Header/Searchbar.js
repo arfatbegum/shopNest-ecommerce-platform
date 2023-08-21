@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import { MdAddShoppingCart } from "@react-icons/all-files/md/MdAddShoppingCart";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import { RiArrowDropDownLine } from "@react-icons/all-files/ri/RiArrowDropDownLine";
@@ -8,22 +8,39 @@ import { BiUserCircle } from "@react-icons/all-files/bi/BiUserCircle";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getWishlists } from '../../../redux/features/user/userSlice';
+import Select from 'react-select';
+import { getAllProducts } from '../../../redux/features/products/productSlice';
 
 
 const Searchbar = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const wishlistState = useSelector((state) => state.auth.wishlist);
     const user = useSelector((state) => state?.auth?.user);
     const cart = useSelector((state) => state.auth.cart);
+    const productState = useSelector((state) => state?.product?.products);
+
+    const productOptions = productState && productState.length > 0 && productState?.map((product) => ({
+        value: product._id,
+        label: product.name,
+    }));
 
     useEffect(() => {
         dispatch(getWishlists());
+        dispatch(getAllProducts());
     }, [dispatch]);
+
+    const handleProductSelect = (selectedOption) => {
+        if (selectedOption) {
+            const productId = selectedOption.value;
+            navigate(`/product-details/${productId}`);
+        }
+    };
 
     const handleSignOut = () => {
         localStorage.clear();
         window.location.reload();
-    }
+    };
 
     return (
         <div className="lg:navbar md:navbar p-4 lg:py-4 lg:px-10 md:py-4 md:px-10 navbar-none ">
@@ -57,13 +74,27 @@ const Searchbar = () => {
             <div className='lg:navbar-center'>
                 <div className="flex-1 flex-row form-control">
                     <div>
-                        <input type="text" placeholder="Search" className="input input-bordered w-[300px] lg:w-[650px] rounded-tr-none rounded-br-none" />
-                    </div>
-                    <div>
-                        <button className="btn btn-ghost bg-secondary rounded-tl-none rounded-bl-none">
+                        <button className="relative p-[9px] bg-secondary rounded-tl rounded-bl rounded-tr-none rounded-br-none">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </button>
                     </div>
+                    <div>
+                        <Select
+                            placeholder="Search for a product..."
+                            options={productOptions}
+                            onChange={handleProductSelect}
+                            isClearable
+                            className="w-[300px] lg:w-[650px] text-gray-700 rounded-none"
+                            styles={{
+                                control: (provided) => ({
+                                    ...provided,
+                                    borderRadius: '0 5px 5px 0',
+                                    borderColor: '#E5E7EB',
+                                }),
+                            }}
+                        />
+                    </div>
+
                 </div>
             </div>
             <div className="lg:navbar-end pt-5">
