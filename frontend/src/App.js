@@ -39,7 +39,7 @@ function App() {
         <Route path="signin" element={<Signin />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="reset-password/:token" element={<ResetPassword />} />
         <Route path="my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>} />
         <Route path="cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
         <Route path="checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />

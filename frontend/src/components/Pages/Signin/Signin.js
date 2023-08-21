@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import Meta from '../../Shared/Meta';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signin } from '../../../redux/features/user/userSlice';
 
 
@@ -73,7 +73,7 @@ const Signin = () => {
                             <p className="text-red-500 text-xs italic text-start"> {formik.touched.password && formik.errors.password}</p>
                         </div>
                         <div className="text-center mb-3 pb-1 justify-between">
-                            <br /> <button className=" hover:underline text-gray-400 mt-3">Forgot password?</button>
+                            <br /> <Link to="/forgot-password" className=" hover:underline text-gray-400 mt-3">Forgot password?</Link>
                         </div>
                         <button
                             className="border border-gray-300 bg-[#2f60b5] text-white text-sm uppercase font-bold rounded-lg block w-full p-2.5"

@@ -14,6 +14,8 @@ const Searchbar = () => {
     const dispatch = useDispatch();
     const wishlistState = useSelector((state) => state.auth.wishlist);
     const user = useSelector((state) => state?.auth?.user);
+    const cart = useSelector((state) => state.auth.cart);
+
     useEffect(() => {
         dispatch(getWishlists());
     }, [dispatch]);
@@ -68,16 +70,31 @@ const Searchbar = () => {
                 <div className="flex lg:px-0 px-5 gap-5 items-center lg:justify-center justify-between">
                     <Link to="compare-product"><BiGitCompare className='text-3xl mx-auto' /><span className='text-xs'>Compare</span></Link>
                     <div className="indicator">
-                        <span className="indicator-item badge badge-secondary">{wishlistState?.wishlist?.length}</span>
-                        <Link to="wishlist"><FiHeart className='text-3xl mx-auto' /><span className='text-xs'>Wishlist </span></Link>
+                        {user === null ? (
+                            <Link to="wishlist"><FiHeart className='text-3xl mx-auto' /><span className='text-xs'>Wishlist </span></Link>
+                        ) : (
+                            <>
+                                <span className="indicator-item badge badge-secondary">{wishlistState && wishlistState?.wishlist?.lengthh > 0 ? wishlistState?.wishlist?.length : 0}</span>
+                                <Link to="wishlist"><FiHeart className='text-3xl mx-auto' /><span className='text-xs'>Wishlist </span></Link>
+                            </>
+                        )}
                     </div>
-                    <Link to="cart"><MdAddShoppingCart className='text-3xl mx-auto' /><span className='text-xs'>Cart</span></Link>
+                    <div className="indicator">
+                        {user === null ? (
+                            <Link to="cart"><MdAddShoppingCart className='text-3xl mx-auto mt-1' /><span className='text-xs'>Cart</span></Link>
+                        ) : (
+                            <>
+                                <span className="indicator-item badge badge-secondary">{cart && cart?.lengthh > 0 ? cart?.length : 0}</span>
+                                <Link to="cart"><MdAddShoppingCart className='text-3xl mx-auto' /><span className='text-xs'>Cart</span></Link>
+                            </>
+                        )}
+                    </div>
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0}><BiUserCircle className='text-3xl mx-auto' /><span className='text-xs'>Account</span></label>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52 text-gray-800 text-sm">
                             {user === null ? (
                                 <>
-                                <h1 className='px-4 pt-4 text-sm font-bold mb-1'>My Account</h1>
+                                    <h1 className='px-4 pt-4 text-sm font-bold mb-1'>My Account</h1>
                                     <Link className='px-4 py-2 border-b border-gray-200' to="signup">Sign up</Link>
                                     <Link className='px-4 pb-4 pt-2' to="signin">Sign in</Link>
                                 </>

@@ -39,7 +39,6 @@ const Signup = () => {
         },
         validationSchema: schema,
         onSubmit: (values) => {
-            console.log((values))
             dispatch(signup(values));
 
         },

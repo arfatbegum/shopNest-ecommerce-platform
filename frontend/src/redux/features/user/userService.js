@@ -67,6 +67,20 @@ const getUserOrders = async () => {
     }
 };
 
+const forgetPasswordToken = async (data) => {
+    const response = await axios.put(`${base_url}user/forgot-password-token`, data);
+    if (response.data) {
+        return response.data;
+    }
+};
+
+const resetPassword = async (token, password) => {
+    const response = await axios.put(`${base_url}user/forgot-password/${token}`, { password });
+    if (response.data) {
+        return response.data;
+    }
+};
+
 const authService = {
     signup,
     signin,
@@ -76,7 +90,9 @@ const authService = {
     removeFromCart,
     updateCart,
     createOrders,
-    getUserOrders
+    getUserOrders,
+    forgetPasswordToken,
+    resetPassword
 };
 
 export default authService;

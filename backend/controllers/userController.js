@@ -19,7 +19,6 @@ paypal.configure({
     client_secret: process.env.PAYPAL_SECRET,
 })
 
-
 // Create a User
 const createUser = asyncHandler(async (req, res) => {
     const email = req.body.email;
@@ -235,21 +234,21 @@ const updatePassword = asyncHandler(async (req, res) => {
     }
 });
 
-//Save forgot Password Token
+// Save forgot Password Token
 const forgotPasswordToken = asyncHandler(async (req, res) => {
-    const { eamil } = req.body;
-    const user = await User.findOne({ eamil });
+    const { email } = req.body;
+    const user = await User.findOne({ email });
     if (!user) throw new Error("User not Found with this Email");
     try {
         const token = await user.createPasswordResetToken();
         await user.save();
-        const resetURL = `Please follow this link to reset your password. This link is valid till 10 minutes.<a href='http://localhost:5000/api/user/forgot-password ${token}'>Click here</a>`
+        const resetURL = `Please follow this link to reset your password. This link is valid till 10 minutes.<Link to='http://localhost:3000/reset-password/${token}'>Click here</Link>`;
         const data = {
-            to: eamil,
+            to: email, // Fix typo: eamil => email
             subject: "Forgot Password Link",
             text: "Hello",
             html: resetURL,
-        }
+        };
         sendEmail(data);
         res.json(token);
     }
@@ -257,6 +256,7 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
         throw new Error(error);
     }
 });
+
 
 //Save forgot Password
 const forgotPassword = asyncHandler(async (req, res) => {
@@ -267,7 +267,8 @@ const forgotPassword = asyncHandler(async (req, res) => {
         passwordResetToken: hashedToken,
         passwordResetExpires: { $gt: Date.now() }
     });
-    if (!user) throw new Error("Token Expired! Please try again later.");
+    if (!user)
+        throw new Error("Token Expired! Please try again later.");
     user.password = password;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
@@ -468,11 +469,11 @@ const createOrder = asyncHandler(async (req, res) => {
 const getUserOrders = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const userOrders = await Order.find({ user: _id })
-      .populate("orderItems.productId")
-      .populate("orderItems.color");
+        .populate("orderItems.productId")
+        .populate("orderItems.color");
     res.json(userOrders);
-  });
-  
+});
+
 
 // Get all orders
 const getOrders = asyncHandler(async (req, res) => {
@@ -525,11 +526,12 @@ module.exports = {
     saveAddress,
     addToCart,
     getCart,
+    updateCart,
     removeCart,
     applyCoupon,
     createOrder,
     getOrders,
     getUserOrders,
     updateOrderStatus,
-    updateCart
+
 };
