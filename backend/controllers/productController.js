@@ -137,25 +137,26 @@ const rating = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { star, comment, productId } = req.body;
   try {
-    const product = await Product.findById(productId);
+    const product = await Product.findById(productId).populate('ratings.postedby', '-password');
+
     let alreadyRated = product.ratings.find(
-      (userId) => userId.postedby.toString() === _id.toString()
+      (rating) => rating.postedby._id.toString() === _id.toString()
     );
-    console.log(alreadyRated)
+
     if (alreadyRated) {
-      const updateRating = await Product.updateOne(
+      await Product.updateOne(
         {
-          ratings: { $elemMatch: alreadyRated },
+          'ratings._id': alreadyRated._id,
         },
         {
-          $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+          $set: { 'ratings.$.star': star, 'ratings.$.comment': comment },
         },
         {
           new: true,
         }
       );
     } else {
-      const rateProduct = await Product.findByIdAndUpdate(
+      await Product.findByIdAndUpdate(
         productId,
         {
           $push: {
@@ -171,12 +172,12 @@ const rating = asyncHandler(async (req, res) => {
         }
       );
     }
+
     const getallratings = await Product.findById(productId);
     let totalRating = getallratings.ratings.length;
-    let ratingsum = getallratings.ratings
-      .map((item) => item.star)
-      .reduce((prev, curr) => prev + curr, 0);
+    let ratingsum = getallratings.ratings.map((item) => item.star).reduce((prev, curr) => prev + curr, 0);
     let actualRating = Math.round(ratingsum / totalRating);
+
     let finalproduct = await Product.findByIdAndUpdate(
       productId,
       {
@@ -184,11 +185,14 @@ const rating = asyncHandler(async (req, res) => {
       },
       { new: true }
     );
+
     res.json(finalproduct);
   } catch (error) {
-    throw new Error(error);
+    res.status(500).json({ error: 'An error occurred while updating the rating.' });
   }
 });
+
+
 
 module.exports = {
   createProduct,

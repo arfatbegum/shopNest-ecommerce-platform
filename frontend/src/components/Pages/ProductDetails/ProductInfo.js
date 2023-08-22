@@ -15,9 +15,10 @@ import Linkedin from '../../Assets/icons/linkedin.svg';
 import Github from '../../Assets/icons/github.svg';
 import Paypal from '../../Assets/icons/paypal.svg';
 import Stripe from '../../Assets/icons/stripe.svg';
-import { addToCart } from '../../../redux/features/user/userSlice';
+import { addToCart, getWishlists } from '../../../redux/features/user/userSlice';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { addToWishlist } from '../../../redux/features/products/productSlice';
 
 const ProductInfo = ({ product }) => {
     const dispatch = useDispatch();
@@ -31,6 +32,14 @@ const ProductInfo = ({ product }) => {
             dispatch(addToCart({ productId: product._id, quantity, color, price: product.price }))
             toast.success("Add to Cart")
         }
+    }
+
+    const handleAddToWishlist = (id) => {
+        dispatch(addToWishlist(id))
+        toast.success("Add to wishlist")
+        setTimeout(() => {
+            dispatch(getWishlists());
+        }, 1000)
     }
 
     const incrementQuantity = () => {
@@ -55,7 +64,7 @@ const ProductInfo = ({ product }) => {
                             edit={false}
                             activeColor="#e6bd00"
                         />
-                        <p className=" font-normal text-sm leading-3 hover:text-gray-700 duration-100 cursor-pointer text-gray-500 underline">18 reviews</p>
+                        <p className=" font-normal text-sm leading-3 hover:text-gray-700 duration-100 cursor-pointer text-gray-500 underline">{product?.ratings?.length} reviews</p>
                     </div>
                     <p className="font-bold text-2xl leading-6 text-primary mr-4 my-4">${product.price}</p>
                     <div className="mt-2">
@@ -82,33 +91,36 @@ const ProductInfo = ({ product }) => {
                             <button className='border border-gray-200 px-4' onClick={incrementQuantity}>+</button>
                         </div>
                     </div>
-                    <div className="w-full">
-                        <p className="font-semibold text-base leading-4 text-gray-800">Size</p>
-                        <div className=" grid grid-cols-3 gap-4 sm:flex sm:flex-wrap md:gap-4 sm:justify-between lg:justify-start mt-4">
-                            <div id="XS" className={"font-medium text-base leading-4 text-gray-800 border  py-3 w-20 text-center cursor-pointer "}>
-                                XS
+                    {
+                        product && product?.size ? (<>
+                            <div className="w-full">
+                                <p className="font-semibold text-base leading-4 text-gray-800">Size</p>
+                                <div className=" grid grid-cols-3 gap-4 sm:flex sm:flex-wrap md:gap-4 sm:justify-between lg:justify-start mt-4">
+                                    <div id="XS" className={"font-medium text-base leading-4 text-gray-800 border  py-3 w-20 text-center cursor-pointer "}>
+                                        XS
+                                    </div>
+                                    <div id="S" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
+                                        S
+                                    </div>
+                                    <div id="M" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
+                                        M
+                                    </div>
+                                    <div id="L" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
+                                        L
+                                    </div>
+                                    <div id="XL" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
+                                        XL
+                                    </div>
+                                </div>
                             </div>
-                            <div id="S" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
-                                S
-                            </div>
-                            <div id="M" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
-                                M
-                            </div>
-                            <div id="L" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
-                                L
-                            </div>
-                            <div id="XL" className={"font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer "}>
-                                XL
-                            </div>
-                        </div>
-                    </div>
-                    <p className=" mt-4 font-normal text-sm leading-3 text-gray-500 hover:text-gray-600 duration-100 underline cursor-pointer">Find the perfect size?<span className='underline ml-2'>Size guide</span></p>
-
+                            <p className=" mt-4 font-normal text-sm leading-3 text-gray-500 hover:text-gray-600 duration-100 underline cursor-pointer">Find the perfect size?<span className='underline ml-2'>Size guide</span></p>
+                        </>) : ""
+                    }
                     <div className="flex space-x-2 mt-7">
                         <button onClick={() => handleAddToCart(product._id)} className='flex items-center bg-primary text-white text-sm font-bold border-2 border-primary shadow-sm rounded bottom-4 px-6 py-2'>
                             Add To Cart <MdAddShoppingCart className='text-xl ml-2'></MdAddShoppingCart>
                         </button>
-                        <button className='bg-white border border-primary rounded shadow-sm '>
+                        <button onClick={(e) => { handleAddToWishlist(product?._id) }} className='bg-white border border-primary rounded shadow-sm '>
                             <FiHeart className='text-4xl text-primary px-2' />
                         </button>
                         <button className='bg-white border border-primary rounded shadow-sm '>
