@@ -38,8 +38,8 @@ const ProductDetails = () => {
                     <div className="container py-7 mx-auto">
                         <div className='flex font-bold border-b-2 border-primary'>
                             <button onClick={() => getComponent(<ProductDescription product={product} />)} className='bg-primary text-white font-bold px-4 py-2 border-r border-gray-200'>Description</button>
-                            <button onClick={() => getComponent(<ProductReviews />)} className='bg-primary text-white font-bold px-4 py-2 border-r border-gray-200'>Reviews</button>
-                            <button onClick={() => getComponent(<ReviewForm />)} className='bg-primary text-white font-bold px-4 py-2'>Write Review</button>
+                            <button onClick={() => getComponent(<ProductReviews product={product}/>)} className='bg-primary text-white font-bold px-4 py-2 border-r border-gray-200'>Reviews</button>
+                            <button onClick={() => getComponent(<ReviewForm product={product}/>)}  className='bg-primary text-white font-bold px-4 py-2'>Write Review</button>
                         </div>
                         <div className="p-4 bg-white">
                             {component}

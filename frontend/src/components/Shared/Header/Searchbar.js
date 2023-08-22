@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { MdAddShoppingCart } from "@react-icons/all-files/md/MdAddShoppingCart";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
