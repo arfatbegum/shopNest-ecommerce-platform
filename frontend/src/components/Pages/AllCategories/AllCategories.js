@@ -5,13 +5,13 @@ import FilterAvailablity from './FilterAvailablity';
 import FilterCategories from './FilterCategories';
 import FilterColor from './FilterColor';
 import FilterPrices from './FilterPrices';
-import FilterSizes from './FilterSizes';
 import FilterTags from './FilterTags';
 import RandomProduct from './RandomProduct';
 import FilterProducts from './FilterProducts';
 import Actionbar from './Actionbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../../redux/features/products/productSlice';
+import FilterBrand from './FilterBrand';
 
 const AllCategories = () => {
     const [grid, setGrid] = useState(4);
@@ -29,11 +29,11 @@ const AllCategories = () => {
             <div className="flex lg:px-10 px-4 gap-5">
                 <div className="lg:w-1/6 lg:block md:hidden hidden">
                     <FilterCategories />
-                    <FilterAvailablity />
                     <FilterPrices />
-                    <FilterColor />
-                    <FilterSizes />
+                    <FilterColor />                                      
+                    <FilterBrand />
                     <FilterTags />
+                    <FilterAvailablity />          
                     <RandomProduct />
                 </div>
                 <div className="lg:w-5/6 w-full">

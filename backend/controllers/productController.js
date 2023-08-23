@@ -1,5 +1,6 @@
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
+const Color = require("../models/colorModal");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const validateMongoDbId = require("../utils/validateMongoDbId");
@@ -58,47 +59,76 @@ const getAllProduct = asyncHandler(async (req, res) => {
   try {
     // Filtering
     const queryObj = { ...req.query };
-    const excludeFields = ["page", "sort", "limit", "fields"];
+    const excludeFields = ["page", "sort", "limit", "fields", "minPrice", "maxPrice", "available"];
     excludeFields.forEach((el) => delete queryObj[el]);
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-    let query = Product.find(JSON.parse(queryStr));
+    if (req.query.minPrice) {
+      queryObj.price = { $gte: parseFloat(req.query.minPrice) };
+    }
+
+    if (req.query.maxPrice) {
+      queryObj.price = { ...queryObj.price, $lte: parseFloat(req.query.maxPrice) };
+    }
+
+    if (req.query.category) {
+      queryObj.category = { $regex: req.query.category, $options: "i" };
+    }
+
+    if (req.query.brand) {
+      queryObj.brand = { $regex: req.query.brand, $options: "i" };
+    }
+
+    // Filter by color names
+    if (req.query.colors) {
+      const colorNames = req.query.colors.split(',');
+      queryObj.color = { $in: colorNames, $options: "i" };
+    }
+
+    if (req.query.tags) {
+      const tags = req.query.tags.split(',');
+      queryObj.tags = { $in: tags, $options: "i" };
+    }
+    if (req.query.stock) {
+      const stockValue = parseInt(req.query.stock);
+      queryObj.stock = { $gt: stockValue - 1 };
+    }
+
+    // Construct the main product query
+    let dbQuery = Product.find(queryObj);
 
     // Sorting
-
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
-      query = query.sort(sortBy);
+      dbQuery = dbQuery.sort(sortBy);
     } else {
-      query = query.sort("-createdAt");
+      dbQuery = dbQuery.sort("-createdAt");
     }
 
-    // limiting the fields
-
+    // Limiting the fields
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
-      query = query.select(fields);
+      dbQuery = dbQuery.select(fields);
     } else {
-      query = query.select("-__v");
+      dbQuery = dbQuery.select("-__v");
     }
 
-    // pagination
-
+    // Pagination
     const page = req.query.page;
     const limit = req.query.limit;
     const skip = (page - 1) * limit;
-    query = query.skip(skip).limit(limit);
+    dbQuery = dbQuery.skip(skip).limit(limit);
     if (req.query.page) {
       const productCount = await Product.countDocuments();
-      if (skip >= productCount) throw new Error("This Page does not exists");
+      if (skip >= productCount) throw new Error("This Page does not exist");
     }
-    const product = await query;
-    res.json(product);
+
+    const products = await dbQuery;
+    res.json(products);
   } catch (error) {
     throw new Error(error);
   }
 });
+
 const addToWishlist = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { productId } = req.body;

@@ -11,9 +11,42 @@ const initialState = {
 
 export const getAllProducts = createAsyncThunk(
     "product/getAllProducts",
-    async (_, thunkAPI) => {
+    async (filters, thunkAPI) => {
         try {
-            return await productService.getProducts();
+            return await productService.getProducts(filters);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const getCategories = createAsyncThunk(
+    "product/get-categories",
+    async (thunkAPI) => {
+        try {
+            return await productService.getProductCategories();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const getBrands = createAsyncThunk(
+    "product/brands",
+    async (thunkAPI) => {
+      try {
+        return await productService.getProductBrands();
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+      }
+    }
+  );
+
+export const filterProductsByStock  = createAsyncThunk(
+    "product/stock",
+    async (stockStatus, thunkAPI) => {
+        try {
+            return await productService.filterProductsByStock (stockStatus);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -73,6 +106,51 @@ export const productSlice = createSlice({
                 state.isSuccess = false;
                 state.message = action.error;
                 state.isLoading = false;
+            })
+            .addCase(getCategories.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCategories.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.productCategories = action.payload;
+            })
+            .addCase(getCategories.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+            })
+            .addCase(getBrands.pending, (state) => {
+                state.isLoading = true;
+              })
+              .addCase(getBrands.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.brands = action.payload;
+              })
+              .addCase(getBrands.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+              })
+            .addCase(filterProductsByStock.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(filterProductsByStock.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.stock = action.payload;
+            })
+            .addCase(filterProductsByStock.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
             })
             .addCase(getProductById.pending, (state) => {
                 state.isLoading = true;
