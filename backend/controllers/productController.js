@@ -57,7 +57,6 @@ const getaProduct = asyncHandler(async (req, res) => {
 
 const getAllProduct = asyncHandler(async (req, res) => {
   try {
-
     const queryObj = { ...req.query };
     const excludeFields = ["page", "sort", "limit", "fields", "minPrice", "maxPrice"];
     excludeFields.forEach((el) => delete queryObj[el]);
@@ -78,7 +77,6 @@ const getAllProduct = asyncHandler(async (req, res) => {
       queryObj.brand = { $regex: req.query.brand, $options: "i" };
     }
 
-    // Filter by color names
     if (req.query.colors) {
       const colorIds = req.query.colors.split(',');
       queryObj.color = { $in: colorIds.map(colorId => new mongoose.Types.ObjectId(colorId)) };
@@ -89,22 +87,16 @@ const getAllProduct = asyncHandler(async (req, res) => {
       queryObj.tags = { $in: tags, $options: "i" };
     }
 
-
-    console.log('Initial queryObj:', queryObj);
-
     if (req.query.stockStatus) {
       if (req.query.stockStatus === "inStock") {
         queryObj.quantity = { $gt: 0 };
-        console.log('After applying inStock filter:', queryObj);
       } else if (req.query.stockStatus === "outOfStock") {
         queryObj.quantity = { $lte: 0 };
-        console.log('After applying outOfStock filter:', queryObj);
       }
     }
 
     let dbQuery = Product.find(queryObj);
 
-    // Sorting
     let sortBy = "-createdAt";
 
     if (req.query.sort) {
@@ -132,15 +124,10 @@ const getAllProduct = asyncHandler(async (req, res) => {
       dbQuery = dbQuery.select("-__v");
     }
 
-    // Pagination
-    const page = req.query.page;
-    const limit = req.query.limit;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     dbQuery = dbQuery.skip(skip).limit(limit);
-    if (req.query.page) {
-      const productCount = await Product.countDocuments();
-      if (skip >= productCount) throw new Error("This Page does not exist");
-    }
 
     const products = await dbQuery;
     res.json(products);
@@ -148,6 +135,7 @@ const getAllProduct = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
 
 const addToWishlist = asyncHandler(async (req, res) => {
   const { _id } = req.user;

@@ -15,12 +15,18 @@ import FilterBrand from './FilterBrand';
 
 const AllCategories = () => {
     const [grid, setGrid] = useState(4);
+    const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
     const productState = useSelector((state) => state?.product?.products);
 
     useEffect(() => {
-        dispatch(getAllProducts());
-    }, [dispatch]);
+        dispatch(getAllProducts({ page: currentPage })); // Pass current page to the action
+    }, [dispatch, currentPage]);
+
+    // Function to handle pagination
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
 
     return (
         <>
@@ -38,7 +44,12 @@ const AllCategories = () => {
                 </div>
                 <div className="lg:w-5/6 w-full">
                     <Actionbar setGrid={setGrid} />
-                    <FilterProducts products={productState} grid={grid} />
+                    <FilterProducts
+                        products={productState}
+                        grid={grid}
+                        currentPage={currentPage} 
+                        onPageChange={handlePageChange} 
+                    />
                 </div>
             </div>
         </>
