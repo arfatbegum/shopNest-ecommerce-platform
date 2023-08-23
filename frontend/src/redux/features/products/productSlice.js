@@ -34,19 +34,30 @@ export const getCategories = createAsyncThunk(
 export const getBrands = createAsyncThunk(
     "product/brands",
     async (thunkAPI) => {
-      try {
-        return await productService.getProductBrands();
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error);
-      }
+        try {
+            return await productService.getProductBrands();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
     }
-  );
+);
 
-export const filterProductsByStock  = createAsyncThunk(
+export const getColors = createAsyncThunk(
+    "product/colors",
+    async (thunkAPI) => {
+        try {
+            return await productService.getProductColors();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const filterProductsByStock = createAsyncThunk(
     "product/stock",
     async (stockStatus, thunkAPI) => {
         try {
-            return await productService.filterProductsByStock (stockStatus);
+            return await productService.filterProductsByStock(stockStatus);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -124,19 +135,34 @@ export const productSlice = createSlice({
             })
             .addCase(getBrands.pending, (state) => {
                 state.isLoading = true;
-              })
-              .addCase(getBrands.fulfilled, (state, action) => {
+            })
+            .addCase(getBrands.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
                 state.brands = action.payload;
-              })
-              .addCase(getBrands.rejected, (state, action) => {
+            })
+            .addCase(getBrands.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;
                 state.message = action.error;
-              })
+            })
+            .addCase(getColors.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getColors.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.colors = action.payload;
+            })
+            .addCase(getColors.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+            })
             .addCase(filterProductsByStock.pending, (state) => {
                 state.isLoading = true;
             })

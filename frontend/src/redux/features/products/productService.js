@@ -26,6 +26,12 @@ const getProductBrands = async () => {
     const response = await axios.get(`${base_url}brand/`);
   
     return response.data;
+};
+  
+const getProductColors = async () => {
+    const response = await axios.get(`${base_url}color/`);
+  
+    return response.data;
   };
 
 const filterProductsByStock = async (stockStatus) => {
@@ -56,6 +62,7 @@ const productService = {
     getProducts,
     getProduct,
     getProductCategories,
+    getProductColors,
     filterProductsByStock,
     getProductBrands,
     addToWishlist,

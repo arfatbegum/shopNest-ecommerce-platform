@@ -66,5 +66,11 @@ var productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Define a virtual property for stockStatus
+productSchema.virtual("stockStatus").get(function () {
+  return this.quantity > 0 ? "inStock" : "outOfStock";
+});
+
+
 //Export the model
 module.exports = mongoose.model("Product", productSchema);

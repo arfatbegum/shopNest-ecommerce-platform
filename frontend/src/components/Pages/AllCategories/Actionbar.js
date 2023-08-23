@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Line from '../../Assets/icons/line.svg';
+import { useDispatch } from 'react-redux';
+import { getAllProducts } from '../../../redux/features/products/productSlice';
 const Actionbar = ({ setGrid }) => {
+    const dispatch = useDispatch();
+    const [selectedSort, setSelectedSort] = useState('manual');
+
+    const handleSortChange = (event) => {
+        const newSortOption = event.target.value;
+        setSelectedSort(newSortOption);
+        dispatch(getAllProducts({ sort: newSortOption }));
+    };
+
     return (
         <div className="mb-4">
             <div className="bg-primary text-white p-3 lg:flex md:flex justify-between items-center">
@@ -11,19 +22,18 @@ const Actionbar = ({ setGrid }) => {
                     <select
                         name=""
                         defaultValue={"manula"}
+                        value={selectedSort}
+                        onChange={handleSortChange}
                         className="text-black outline-none p-1"
                         id=""
                     >
                         <option value="manual">Featured</option>
-                        <option value="best-selling">Best selling</option>
-                        <option value="title-ascending">Alphabetically, A-Z</option>
-                        <option value="title-descending">
-                            Alphabetically, Z-A
-                        </option>
-                        <option value="price-ascending">Price, low to high</option>
-                        <option value="price-descending">Price, high to low</option>
-                        <option value="created-ascending">Date, old to new</option>
-                        <option value="created-descending">Date, new to old</option>
+                        <option value="alphabetical">Alphabetically, A-Z</option>
+                        <option value="-alphabetical"> Alphabetically, Z-A</option>
+                        <option value="priceLowtoHigh">Price, low to high</option>
+                        <option value="priceHighToLow">Price, high to low</option>
+                        <option value="oldToNew">Date, old to new</option>
+                        <option value="NewToOld">Date, new to old</option>
                     </select>
                 </div>
                 <div className="flex items-center lg:gap-2">

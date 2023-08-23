@@ -1,9 +1,9 @@
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
-const Color = require("../models/colorModal");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const validateMongoDbId = require("../utils/validateMongoDbId");
+const { default: mongoose } = require("mongoose");
 
 const createProduct = asyncHandler(async (req, res) => {
   try {
@@ -57,9 +57,9 @@ const getaProduct = asyncHandler(async (req, res) => {
 
 const getAllProduct = asyncHandler(async (req, res) => {
   try {
-    // Filtering
+
     const queryObj = { ...req.query };
-    const excludeFields = ["page", "sort", "limit", "fields", "minPrice", "maxPrice", "available"];
+    const excludeFields = ["page", "sort", "limit", "fields", "minPrice", "maxPrice"];
     excludeFields.forEach((el) => delete queryObj[el]);
 
     if (req.query.minPrice) {
@@ -80,31 +80,51 @@ const getAllProduct = asyncHandler(async (req, res) => {
 
     // Filter by color names
     if (req.query.colors) {
-      const colorNames = req.query.colors.split(',');
-      queryObj.color = { $in: colorNames, $options: "i" };
+      const colorIds = req.query.colors.split(',');
+      queryObj.color = { $in: colorIds.map(colorId => new mongoose.Types.ObjectId(colorId)) };
     }
 
     if (req.query.tags) {
       const tags = req.query.tags.split(',');
       queryObj.tags = { $in: tags, $options: "i" };
     }
-    if (req.query.stock) {
-      const stockValue = parseInt(req.query.stock);
-      queryObj.stock = { $gt: stockValue - 1 };
+
+
+    console.log('Initial queryObj:', queryObj);
+
+    if (req.query.stockStatus) {
+      if (req.query.stockStatus === "inStock") {
+        queryObj.quantity = { $gt: 0 };
+        console.log('After applying inStock filter:', queryObj);
+      } else if (req.query.stockStatus === "outOfStock") {
+        queryObj.quantity = { $lte: 0 };
+        console.log('After applying outOfStock filter:', queryObj);
+      }
     }
 
-    // Construct the main product query
     let dbQuery = Product.find(queryObj);
 
     // Sorting
+    let sortBy = "-createdAt";
+
     if (req.query.sort) {
-      const sortBy = req.query.sort.split(",").join(" ");
-      dbQuery = dbQuery.sort(sortBy);
-    } else {
-      dbQuery = dbQuery.sort("-createdAt");
+      if (req.query.sort === "alphabetical") {
+        sortBy = "title";
+      } else if (req.query.sort === "-alphabetical") {
+        sortBy = "-title";
+      } else if (req.query.sort === "priceHighToLow") {
+        sortBy = "-price";
+      } else if (req.query.sort === "priceLowtoHigh") {
+        sortBy = "price";
+      } else if (req.query.sort === "oldToNew") {
+        sortBy = "-createdAt";
+      } else if (req.query.sort === "NewToOld") {
+        sortBy = "createdAt";
+      }
     }
 
-    // Limiting the fields
+    dbQuery = dbQuery.sort(sortBy);
+
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
       dbQuery = dbQuery.select(fields);
