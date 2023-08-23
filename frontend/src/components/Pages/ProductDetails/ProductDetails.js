@@ -46,7 +46,7 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 </div>
-                <RelatedProducts />
+                <RelatedProducts products={product}/>
             </div>
         </div>
     );
