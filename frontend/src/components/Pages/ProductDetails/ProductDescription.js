@@ -2,9 +2,7 @@ import React from 'react';
 
 const ProductDescription = ({ product }) => {
     return (
-        <div className='lg:p-4'>
-            {product?.description}
-        </div>
+        <div className='lg:p-4' dangerouslySetInnerHTML={{ __html: product?.description }} />
     );
 };
 

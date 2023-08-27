@@ -44,7 +44,7 @@ const FeaturedProductCard = ({ product }) => {
                             activeColor="#e6bd00"
                         />
                         <p className='flex items-center'>
-                            <span className="text-red-600 text-xl font-bold">${product?.price}</span> &nbsp; <strike className="ml-1 text-gray-500">${product?.salePrice}</strike>
+                            <span className="text-red-600 text-xl font-bold">${product?.salePrice}</span> &nbsp; <strike className="ml-1 text-gray-500">${product?.price}</strike>
                         </p>
                         <CountDown />
                     </div>

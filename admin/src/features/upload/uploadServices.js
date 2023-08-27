@@ -4,7 +4,7 @@ import { base_url } from "../../utils/baseUrl";
 
 const uploadImg = async (data) => {
   console.log(data)
-  const response = await axios.post(`${base_url}upload/`, data, config);
+  const response = await axios.post(`${base_url}upload`, data, config);
   console.log(data)
   return response.data;
 };

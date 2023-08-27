@@ -20,7 +20,7 @@ const AllCategories = () => {
     const productState = useSelector((state) => state?.product?.products);
 
     useEffect(() => {
-        dispatch(getAllProducts({ page: currentPage })); // Pass current page to the action
+        dispatch(getAllProducts({ page: currentPage }));
     }, [dispatch, currentPage]);
 
     // Function to handle pagination

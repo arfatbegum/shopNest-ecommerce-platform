@@ -15,8 +15,8 @@ const FilterProducts = ({ products, currentPage, onPageChange }) => {
     return (
         <div className="pb-5">
             <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-2">
-                {productsToShow.length > 0 ? (
-                    productsToShow.map((product) => (
+                {productsToShow?.length > 0 ? (
+                    productsToShow?.map((product) => (
                         <ProductCard key={product._id} product={product} />
                     ))
                 ) : (
@@ -34,7 +34,7 @@ const FilterProducts = ({ products, currentPage, onPageChange }) => {
                 <span className="px-4 py-2 border rounded m-2">{currentPage}</span>
                 <button
                     className="px-4 py-1.5 border bg-primary text-white rounded"
-                    disabled={products.length <= endIndex}
+                    disabled={products?.length <= endIndex}
                     onClick={() => onPageChange(currentPage + 1)}
                 >
                     Next

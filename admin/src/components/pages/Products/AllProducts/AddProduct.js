@@ -111,7 +111,7 @@ const AddProduct = ({ onClose }) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getProducts());
-      }, 3000);
+      }, 200);
     },
   });
 

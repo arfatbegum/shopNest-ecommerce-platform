@@ -85,9 +85,9 @@ const ProductsList = () => {
 
     const productState = useSelector((state) => state.product.products);
 
-    const data1 = [];
+    const data = [];
     for (let i = 0; i < productState.length; i++) {
-        data1.push({
+        data.push({
             key: i + 1,
             image: <img src={productState[i]?.images[0]?.url} alt='img' className='w-16 h-16' />,
             name: productState[i].name,
@@ -97,7 +97,7 @@ const ProductsList = () => {
             salePrice: <div className='font-semibold'>${productState[i].salePrice}</div>,
             quantity: productState[i].quantity,
             status: productState[i].quantity > 0 ?
-                <p className='bg-green-600 text-white text-center rounded font-medium py-1'>In stock</p>
+                <p className='bg-green-600 text-white text-center rounded text-sm font-medium'>In stock</p>
                 :
                 <p className='bg-red-600 text-white text-center rounded font-medium py-1'>Stock out</p>,
             published: <div className='text-center'><Switch size="small" defaultChecked /></div>,
@@ -128,7 +128,6 @@ const ProductsList = () => {
 
     return (
         <div>
-            <Table columns={columns} dataSource={data1} />
             <Modal
                 title="Confirmation"
                 centered
@@ -145,6 +144,7 @@ const ProductsList = () => {
             <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
                 <UpdateProduct productId={productId} onClose={onClose} />
             </Drawer>
+            <Table  columns={columns} dataSource={data} />
         </div>
     );
 };
