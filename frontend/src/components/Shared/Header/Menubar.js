@@ -35,7 +35,7 @@ const Menubar = () => {
                                     productCategories?.map((category) => (
                                         <li key={category._id} className='w-full border-b border-gray-200'>
                                             <Link
-                                                to={`${location.pathname}?category=${encodeURIComponent(category.title)}`}
+                                                to={`shop/${location.pathname}?category=${encodeURIComponent(category.title)}`}
                                                 onClick={() => handleCategoryClick(category.title)}
                                             >
                                                 {category.title}
@@ -51,10 +51,10 @@ const Menubar = () => {
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <li><Link to="/">HOME</Link></li>
-                    <li><Link to="contact">CONTACT US</Link></li>
+                    <li><Link to="shop">SHOP</Link></li>
                     <li><Link to="blogs">BLOG</Link></li>
                     <li><Link to="policy">SHIPPING & RETURNS</Link></li>
-                    <li><Link to="hotDeals">HOT DEALS</Link></li>
+                    <li><Link to="contact">CONTACT US</Link></li>
                 </ul>
             </div>
             <div className="navbar-end gap-4 pr-5">

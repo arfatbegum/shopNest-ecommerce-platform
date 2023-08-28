@@ -9,7 +9,11 @@ const FilterCategories = () => {
     const productCategories = useSelector((state) => state?.product?.productCategories);
 
     const handleCategoryClick = (category) => {
-        dispatch(getAllProducts({ category }));
+        if (category === 'All Categories') {
+            dispatch(getAllProducts());
+        } else {
+            dispatch(getAllProducts({ category }));
+        }
     };
 
     useEffect(() => {
@@ -18,7 +22,10 @@ const FilterCategories = () => {
 
     return (
         <div className="w-full bg-white text-gray-500 font-normal border border-gray-200 shadow-sm">
-            <h3 className="bg-primary flex text-white p-3 font-semibold text-sm"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 pr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>All Categories</h3>
+            <Link
+                to={location.pathname}
+                onClick={() => handleCategoryClick('All Categories')}
+                className="bg-primary flex text-white p-3 font-semibold text-sm"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 pr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>All Categories</Link>
             <ul>
                 {
                     productCategories && productCategories?.length > 0 &&

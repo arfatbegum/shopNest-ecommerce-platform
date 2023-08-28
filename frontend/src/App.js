@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import About from "./components/Pages/About/About";
-import AllCategories from "./components/Pages/AllCategories/AllCategories";
 import BlogDetails from "./components/Pages/Blogs/BlogDetails";
 import Blogs from "./components/Pages/Blogs/Blogs";
 import Cart from "./components/Pages/Cart/Cart";
@@ -21,6 +20,7 @@ import Payment from "./components/Pages/Payment/Payment";
 import PrivateRoute from "./routes/PrivateRoutes";
 import MyOrders from "./components/Pages/MyOrders/MyOrders";
 import Policy from "./components/Pages/Policy/Policy";
+import Shop from "./components/Pages/Shop/Shop";
 
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="all-categories" element={<AllCategories />} />
+        <Route path="shop" element={<Shop />} />
         <Route path="product-details/:id" element={<ProductDetails />} />
         <Route path="blogs" element={<Blogs />} />
         <Route path="blog/:id" element={<BlogDetails />} />

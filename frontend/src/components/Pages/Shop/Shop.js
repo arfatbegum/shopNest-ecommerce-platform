@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BreadCrumb from '../../Shared/BreadCrumb';
 import Meta from '../../Shared/Meta';
-import FilterAvailablity from './FilterAvailablity';
 import FilterCategories from './FilterCategories';
 import FilterColor from './FilterColor';
 import FilterPrices from './FilterPrices';
@@ -13,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../../redux/features/products/productSlice';
 import FilterBrand from './FilterBrand';
 
-const AllCategories = () => {
+const Shop = () => {
     const [grid, setGrid] = useState(4);
     const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
@@ -38,8 +37,7 @@ const AllCategories = () => {
                     <FilterPrices />
                     <FilterColor />                                      
                     <FilterBrand />
-                    <FilterTags />
-                    <FilterAvailablity />          
+                    <FilterTags />       
                     <RandomProduct />
                 </div>
                 <div className="lg:w-5/6 w-full">
@@ -56,4 +54,4 @@ const AllCategories = () => {
     );
 };
 
-export default AllCategories;
+export default Shop;

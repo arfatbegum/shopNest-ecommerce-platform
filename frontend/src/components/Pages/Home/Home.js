@@ -15,25 +15,33 @@ import { getAllProducts } from '../../../redux/features/products/productSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const productState = useSelector((state) => state?.product?.products);
+    const productState = useSelector((state) => state?.product);
+    const products = productState?.products
 
     useEffect(() => {
         dispatch(getAllProducts());
     }, [dispatch]);
 
     return (
+
         <div>
             <Meta title={"Home - Shoppable"} />
-            <Hero />
-            <InfoSection />
-            <CategoryBanner />
-            <FeaturedProducts products={productState} />
-            <NewProducts products={productState} />
-            <DiscountBanner />
-            <ElectronicsCategory products={productState} />
-            <FashionAndAccessories products={productState} />
-            <BlogsSection />
-            <TwoBanners />
+            {productState?.isLoading ? (
+                <span className="loading loading-dots loading-lg"></span>
+            ) : (
+                <>
+                    <Hero />
+                    <InfoSection />
+                    <CategoryBanner />
+                    <FeaturedProducts products={products} />
+                    <NewProducts products={products} />
+                    <DiscountBanner />
+                    <ElectronicsCategory products={products} />
+                    <FashionAndAccessories products={products} />
+                    <BlogsSection />
+                    <TwoBanners />
+                </>
+            )}
         </div>
     );
 };

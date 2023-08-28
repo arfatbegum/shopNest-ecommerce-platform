@@ -24,7 +24,7 @@ const ProductInfo = ({ product }) => {
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState(null);
-
+    console.log(product.color)
     const handleAddToCart = () => {
         if (color === null) {
             toast.error("Please Choose Color")
@@ -77,7 +77,8 @@ const ProductInfo = ({ product }) => {
                                     onClick={() => setColor(clr._id)}
                                     key={clr._id}
                                     tabIndex="0"
-                                    className={`focus:outline-none ring-1 ring-offset-2 ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-[${clr.colorCode}]`}
+                                    className={`focus:outline-none ring-1 ring-offset-2 ring-gray-800 rounded-full cursor-pointer w-8 h-8`}
+                                    style={{ backgroundColor: clr?.colorCode }}
                                 ></div>
                             ))}
 
