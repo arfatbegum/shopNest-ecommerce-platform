@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { getAllProducts, getCategories } from '../../../redux/features/products/productSlice';
+import { getAllProducts } from '../../../redux/features/products/productSlice';
 
-const FilterCategories = () => {
+
+const FilterCategories = ({ productCategories }) => {
     const location = useLocation();
     const dispatch = useDispatch();
-    const productCategories = useSelector((state) => state?.product?.productCategories);
 
     const handleCategoryClick = (category) => {
         if (category === 'All Categories') {
@@ -15,10 +14,6 @@ const FilterCategories = () => {
             dispatch(getAllProducts({ category }));
         }
     };
-
-    useEffect(() => {
-        dispatch(getCategories());
-    }, [dispatch]);
 
     return (
         <div className="w-full bg-white text-gray-500 font-normal border border-gray-200 shadow-sm">

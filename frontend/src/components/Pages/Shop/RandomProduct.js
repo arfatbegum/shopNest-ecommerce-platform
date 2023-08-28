@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../../Shared/ProductCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts } from '../../../redux/features/products/productSlice';
 
-const RandomProduct = () => {
-    const dispatch = useDispatch();
-    const productState = useSelector((state) => state?.product?.products);
+const RandomProduct = ({products}) => {
     const [randomProduct, setRandomProduct] = useState(null);
 
     useEffect(() => {
-        dispatch(getAllProducts());
-    }, [dispatch]);
-
-    useEffect(() => {
-        if (productState.length > 0) {
-            const randomIndex = Math.floor(Math.random() * productState.length);
-            setRandomProduct(productState[randomIndex]);
+        if (products.length > 0) {
+            const randomIndex = Math.floor(Math.random() * products.length);
+            setRandomProduct(products[randomIndex]);
         }
-    }, [productState]);
+    }, [products]);
 
     return (
         <div className="mb-3">

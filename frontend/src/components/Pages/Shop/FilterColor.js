@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import { getAllProducts, getColors } from '../../../redux/features/products/productSlice';
+import { getAllProducts } from '../../../redux/features/products/productSlice';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-const FilterColor = () => {
+const FilterColor = ({ productColors }) => {
     const location = useLocation();
     const dispatch = useDispatch();
-    const productColors = useSelector((state) => state?.product?.colors);
 
     const handleFilterColor = (color) => {
         if (color === 'All Colors') {
@@ -16,15 +14,11 @@ const FilterColor = () => {
         }
     };
 
-    useEffect(() => {
-        dispatch(getColors());
-    }, [dispatch]);
-
     return (
         <div className="w-full my-3 bg-white text-gray-500 font-normal border border-gray-200 shadow-sm">
             <Link
-                   to={location.pathname}
-                   onClick={() => handleFilterColor('All Colors')}
+                to={location.pathname}
+                onClick={() => handleFilterColor('All Colors')}
                 className="bg-primary flex text-white p-3 font-semibold text-sm">Colors</Link>
             <div className="p-4">
                 {

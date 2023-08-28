@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { getAllProducts, getBrands, getCategories, getColors } from '../../../redux/features/products/productSlice';
 import BreadCrumb from '../../Shared/BreadCrumb';
 import Meta from '../../Shared/Meta';
+import Loader from '../../Shared/Loader';
 import FilterCategories from './FilterCategories';
 import FilterColor from './FilterColor';
 import FilterPrices from './FilterPrices';
@@ -9,17 +11,23 @@ import RandomProduct from './RandomProduct';
 import FilterProducts from './FilterProducts';
 import Actionbar from './Actionbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts } from '../../../redux/features/products/productSlice';
 import FilterBrand from './FilterBrand';
 
 const Shop = () => {
-    const [grid, setGrid] = useState(4);
-    const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
-    const productState = useSelector((state) => state?.product?.products);
+    const [currentPage, setCurrentPage] = useState(1);
+    const productState = useSelector((state) => state?.product);
+    const products = productState?.products;
+    const isLoading = productState?.isLoading;
+    const productCategories = productState?.productCategories;
+    const productBrands = productState?.brands;
+    const productColors = productState?.colors;
 
     useEffect(() => {
         dispatch(getAllProducts({ page: currentPage }));
+        dispatch(getCategories());
+        dispatch(getBrands());
+        dispatch(getColors());
     }, [dispatch, currentPage]);
 
     // Function to handle pagination
@@ -28,29 +36,34 @@ const Shop = () => {
     };
 
     return (
-        <>
-            <Meta title={"All Categories"} />
-            <BreadCrumb title="All Categories" />
-            <div className="flex lg:px-10 px-4 gap-5">
-                <div className="lg:w-1/6 lg:block md:hidden hidden">
-                    <FilterCategories />
-                    <FilterPrices />
-                    <FilterColor />                                      
-                    <FilterBrand />
-                    <FilterTags />       
-                    <RandomProduct />
-                </div>
-                <div className="lg:w-5/6 w-full">
-                    <Actionbar setGrid={setGrid} />
-                    <FilterProducts
-                        products={productState}
-                        grid={grid}
-                        currentPage={currentPage} 
-                        onPageChange={handlePageChange} 
-                    />
-                </div>
-            </div>
-        </>
+        <div>
+            <Meta title={"Shop - Shoppable"} />
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <>
+                    <BreadCrumb title="Shop" />
+                    <div className="flex lg:px-10 px-4 gap-5">
+                        <div className="lg:w-1/6 lg:block md:hidden hidden">
+                            <FilterCategories productCategories={productCategories} />
+                            <FilterPrices />
+                            <FilterColor productColors={productColors} />
+                            <FilterBrand productBrands={productBrands} />
+                            <FilterTags />
+                            <RandomProduct products={products} />
+                        </div>
+                        <div className="lg:w-5/6 w-full">
+                            <Actionbar />
+                            <FilterProducts
+                                products={products}
+                                currentPage={currentPage}
+                                onPageChange={handlePageChange}
+                            />
+                        </div>
+                    </div>
+                </>
+            )}
+        </div>
     );
 };
 

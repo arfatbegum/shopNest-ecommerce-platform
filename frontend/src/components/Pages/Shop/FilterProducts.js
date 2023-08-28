@@ -4,13 +4,13 @@ const FilterProducts = ({ products, currentPage, onPageChange }) => {
     const productsPerPage = 25;
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
-    const productsToShow = products.slice(startIndex, endIndex);
+    const productsToShow = products && products?.length && products?.slice(startIndex, endIndex);
     const totalPages = Math.ceil(products.length / productsPerPage);
 
     return (
         <div className="pb-5">
             <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-2">
-                {productsToShow.length > 0 ? (
+                {productsToShow && productsToShow?.length > 0 ? (
                     productsToShow.map((product) => (
                         <ProductCard key={product._id} product={product} />
                     ))

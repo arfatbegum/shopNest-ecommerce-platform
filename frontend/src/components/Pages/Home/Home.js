@@ -12,6 +12,7 @@ import NewProducts from './NewProducts';
 import TwoBanners from './TwoBanners';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../../redux/features/products/productSlice';
+import Loader from '../../Shared/Loader';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Home = () => {
         <div>
             <Meta title={"Home - Shoppable"} />
             {productState?.isLoading ? (
-                <span className="loading loading-dots loading-lg"></span>
+                <Loader />
             ) : (
                 <>
                     <Hero />

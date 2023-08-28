@@ -1,25 +1,27 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { getAllProducts, getBrands } from '../../../redux/features/products/productSlice';
+import { getAllProducts } from '../../../redux/features/products/productSlice';
 
-const FilterBrand = () => {
+const FilterBrand = ({ productBrands }) => {
     const location = useLocation();
     const dispatch = useDispatch();
-    const productBrands = useSelector((state) => state?.product?.brands);
 
 
     const handleFilterBrand = (brand) => {
-        dispatch(getAllProducts({ brand }));
-    };
+        if (brand === 'All Brands') {
+            dispatch(getAllProducts());
+        } else {
+            dispatch(getAllProducts({ brand }));
+        }
 
-    useEffect(() => {
-        dispatch(getBrands());
-    }, [dispatch]);
+    };
 
     return (
         <div className="w-full my-3 bg-white text-gray-500 font-normal border border-gray-200 shadow-sm">
-            <h5 className="bg-primary flex text-white p-3 font-semibold text-sm">Brands</h5>
+            <Link
+                to={location.pathname}
+                onClick={() => handleFilterBrand('All Brands')}
+                className="bg-primary flex text-white p-3 font-semibold text-sm">All Brands</Link>
             <ul>
                 {
                     productBrands && productBrands?.length > 0 &&
