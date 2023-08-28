@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiSend } from "@react-icons/all-files/fi/FiSend";
 import ReactStars from 'react-rating-stars-component';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addRating } from '../../../redux/features/products/productSlice';
 import { toast } from 'react-toastify';
 
@@ -9,18 +9,23 @@ const ReviewForm = ({ product }) => {
     const dispatch = useDispatch();
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
+    const user = useSelector((state) => state?.auth?.user);
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        toast.success("Review Send Successfully!")
-        const data = {
-            star: rating,
-            comment: review,
-            productId: product._id,
-        };
-        dispatch(addRating(data));
-        setRating(0);
-        setReview('');
+        if (user) {
+            toast.success("Review Sent Successfully!");
+            const data = {
+                star: rating,
+                comment: review,
+                productId: product._id,
+            };
+            dispatch(addRating(data));
+            setRating(0);
+            setReview('');
+        } else {
+            toast.error("Please Log in to submit a review");
+        }
     };
 
     return (

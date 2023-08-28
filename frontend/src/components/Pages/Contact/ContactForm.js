@@ -17,11 +17,14 @@ let schema = yup.object().shape({
     orderNumber: yup.string().required("Order Number is Required"),
     comment: yup.string().required("Comment is Required"),
 });
+
+
 const ContactForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const newContact = useSelector((state) => state.contact);
     const { isSuccess, isError, isLoading, createdContact } = newContact;
+    const user = useSelector((state) => state.auth.user);
 
     useEffect(() => {
         if (isSuccess && createdContact) {
@@ -42,14 +45,17 @@ const ContactForm = () => {
         },
         validationSchema: schema,
         onSubmit: (values) => {
+            if (!user) {
+                toast.error("You must be logged in to submit the contact form.");
+                return  navigate("/signin");
+            }
             dispatch(createEnquiry(values));
             formik.resetForm();
             setTimeout(() => {
-                navigate("/")
+                navigate("/");
             }, 1000);
         },
     });
-
 
     return (
         <form onSubmit={formik.handleSubmit} className="lg:w-2/3 md:w-1/2 lg:p-8 p-4 lg:mr-8 mb-4 lg:mb-0 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">

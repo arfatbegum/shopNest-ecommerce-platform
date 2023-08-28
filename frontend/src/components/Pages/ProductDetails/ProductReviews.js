@@ -2,7 +2,6 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 
 const ProductReviews = ({ product }) => {
-    console.log(product?.ratings)
 
     return (
         <div className="p-4">

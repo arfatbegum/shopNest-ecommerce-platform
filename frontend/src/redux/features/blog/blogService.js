@@ -1,8 +1,8 @@
 import axios from "axios";
 import { base_url } from "../../../utils/baseUrl";
 
-const getBlogs = async () => {
-    const response = await axios.get(`${base_url}blog`);
+const getBlogs = async (filters) => {
+    const response = await axios.get(`${base_url}blog`, { params: filters });
     if (response.data) {
         return response.data;
     }

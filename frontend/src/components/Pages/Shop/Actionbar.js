@@ -21,7 +21,6 @@ const Actionbar = () => {
                     </p>
                     <select
                         name=""
-                        defaultValue={"manual"} 
                         value={selectedSort}
                         onChange={handleSortChange}
                         className="text-black outline-none p-1"

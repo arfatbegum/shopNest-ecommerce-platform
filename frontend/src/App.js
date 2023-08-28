@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import About from "./components/Pages/About/About";
 import BlogDetails from "./components/Pages/Blogs/BlogDetails";
 import Blogs from "./components/Pages/Blogs/Blogs";
 import Cart from "./components/Pages/Cart/Cart";
@@ -29,7 +28,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="shop" element={<Shop />} />
         <Route path="product-details/:id" element={<ProductDetails />} />

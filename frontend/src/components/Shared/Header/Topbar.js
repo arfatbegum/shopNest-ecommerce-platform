@@ -21,12 +21,8 @@ const Topbar = () => {
                         </li>
                         <li tabIndex={0}>
                             <span className='gap-0'>
-                            <p>SAR</p><RiArrowDropDownLine className='text-lg'/>                               
+                                <p>USD</p>
                             </span>
-                            <ul className="bg-base-100">
-                                <li>USD</li>
-                                <li>SAR</li>
-                            </ul>
                         </li>
                     </ul>
                 </div>

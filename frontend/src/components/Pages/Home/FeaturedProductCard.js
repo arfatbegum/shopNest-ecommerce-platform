@@ -4,22 +4,37 @@ import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
 import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import CountDown from '../../Shared/CountDown';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist } from '../../../redux/features/products/productSlice';
-import { getWishlists } from '../../../redux/features/user/userSlice';
+import { addToCart, getWishlists } from '../../../redux/features/user/userSlice';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 const FeaturedProductCard = ({ product }) => {
     const dispatch = useDispatch();
+    const user = useSelector((state) => state?.auth?.user);
 
     const handleAddToWishlist = (id) => {
-        dispatch(addToWishlist(id))
-        toast.success("Add to wishlist")
-        setTimeout(() => {
-            dispatch(getWishlists());
-        }, 100)
+        if (user) {
+            dispatch(addToWishlist(id));
+            toast.success("Added to wishlist Successfully!");
+            setTimeout(() => {
+                dispatch(getWishlists());
+            }, 1000);
+        } else {
+            toast.error("Please Log in to add to wishlist");
+        }
     }
+
+    const handleAddToCart = (id) => {
+        if (user) {
+            dispatch(addToCart(id));
+            toast.success("Added to Cart Successfully!");
+        } else {
+            toast.error("Please Log in to add to cart");
+        }
+    }
+
     return (
         <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-white border-2 border-gray-100 flex justify-center items-center shadow-sm">
             <div className="lg:flex items-center justify-between p-8">
@@ -61,7 +76,7 @@ const FeaturedProductCard = ({ product }) => {
                     <button onClick={(e) => { handleAddToWishlist(product?._id) }} className='bg-white border-2 border-gray-200'>
                         <FiHeart className='text-xl text-primary m-2'></FiHeart>
                     </button>
-                    <button className=' bg-white border-2 border-gray-200'>
+                    <button onClick={(e) => { handleAddToCart(product?._id) }} className=' bg-white border-2 border-gray-200'>
                         <MdAddShoppingCart className='text-xl text-primary m-2'></MdAddShoppingCart>
                     </button>
                 </div>

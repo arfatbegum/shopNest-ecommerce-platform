@@ -87,14 +87,6 @@ const getAllProduct = asyncHandler(async (req, res) => {
       queryObj.tags = { $in: tags, $options: "i" };
     }
 
-    if (req.query.stockStatus) {
-      if (req.query.stockStatus === "inStock") {
-        queryObj.quantity = { $gt: 0 };
-      } else if (req.query.stockStatus === "outOfStock") {
-        queryObj.quantity = { $lte: 0 };
-      }
-    }
-
     let dbQuery = Product.find(queryObj);
 
     let sortBy = "-createdAt";

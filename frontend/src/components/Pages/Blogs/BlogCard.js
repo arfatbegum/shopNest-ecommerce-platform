@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const BlogCard = ({ blog }) => {
     return (
-        <div className="h-full border-2 border-gray-200 border-opacity-60 shadow-sm overflow-hidden">
+        <div className="bg-white h-full border-2 border-gray-200 border-opacity-60 shadow-sm overflow-hidden">
             <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={blog?.images && blog.images[0] ? blog.images[0].url : 'fallback-image-url'} alt="blog" />
             <div className="p-6">
                 <h2 className="text-xs font-bold text-gray-500 mb-2">by <strong className='text-gray-800'>{blog?.author}</strong> - {blog?.createdAt}</h2>

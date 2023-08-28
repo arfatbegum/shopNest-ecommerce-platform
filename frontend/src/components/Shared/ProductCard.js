@@ -5,7 +5,7 @@ import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
 import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist } from '../../redux/features/products/productSlice';
 import { toast } from 'react-toastify';
 import { addToCart, getWishlists } from '../../redux/features/user/userSlice';
@@ -13,18 +13,34 @@ import { addToCart, getWishlists } from '../../redux/features/user/userSlice';
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
+    const user = useSelector((state) => state?.auth?.user);
 
     const handleAddToWishlist = (id) => {
-        dispatch(addToWishlist(id))
-        toast.success("Add to wishlist")
-        setTimeout(() => {
-            dispatch(getWishlists());
-        }, 1000)
+        if (user) {
+            dispatch(addToWishlist(id));
+            toast.success("Added to wishlist Successfully!");
+            setTimeout(() => {
+                dispatch(getWishlists());
+            }, 1000);
+        } else {
+            toast.error("Please Log in to add to wishlist");
+        }
     }
 
     const handleAddToCart = (id) => {
-        dispatch(addToCart(id))
-        toast.success("Add to Cart")
+        if (user) {
+            if (product?.color) {
+                dispatch(addToCart({
+                    productId: product._id,
+                    quantity: 1,
+                    color: product.color,
+                    price: product.price,
+                }));
+                toast.success("Add to Cart");
+            }
+        } else {
+            toast.error("Please Log in to add to cart");
+        }
     }
 
     return (

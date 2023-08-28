@@ -17,29 +17,44 @@ import Paypal from '../../Assets/icons/paypal.svg';
 import Stripe from '../../Assets/icons/stripe.svg';
 import { addToCart, getWishlists } from '../../../redux/features/user/userSlice';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist } from '../../../redux/features/products/productSlice';
 
 const ProductInfo = ({ product }) => {
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
-    const [color, setColor] = useState(null);
-    console.log(product.color)
-    const handleAddToCart = () => {
-        if (color === null) {
-            toast.error("Please Choose Color")
+    const user = useSelector((state) => state?.auth?.user);
+
+    const handleAddToCart = (id) => {
+        if (user) {
+            if (product?.color) {
+                dispatch(addToCart({
+                    productId: product._id,
+                    quantity,
+                    color: product.color,
+                    price: product.price,
+                }));
+                toast.success("Add to Cart");
+            } else {
+                toast.error("Please select a color before adding to cart");
+            }
         } else {
-            dispatch(addToCart({ productId: product._id, quantity, color, price: product.price }))
-            toast.success("Add to Cart")
+            toast.error("Please Log in to add to cart");
         }
     }
+    
+
 
     const handleAddToWishlist = (id) => {
-        dispatch(addToWishlist(id))
-        toast.success("Add to wishlist")
-        setTimeout(() => {
-            dispatch(getWishlists());
-        }, 1000)
+        if (user) {
+            dispatch(addToWishlist(id));
+            toast.success("Added to wishlist Successfully!");
+            setTimeout(() => {
+                dispatch(getWishlists());
+            }, 1000);
+        } else {
+            toast.error("Please Log in to add to wishlist");
+        }
     }
 
     const incrementQuantity = () => {
@@ -74,7 +89,6 @@ const ProductInfo = ({ product }) => {
                         <div className=" flex space-x-2 my-4">
                             {product.color && product.color.map((clr) => (
                                 <div
-                                    onClick={() => setColor(clr._id)}
                                     key={clr._id}
                                     tabIndex="0"
                                     className={`focus:outline-none ring-1 ring-offset-2 ring-gray-800 rounded-full cursor-pointer w-8 h-8`}

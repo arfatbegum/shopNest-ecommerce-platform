@@ -3,30 +3,21 @@ import BreadCrumb from '../../Shared/BreadCrumb';
 import Meta from '../../Shared/Meta';
 import ProductSlider from './ProductSlider';
 import ProductInfo from './ProductInfo';
-import RelatedProducts from './RelatedProducts';
 import ProductDescription from './ProductDescription';
 import ProductReviews from './ProductReviews';
 import ReviewForm from './ReviewForm';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../../redux/features/products/productSlice';
-
-// Loader component
-const Loader = () => {
-  return <span className="loading loading-dots loading-lg"></span>;
-};
+import Loader from '../../Shared/Loader';
 
 const ProductDetails = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const productState = useSelector((state) => state?.product);
     const product = productState?.products;
-    
+    const isLoading = productState?.isLoading;
     const [activeComponent, setActiveComponent] = useState("description");
-
-    useEffect(() => {
-        dispatch(getProductById(id));
-    }, [dispatch, id]);
 
     const renderComponent = () => {
         switch (activeComponent) {
@@ -41,10 +32,14 @@ const ProductDetails = () => {
         }
     };
 
+    useEffect(() => {
+        dispatch(getProductById(id));
+    }, [dispatch, id,]);
+
     return (
         <>
-            <Meta title={"Product Details - Shoppable"} />
-            {productState?.isLoading ? (
+            <Meta title={`${product?.name} - Shoppable`} />
+            {isLoading ? (
                 <Loader />
             ) : (
                 <>
@@ -66,7 +61,6 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                         </div>
-                        <RelatedProducts productState={productState} />
                     </div>
                 </>
             )}

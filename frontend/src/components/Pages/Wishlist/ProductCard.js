@@ -12,7 +12,7 @@ const ProductCard = ({ product, removeFromWishlist }) => {
             <div className="text-center h-full overflow-hidden">
                 <img className="w-full object-cover object-center" src={product?.images && product.images[0] ? product.images[0].url : 'fallback-image-url'} alt="blog" />
                 <div className="p-4">
-                    <h5 className="text-md font-semibold tracking-tight text-gray-700 mb-1 capitalize">{product?.name}</h5>
+                    <h5 className="text-md font-semibold tracking-tight text-gray-700 mb-1 capitalize">{product?.name.slice(0, 30)} ...</h5>
                     <span className="text-xl font-bold text-primary">${product?.price}</span>
                     <div className='flex justify-center opacity-100 mb-3 group-hover:opacity-0'>
                         <ReactStars

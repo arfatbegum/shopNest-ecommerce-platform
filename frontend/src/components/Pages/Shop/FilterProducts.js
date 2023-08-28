@@ -27,15 +27,17 @@ const FilterProducts = ({ products, currentPage, onPageChange }) => {
                     Previous
                 </button>
                 <div className="flex space-x-2">
-                    {[...Array(totalPages).keys()].map((pageNumber) => (
-                        <span
-                            key={pageNumber}
-                            className={`px-4 py-1.5 border rounded ${currentPage === pageNumber + 1 ? 'bg-primary text-white' : 'border-gray-300'}`}
-                            onClick={() => onPageChange(pageNumber + 1)}
-                        >
-                            {pageNumber + 1}
-                        </span>
-                    ))}
+                    {totalPages > 0 && (
+                        [...Array(totalPages).keys()].map((pageNumber) => (
+                            <span
+                                key={pageNumber}
+                                className={`px-4 py-1.5 border rounded ${currentPage === pageNumber + 1 ? 'bg-primary text-white' : 'border-gray-300'}`}
+                                onClick={() => onPageChange(pageNumber + 1)}
+                            >
+                                {pageNumber + 1}
+                            </span>
+                        ))
+                    )}
                 </div>
                 <button
                     className="px-4 py-1.5 border bg-primary text-white rounded"

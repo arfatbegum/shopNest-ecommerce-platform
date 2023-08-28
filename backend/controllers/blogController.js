@@ -68,11 +68,18 @@ const deleteBlog = asyncHandler(async (req, res) => {
     }
 });
 
-//Get All Blogs
+// Get All Blogs
 const getAllBlogs = asyncHandler(async (req, res) => {
+    const { category } = req.query;
     try {
-        const getAllBlogs = await Blog.find();
-        res.json(getAllBlogs);
+        let query = Blog.find();
+
+        if (category) {
+            query = query.where('category', { $regex: category, $options: 'i' });
+        }
+
+        const blogs = await query;
+        res.json(blogs);
     } catch (error) {
         throw new Error(error);
     }
