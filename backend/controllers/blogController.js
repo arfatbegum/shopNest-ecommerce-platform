@@ -1,10 +1,7 @@
 const Blog = require("../models/blogModel");
-const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongoDbId");
 const slugify = require("slugify");
-const fs = require("fs");
-const cloudinaryUploadImg = require("../utils/cloudinary");
 
 //Create a Blog
 const createBlog = asyncHandler(async (req, res) => {
@@ -61,7 +58,7 @@ const deleteBlog = asyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongoDbId(id);
     try {
-        const deletedBlog = await Product.findByIdAndDelete(id);
+        const deletedBlog = await Blog.findByIdAndDelete(id);
         res.json(deletedBlog);
     } catch (error) {
         throw new Error(error);

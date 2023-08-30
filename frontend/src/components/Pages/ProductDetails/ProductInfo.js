@@ -87,7 +87,7 @@ const ProductInfo = ({ product }) => {
                             color
                         </p>
                         <div className=" flex space-x-2 my-4">
-                            {product.color && product.color.map((clr) => (
+                            {product?.color && product?.color.map((clr) => (
                                 <div
                                     key={clr._id}
                                     tabIndex="0"

@@ -14,6 +14,12 @@ import { toast } from 'react-toastify';
 const UpdateProduct = ({ productId, onClose }) => {
     const dispatch = useDispatch();
     const [color, setColor] = useState([]);
+    const brandState = useSelector((state) => state.brand.brands);
+    const catState = useSelector((state) => state.productCategory.pCategories);
+    const colorState = useSelector((state) => state.color.colors);
+    const imgState = useSelector((state) => state.upload.images);
+    const updateProduct = useSelector((state) => state.product);
+    const { isSuccess, isError, isLoading, updatedProduct } = updateProduct;
 
     useEffect(() => {
         dispatch(getBrands());
@@ -21,12 +27,6 @@ const UpdateProduct = ({ productId, onClose }) => {
         dispatch(getColors());
     }, [dispatch]);
 
-    const brandState = useSelector((state) => state.brand.brands);
-    const catState = useSelector((state) => state.productCategory.pCategories);
-    const colorState = useSelector((state) => state.color.colors);
-    const imgState = useSelector((state) => state.upload.images);
-    const updateProduct = useSelector((state) => state.product);
-    const { isSuccess, isError, isLoading, updatedProduct } = updateProduct;
 
     useEffect(() => {
         if (productId !== undefined) {
@@ -52,6 +52,7 @@ const UpdateProduct = ({ productId, onClose }) => {
             value: i._id,
         });
     });
+
     const img = [];
     imgState.forEach((i) => {
         img.push({
@@ -63,7 +64,7 @@ const UpdateProduct = ({ productId, onClose }) => {
     useEffect(() => {
         formik.values.color = color ? color : " ";
         formik.values.images = img;
-    }, [color, img]);
+    }, [formik.values.color, formik.values.images]);
 
     const formik = useFormik({
         initialValues: {
@@ -182,7 +183,7 @@ const UpdateProduct = ({ productId, onClose }) => {
                             value={formik.values.brand}
                         >
                             <option value="">Select Brand</option>
-                            {brandState.map((i, j) => {
+                            {brandState && brandState.length > 0 && brandState.map((i, j) => {
                                 return (
                                     <option key={j} value={i.title}>
                                         {i.title}
@@ -206,7 +207,7 @@ const UpdateProduct = ({ productId, onClose }) => {
                             value={formik.values.category}
                         >
                             <option value="">Select Category</option>
-                            {catState.map((i, j) => {
+                            {catState && catState.length > 0 && catState.map((i, j) => {
                                 return (
                                     <option key={j} value={i.title}>
                                         {i.title}
@@ -296,7 +297,7 @@ const UpdateProduct = ({ productId, onClose }) => {
                         </div>
                     </div>
                     <div className="showimages flex flex-wrap gap-3">
-                        {imgState?.map((i, j) => {
+                        {imgState && imgState.length > 0 &&imgState?.map((i, j) => {
                             return (
                                 <div className=" position-relative" key={j}>
                                     <button

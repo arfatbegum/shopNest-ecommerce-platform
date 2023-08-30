@@ -6,13 +6,15 @@ import { getAColor, getColors, resetState, updateAColor } from '../../../../feat
 
 const UpdateColor = ({ colorId, onClose }) => {
     const dispatch = useDispatch();
-    const UpdateBColor = useSelector((state) => state.color);
+    const UpdateColor = useSelector((state) => state.color);
+
     const {
         isSuccess,
         isError,
         colorName,
-        updatedColor,
-    } = UpdateBColor;
+        colorCode,
+        updatedColor
+    } = UpdateColor;
 
     useEffect(() => {
         if (colorId !== undefined) {
@@ -35,7 +37,7 @@ const UpdateColor = ({ colorId, onClose }) => {
         enableReinitialize: true,
         initialValues: {
             title: colorName || "",
-            colorCode: "",
+            colorCode: colorCode || "",
         },
         onSubmit: (values) => {
             if (colorId !== undefined) {
@@ -77,7 +79,7 @@ const UpdateColor = ({ colorId, onClose }) => {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Product Title/Name"
+                        placeholder="Color Code"
                         onChange={formik.handleChange("colorCode")}
                         onBlur={formik.handleBlur("colorCode")}
                         value={formik.values.colorCode}

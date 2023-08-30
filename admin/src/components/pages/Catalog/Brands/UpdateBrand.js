@@ -8,6 +8,7 @@ import { updateABrand } from '../../../../features/brand/brandSlice';
 const UpdateBrand = ({ brandId, onClose }) => {
     const dispatch = useDispatch();
     const UpdateBrand = useSelector((state) => state.brand);
+    console.log(UpdateBrand)
     const {
         isSuccess,
         isError,

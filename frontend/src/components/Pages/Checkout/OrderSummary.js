@@ -31,7 +31,7 @@ const OrderSummary = ({ cart }) => {
         <div className='lg:w-2/6 w-full bg-white p-4'>
             <h1 className='text-gray-600 font-semibold text-lg my-5 ml-4'>Items</h1>
             <div>
-                {cart?.map((cartItem) => (
+                {cart && cart.length > 0 && cart?.map((cartItem) => (
                     <div key={cartItem._id} className='flex justify-between p-4'>
                         <div className='flex gap-8'>
                             <div className="indicator">

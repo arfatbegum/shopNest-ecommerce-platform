@@ -45,9 +45,6 @@ const AddBlog = ({ onClose }) => {
     });
   });
 
-  useEffect(() => {
-    formik.values.images = img;
-  }, [img]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -65,9 +62,13 @@ const AddBlog = ({ onClose }) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getBlogs());
-      }, 300);
+      }, 1000);
     }
   });
+
+  useEffect(() => {
+    formik.values.images = img;
+  }, [formik.values.images]);
 
   return (
     <div>
@@ -101,7 +102,7 @@ const AddBlog = ({ onClose }) => {
               value={formik.values.category}
             >
               <option value="">Select Blog Category</option>
-              {blogCategoryState.map((i, j) => {
+              {blogCategoryState && blogCategoryState.length > 0 && blogCategoryState.map((i, j) => {
                 return (
                   <option key={j} value={i.title}>
                     {i.title}
@@ -148,7 +149,7 @@ const AddBlog = ({ onClose }) => {
             </Dropzone>
           </div>
           <div className="showimages flex flex-wrap mt-3 gap-3">
-            {imgState?.map((i, j) => {
+            {imgState && imgState.length > 0 && imgState?.map((i, j) => {
               return (
                 <div className=" position-relative" key={j}>
                   <button

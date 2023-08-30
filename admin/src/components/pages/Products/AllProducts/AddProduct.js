@@ -210,7 +210,7 @@ const AddProduct = ({ onClose }) => {
               value={formik.values.brand}
             >
               <option value="">Select Brand</option>
-              {brandState.map((i, j) => {
+              {brandState && brandState.length > 0 && brandState.map((i, j) => {
                 return (
                   <option key={j} value={i.title}>
                     {i.title}
@@ -234,7 +234,7 @@ const AddProduct = ({ onClose }) => {
               value={formik.values.category}
             >
               <option value="">Select Category</option>
-              {catState.map((i, j) => {
+              {catState && catState.length > 0 && catState.map((i, j) => {
                 return (
                   <option key={j} value={i.title}>
                     {i.title}
@@ -341,7 +341,7 @@ const AddProduct = ({ onClose }) => {
             </div>
           </div>
           <div className="showimages flex flex-wrap gap-3">
-            {imgState?.map((i, j) => {
+            {imgState && imgState.length > 0 && imgState?.map((i, j) => {
               return (
                 <div className=" position-relative" key={j}>
                   <button

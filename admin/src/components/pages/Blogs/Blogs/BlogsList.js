@@ -76,14 +76,15 @@ const BrandsList = () => {
             ),
         });
     }
+    
     const deleteBlog = (e) => {
         dispatch(deleteABlog(e));
-
         setOpen(false);
         setTimeout(() => {
             dispatch(getBlogs());
-        }, 100);
+        }, 1000);
     };
+
     return (
         <div>
             <Table columns={columns} dataSource={data1} />

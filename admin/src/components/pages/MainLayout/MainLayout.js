@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, Link } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { AiOutlineAppstore, AiOutlineCompass, AiOutlineEdit } from 'react-icons/ai';
 import { BiStore, BiColor, BiCategory } from 'react-icons/bi';
@@ -53,11 +53,11 @@ const MainLayout = () => {
                   key: 'all-products',
                   icon: <MdOutlineLocalGroceryStore />,
                   label: 'All Products',
-                },{
-                key: 'product-categories',
-                icon: <BiCategory />,
-                label: 'Product Categories',
-              }],
+                }, {
+                  key: 'product-categories',
+                  icon: <BiCategory />,
+                  label: 'Product Categories',
+                }],
             },
             {
               key: 'blogs',
@@ -67,7 +67,7 @@ const MainLayout = () => {
                 key: 'all-blogs',
                 icon: <AiOutlineEdit />,
                 label: 'All Blogs',
-              },{
+              }, {
                 key: 'blog-categories',
                 icon: <BiCategory />,
                 label: 'Blog Categories',
@@ -116,7 +116,7 @@ const MainLayout = () => {
             {
               key: 'store',
               icon: <BiStore />,
-              label: 'Online Store',
+              label: <Link to="">Online Store</Link>,
             },
           ]}
         />

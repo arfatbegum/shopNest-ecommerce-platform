@@ -14,8 +14,8 @@ const Actionbar = () => {
 
     return (
         <div className="mb-4">
-            <div className="bg-primary text-white p-3 lg:flex md:flex justify-between items-center">
-                <div className="flex items-center lg:mb-0 mb-3 float-right">
+            <div className="bg-primary text-white p-3 flex justify-between items-center">
+                <div className="flex items-center lg:mb-0">
                     <p className="uppercase text-sm font-semibold mr-2">
                         Sort By:
                     </p>

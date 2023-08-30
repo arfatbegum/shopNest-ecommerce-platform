@@ -28,11 +28,11 @@ const Blogs = () => {
                     <BreadCrumb title="Blogs" />
                     <div className="flex lg:px-10 px-4 gap-5">
                         <div className="lg:w-1/6 lg:block md:hidden hidden">
-                                <BlogsCategories blogsCategories={blogsCategories } />
+                            <BlogsCategories blogsCategories={blogsCategories} />
                         </div>
                         <div className="lg:w-5/6 w-full">
                             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4'>
-                                {blogs?.map((blog) => (
+                                {blogs && blogs.length > 0 && blogs?.map((blog) => (
                                     <BlogCard key={blog._id} blog={blog} />
                                 ))}
                             </div>

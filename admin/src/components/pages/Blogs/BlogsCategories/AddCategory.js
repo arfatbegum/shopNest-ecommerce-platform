@@ -20,7 +20,6 @@ const AddCategory = ({ onClose }) => {
     isError,
     isLoading,
     createdCategory,
-    blogCategoryName,
   } = newCategory;
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const AddCategory = ({ onClose }) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: blogCategoryName || "",
+      title: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -45,9 +44,10 @@ const AddCategory = ({ onClose }) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getCategories());
-      }, 300);
+      }, 1000);
     }
   });
+  
   return (
     <div>
       <form className="px-8 pb-8 mb-4" onSubmit={formik.handleSubmit}>

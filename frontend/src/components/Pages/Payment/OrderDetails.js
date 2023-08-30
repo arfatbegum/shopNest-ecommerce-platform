@@ -15,7 +15,7 @@ const OrderDetails = ({ cart }) => {
                         </tr>
                     </thead>
                     <tbody className="text-gray-700 text-sm font-normal">
-                        {cart?.map((cartItem) => (
+                        {cart && cart.length > 0 && cart?.map((cartItem) => (
                             <tr key={cartItem._id} className="border-b border-gray-200 bg-white">
                                 <td className="py-3 px-6 text-left">
                                     <div className="flex items-center">
