@@ -53,17 +53,6 @@ export const getColors = createAsyncThunk(
     }
 );
 
-export const filterProductsByStock = createAsyncThunk(
-    "product/stock",
-    async (stockStatus, thunkAPI) => {
-        try {
-            return await productService.filterProductsByStock(stockStatus);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-);
-
 export const getProductById = createAsyncThunk(
     "product/getProductById",
     async (productId, thunkAPI) => {
@@ -80,6 +69,17 @@ export const addToWishlist = createAsyncThunk(
     async (productId, thunkAPI) => {
         try {
             return await productService.addToWishlist(productId);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const addToComparelist = createAsyncThunk(
+    "product/addToComparelist",
+    async (productId, thunkAPI) => {
+        try {
+            return await productService.addToComparelist(productId);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -163,16 +163,16 @@ export const productSlice = createSlice({
                 state.isSuccess = false;
                 state.message = action.error;
             })
-            .addCase(filterProductsByStock.pending, (state) => {
+            .addCase(addToComparelist.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(filterProductsByStock.fulfilled, (state, action) => {
+            .addCase(addToComparelist.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
-                state.stock = action.payload;
+                state.comparelist = action.payload;
             })
-            .addCase(filterProductsByStock.rejected, (state, action) => {
+            .addCase(addToComparelist.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

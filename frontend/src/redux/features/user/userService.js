@@ -25,6 +25,13 @@ const getWishlist = async () => {
     }
 };
 
+const getComparelist = async () => {
+    const response = await axios.get(`${base_url}user/comparelist`, config);
+    if (response.data) {
+        return response.data;
+    }
+};
+
 const getCartProduct = async () => {
     const response = await axios.get(`${base_url}user/cart`, config);
     if (response.data) {
@@ -85,6 +92,7 @@ const authService = {
     signup,
     signin,
     getWishlist,
+    getComparelist,
     addToCart,
     getCartProduct,
     removeFromCart,

@@ -20,7 +20,7 @@ const Wishlist = () => {
         toast.success("Remove from wishlist")
         setTimeout(() => {
             dispatch(getWishlists());
-        }, 200)
+        }, 1000)
     }
 
     return (

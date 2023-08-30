@@ -1,14 +1,13 @@
-import React from 'react';
 import ReactStars from "react-rating-stars-component";
 import { MdAddShoppingCart } from "@react-icons/all-files/md/MdAddShoppingCart";
 import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
-import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { FiHeart } from "@react-icons/all-files/fi/FiHeart";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToWishlist } from '../../redux/features/products/productSlice';
+import { addToComparelist, addToWishlist } from '../../redux/features/products/productSlice';
 import { toast } from 'react-toastify';
-import { addToCart, getWishlists } from '../../redux/features/user/userSlice';
+import { addToCart } from '../../redux/features/user/userSlice';
+import { BiGitCompare } from '@react-icons/all-files/bi/BiGitCompare';
 
 
 const ProductCard = ({ product }) => {
@@ -19,9 +18,15 @@ const ProductCard = ({ product }) => {
         if (user) {
             dispatch(addToWishlist(id));
             toast.success("Added to wishlist Successfully!");
-            setTimeout(() => {
-                dispatch(getWishlists());
-            }, 1000);
+        } else {
+            toast.error("Please Log in to add to wishlist");
+        }
+    }
+
+    const handleAddToComparelist = (id) => {
+        if (user) {
+            dispatch(addToComparelist(id));
+            toast.success("Added to Comparelist Successfully!");
         } else {
             toast.error("Please Log in to add to wishlist");
         }
@@ -71,8 +76,8 @@ const ProductCard = ({ product }) => {
                 <Link to={`/product-details/${product?._id}`} className=' bg-white border-2 border-gray-200'>
                     <AiOutlineEye className='text-xl text-primary m-2' />
                 </Link>
-                <button className=' bg-white border-2 border-gray-200'>
-                    <AiOutlinePlusCircle className='text-xl text-primary m-2' />
+                <button onClick={(e) => { handleAddToComparelist(product?._id) }} className=' bg-white border-2 border-gray-200'>
+                    <BiGitCompare className='text-xl text-primary m-2' />
                 </button>
                 <button onClick={(e) => { handleAddToWishlist(product?._id) }} className='bg-white border-2 border-gray-200'>
                     <FiHeart className='text-xl text-primary m-2'></FiHeart>

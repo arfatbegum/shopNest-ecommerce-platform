@@ -46,6 +46,17 @@ export const getWishlists = createAsyncThunk(
     }
 );
 
+export const getComparelist = createAsyncThunk(
+    "auth/getComparelist",
+    async (_, thunkAPI) => {
+        try {
+            return await authService.getComparelist();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const addToCart = createAsyncThunk(
     "auth/addToCart",
     async (cartData, thunkAPI) => {
@@ -193,6 +204,22 @@ export const authSlice = createSlice({
                 state.message = "success";
             })
             .addCase(getWishlists.rejected, (state, action) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+                state.isLoading = false;
+            })
+            .addCase(getComparelist.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getComparelist.fulfilled, (state, action) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.comparelist = action.payload;
+                state.message = "success";
+            })
+            .addCase(getComparelist.rejected, (state, action) => {
                 state.isError = true;
                 state.isSuccess = false;
                 state.message = action.error;

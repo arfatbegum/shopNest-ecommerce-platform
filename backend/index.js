@@ -21,9 +21,7 @@ const cors = require('cors');
 
 dbConnect();
 
-app.use(
-  cors()
-);
+app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

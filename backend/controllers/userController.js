@@ -1,5 +1,4 @@
 const User = require("../models/userModel");
-const Product = require("../models/productModel");
 const Cart = require("../models/cartModal");
 const Coupon = require("../models/couponModal");
 const Order = require("../models/orderModal");
@@ -242,7 +241,7 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
     try {
         const token = await user.createPasswordResetToken();
         await user.save();
-        const resetURL = `Please follow this link to reset your password. This link is valid till 10 minutes.<Link to='http://localhost:3000/reset-password/${token}'>Click here</Link>`;
+        const resetURL = `Please follow this link to reset your password. This link is valid till 10 minutes.<Link to='https://shoppable-ecommerce.netlify.app/reset-password/${token}'>Click here</Link>`;
         const data = {
             to: email, // Fix typo: eamil => email
             subject: "Forgot Password Link",
@@ -301,6 +300,17 @@ const getWishlist = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     try {
         const findUser = await User.findById(_id).populate('wishlist');
+        res.json(findUser);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+);
+
+const getComparelist = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    try {
+        const findUser = await User.findById(_id).populate('comparelist');
         res.json(findUser);
     } catch (error) {
         throw new Error(error);
@@ -463,8 +473,6 @@ const createOrder = asyncHandler(async (req, res) => {
     }
 });
 
-
-
 // Get orders for a specific user
 const getUserOrders = asyncHandler(async (req, res) => {
     const { _id } = req.user;
@@ -474,7 +482,6 @@ const getUserOrders = asyncHandler(async (req, res) => {
     res.json(userOrders);
 });
 
-
 // Get all orders
 const getOrders = asyncHandler(async (req, res) => {
     const orders = await Order.find()
@@ -482,7 +489,6 @@ const getOrders = asyncHandler(async (req, res) => {
         .populate("orderItems.color");
     res.json(orders);
 });
-
 
 // Update order 
 const updateOrderStatus = asyncHandler(async (req, res) => {
@@ -533,5 +539,6 @@ module.exports = {
     getOrders,
     getUserOrders,
     updateOrderStatus,
+    getComparelist
 
 };

@@ -1,11 +1,41 @@
-import React from 'react';
 import ReactStars from "react-rating-stars-component";
 import { MdAddShoppingCart } from "@react-icons/all-files/md/MdAddShoppingCart";
 import { AiOutlineEye } from "@react-icons/all-files/ai/AiOutlineEye";
-import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToComparelist } from '../../../redux/features/products/productSlice';
+import { toast } from 'react-toastify';
+import { addToCart } from '../../../redux/features/user/userSlice';
+import { BiGitCompare } from '@react-icons/all-files/bi/BiGitCompare';
 
 const ProductCard = ({ product, removeFromWishlist }) => {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state?.auth?.user);
+
+    const handleAddToComparelist = (id) => {
+        if (user) {
+            dispatch(addToComparelist(id));
+            toast.success("Added to Comparelist Successfully!");
+        } else {
+            toast.error("Please Log in to add to wishlist");
+        }
+    }
+
+    const handleAddToCart = (id) => {
+        if (user) {
+            if (product?.color) {
+                dispatch(addToCart({
+                    productId: product._id,
+                    quantity: 1,
+                    color: product.color,
+                    price: product.price,
+                }));
+                toast.success("Add to Cart");
+            }
+        } else {
+            toast.error("Please Log in to add to cart");
+        }
+    }
 
     return (
         <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-white border-2 border-gray-100 flex justify-center items-center shadow-sm">
@@ -24,7 +54,7 @@ const ProductCard = ({ product, removeFromWishlist }) => {
                         />
                     </div>
                     <div className='w-full mx-auto'>
-                        <button className='flex items-center lg:mx-8 md:mx-7 mx-20 bg-primary text-white text-sm font-bold border-2 border-primary shadow-md rounded bottom-4 px-2 py-1.5 absolute opacity-0 group-hover:opacity-100 transition duration-500'>
+                        <button onClick={(e) => { handleAddToCart(product?._id) }} className='flex items-center lg:mx-8 md:mx-7 mx-20 bg-primary text-white text-sm font-bold border-2 border-primary shadow-md rounded bottom-4 px-2 py-1.5 absolute opacity-0 group-hover:opacity-100 transition duration-500'>
                             Add To Cart <MdAddShoppingCart className='text-xl ml-2'></MdAddShoppingCart>
                         </button>
                     </div>
@@ -34,8 +64,8 @@ const ProductCard = ({ product, removeFromWishlist }) => {
                 <Link to={`/product-details/${product?._id}`} className=' bg-white border-2 border-gray-200'>
                     <AiOutlineEye className='text-xl text-primary m-2' />
                 </Link>
-                <button className=' bg-white border-2 border-gray-200'>
-                    <AiOutlinePlusCircle className='text-xl text-primary m-2' />
+                <button onClick={(e) => { handleAddToComparelist(product?._id) }} className=' bg-white border-2 border-gray-200'>
+                    <BiGitCompare className='text-xl text-primary m-2' />
                 </button>
                 <button onClick={(e) => { removeFromWishlist(product?._id) }} className='bg-white border-2 border-gray-200 mx-auto'>
                     <div className="w-5 m-2">

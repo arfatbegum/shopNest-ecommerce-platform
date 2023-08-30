@@ -140,7 +140,6 @@ const Searchbar = () => {
                                     <p className="text-gray-600 text-center border-b border-b-gray-200 pb-4">{user?.email}</p>
                                     <Link className='px-4 py-2 border-b border-gray-200' to="my-orders">My Orders</Link>
                                     <button onClick={handleSignOut} className='px-4 pb-4 pt-2' >Sign out</button>
-
                                 </>
                             )}
                         </ul>

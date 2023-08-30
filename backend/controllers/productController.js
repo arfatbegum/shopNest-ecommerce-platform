@@ -158,6 +158,40 @@ const addToWishlist = asyncHandler(async (req, res) => {
   }
 });
 
+const addToComparelist = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  const { productId } = req.body;
+  try {
+    const user = await User.findById(_id);
+    const alreadyadded = user.comparelist.find((id) => id.toString() === productId);
+    if (alreadyadded) {
+      let user = await User.findByIdAndUpdate(
+        _id,
+        {
+          $pull: { comparelist: productId },
+        },
+        {
+          new: true,
+        }
+      );
+      res.json(user);
+    } else {
+      let user = await User.findByIdAndUpdate(
+        _id,
+        {
+          $push: { comparelist: productId },
+        },
+        {
+          new: true,
+        }
+      );
+      res.json(user);
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 const rating = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { star, comment, productId } = req.body;
@@ -226,5 +260,6 @@ module.exports = {
   updateProduct,
   deleteProduct,
   addToWishlist,
+  addToComparelist,
   rating,
 };
