@@ -1,6 +1,6 @@
 import axios from "axios";
-import { base_url } from "../../utils/baseUrl";
-import { config } from "../../utils/axiosconfig";
+import { base_url } from "../../../utils/baseUrl";
+import { config } from "../../../utils/axiosconfig";
 
 const signin = async (user) => {
   const response = await axios.post(`${base_url}user/signin-admin`, user);
