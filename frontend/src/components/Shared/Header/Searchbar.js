@@ -45,7 +45,7 @@ const Searchbar = () => {
         <div className="lg:navbar md:navbar p-4 lg:py-4 lg:px-10 md:py-4 md:px-10 navbar-none ">
             <div className='lg:navbar-start flex'>
                 <div className="flex-1 py-4 lg:py-0">
-                    <Link to="/" className="font-bold text-2xl">SHOPPABLE</Link>
+                    <Link to="/" className="font-bold text-2xl">ShopNest</Link>
                 </div>
                 <div className='lg:hidden flex'>
                     <ul className="menu menu-horizontal">

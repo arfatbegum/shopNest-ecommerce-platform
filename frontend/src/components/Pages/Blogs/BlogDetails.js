@@ -22,7 +22,7 @@ const BlogDetails = () => {
 
     return (
         <div>
-            <Meta title={`${blog.title} - Shoppable`} />
+            <Meta title={`${blog.title} - ShopNest`} />
             {isLoading ? (
                 <Loader />
             ) : (

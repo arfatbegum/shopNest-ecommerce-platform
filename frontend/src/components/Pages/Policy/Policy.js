@@ -7,7 +7,7 @@ import BreadCrumb from '../../Shared/BreadCrumb';
 const Policy = () => {
     return (
         <div>
-             <Meta title={"Policy - Shoppable"} />
+             <Meta title={"Policy - ShopNest"} />
             <BreadCrumb title="Policy" />
             <div className='mx-10 bg-white p-8'>
             <ShippingPolicy />

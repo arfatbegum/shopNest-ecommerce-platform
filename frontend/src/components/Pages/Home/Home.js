@@ -26,7 +26,7 @@ const Home = () => {
     return (
 
         <div>
-            <Meta title={"Home - Shoppable"} />
+            <Meta title={"Home - ShopNest"} />
             {productState?.isLoading ? (
                 <Loader />
             ) : (

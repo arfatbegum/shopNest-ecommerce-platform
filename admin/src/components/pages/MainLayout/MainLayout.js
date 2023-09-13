@@ -27,7 +27,7 @@ const MainLayout = () => {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo text-white text-center font-bold py-4 text-xl flex items-center justify-center"><FaShoppingBasket className='icon text-3xl text-[#e6bd00]' /><span className="name ml-2">Shoppable</span></div>
+        <div className="logo text-white text-center font-bold py-4 text-xl flex items-center justify-center"><FaShoppingBasket className='icon text-3xl text-[#e6bd00]' /><span className="name ml-2">ShopNest</span></div>
         <Menu
           theme="dark"
           mode="inline"

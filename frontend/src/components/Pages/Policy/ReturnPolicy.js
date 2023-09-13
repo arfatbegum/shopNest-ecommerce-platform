@@ -5,7 +5,7 @@ const ReturnPolicy = () => {
         <div>
             <h1 className='text-lg font-bold mb-2'>Return Policy</h1>
             <p className='text-justify'>
-                At SHOPPABLE, we want you to be completely satisfied with your purchase. If you are not satisfied for any reason, we offer a straightforward return policy to make the process as smooth as possible.
+                At ShopNest, we want you to be completely satisfied with your purchase. If you are not satisfied for any reason, we offer a straightforward return policy to make the process as smooth as possible.
             </p>
             <h1 className='text-lg font-bold my-2'>Eligibility for Returns</h1>
             <p className='text-justify'>

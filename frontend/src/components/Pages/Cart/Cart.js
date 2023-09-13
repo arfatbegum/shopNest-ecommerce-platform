@@ -30,7 +30,7 @@ const Cart = () => {
 
     return (
         <div>
-            <Meta title={"Shopping Cart - Shoppable"} />
+            <Meta title={"Shopping Cart - ShopNest"} />
             {isLoading ? (
                 <Loader />
             ) : (

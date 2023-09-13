@@ -20,7 +20,7 @@ const Blogs = () => {
 
     return (
         <div>
-            <Meta title={"Blogs - Shoppable"} />
+            <Meta title={"Blogs - ShopNest"} />
             {isLoading ? (
                 <Loader />
             ) : (

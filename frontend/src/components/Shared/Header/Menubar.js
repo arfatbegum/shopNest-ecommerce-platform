@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FiPhoneCall } from "@react-icons/all-files/fi/FiPhoneCall";
 import { HiOutlineMail } from "@react-icons/all-files/hi/HiOutlineMail";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts, getCategories } from '../../../redux/features/products/productSlice';
 
 const Menubar = () => {
-    const location = useLocation();
     const dispatch = useDispatch();
     const productCategories = useSelector((state) => state?.product?.productCategories);
 
@@ -35,7 +34,7 @@ const Menubar = () => {
                                     productCategories?.map((category) => (
                                         <li key={category._id} className='w-full border-b border-gray-200'>
                                             <Link
-                                                to={`shop/${location.pathname}?category=${encodeURIComponent(category.title)}`}
+                                                to={`shop?category=${encodeURIComponent(category.title)}`}
                                                 onClick={() => handleCategoryClick(category.title)}
                                             >
                                                 {category.title}

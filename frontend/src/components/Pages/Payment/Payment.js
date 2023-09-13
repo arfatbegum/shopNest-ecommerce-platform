@@ -23,7 +23,7 @@ const Payment = () => {
 
     return (
         <>
-            <Meta title={"Checkout - Shoppable"} />
+            <Meta title={"Checkout - ShopNest"} />
             <BreadCrumb title="Payment" />
             <div className="overflow-x-auto lg:mx-10 mx-4">
                 <div className="min-w-screen lg:flex justify-between gap-4 font-sans mb-10">

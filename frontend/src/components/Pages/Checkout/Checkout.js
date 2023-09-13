@@ -18,7 +18,7 @@ const Checkout = () => {
 
     return (
         <div>
-            <Meta title={"Checkout - Shoppable"} />
+            <Meta title={"Checkout - ShopNest"} />
             {isLoading ? (
                 <Loader />
             ) : (

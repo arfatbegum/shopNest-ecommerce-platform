@@ -25,7 +25,7 @@ const Wishlist = () => {
 
     return (
         <div>
-            <Meta title={"Wishlist - Shoppable"} />
+            <Meta title={"Wishlist - ShopNest"} />
             <BreadCrumb title="Wishlist" />
             <div className="container px-10 mx-auto mb-8">
                 {wishlistState?.wishlist?.length > 0 ? (

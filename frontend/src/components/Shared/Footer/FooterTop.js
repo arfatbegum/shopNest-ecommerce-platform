@@ -37,50 +37,50 @@ const FooterTop = () => {
                     <h2 className="title-font font-bold text-primary tracking-widest text-sm mb-3">CATEGORIES</h2>
                     <nav className="list-none mb-10">
                         <li>
-                            <Link to="/electronics" className="hover:text-secondary">Electronics</Link>
+                            <Link to="shop?category=Electronics" className="hover:text-secondary">Electronics</Link>
                         </li>
                         <li>
-                            <Link to="/fashion" className="hover:text-secondary">Fashion</Link>
+                            <Link to="shop?category=Fashion" className="hover:text-secondary">Fashion</Link>
                         </li>
                         <li>
-                            <Link to="/health&beauty" className="hover:text-secondary">Health & Beauty</Link>
+                            <Link to="shop?category=Laptop" className="hover:text-secondary">Laptop</Link>
                         </li>
                         <li>
-                            <Link to="/watches" className="hover:text-secondary">Watches</Link>
+                            <Link to="shop?category=Watch" className="hover:text-secondary">Watches</Link>
                         </li>
                     </nav>
                 </div>
                 <div className="lg:w-1/4 md:w-1/2 w-full px-4">
                     <h2 className="title-font font-bold text-primary tracking-widest text-sm mb-3">BRANDS</h2>
                     <nav className="list-none mb-10">
-                        <li>
+                        <Link to="shop?brand=Apple">
                             <span className="hover:text-secondary">Apple</span>
-                        </li>
-                        <li>
-                            <span className="hover:text-secondary">Adiddas</span>
-                        </li>
-                        <li>
-                            <span className="hover:text-secondary">Nike</span>
-                        </li>
-                        <li>
+                        </Link>
+                        <Link to="shop?brand=Samsung">
                             <span className="hover:text-secondary">Samsung</span>
-                        </li>
+                        </Link>
+                        <Link to="shop?brand=GUESS">
+                            <span className="hover:text-secondary">GUESS</span>
+                        </Link>
+                        <Link to="shop?brand=Casio">
+                            <span className="hover:text-secondary">Casio</span>
+                        </Link>
                     </nav>
                 </div>
                 <div className="lg:w-1/4 md:w-1/2 w-full px-4">
                     <h2 className="title-font font-bold text-primary tracking-widest text-sm mb-3">QUICK LINKS</h2>
                     <nav className="list-none mb-10">
                         <li>
-                            <Link to="privacy&policy" className="hover:text-secondary">Privacy Policy</Link>
+                            <Link to="policy" className="hover:text-secondary">Privacy Policy</Link>
                         </li>
                         <li>
-                            <Link to="terms&condition" className="hover:text-secondary">Terms & Condition</Link>
+                            <Link to="policy" className="hover:text-secondary">Terms & Condition</Link>
                         </li>
                         <li>
-                            <Link to="shipping&returns" className="hover:text-secondary">Shippin & Returns</Link>
+                            <Link to="policy" className="hover:text-secondary">Shippin & Returns</Link>
                         </li>
                         <li>
-                            <Link to="csrpolicy" className="hover:text-secondary">CSR Policy</Link>
+                            <Link to="contact" className="hover:text-secondary">Contact Us</Link>
                         </li>
                     </nav>
                 </div>

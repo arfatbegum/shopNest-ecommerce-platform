@@ -30,7 +30,7 @@ const ForgotPassword = () => {
 
     return (
         <>
-            <Meta title={"Forgot Password - Shoppable"} />
+            <Meta title={"Forgot Password - ShopNest"} />
             <BreadCrumb title="Forgot Password" />
             <div className='pb-16 lg:px-0 md:px-0 px-4'>
                 < div className="lg:w-[500px] md:w-[500px] w-full p-8 mx-auto border-2 border-gray-200 bg-white items-center text-center shadow-sm">

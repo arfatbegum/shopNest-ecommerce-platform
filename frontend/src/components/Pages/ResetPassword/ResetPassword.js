@@ -36,7 +36,7 @@ const ResetPassword = () => {
 
     return (
         <>
-            <Meta title={"Reset Password - Shoppable"} />
+            <Meta title={"Reset Password - ShopNest"} />
             <BreadCrumb title="Reset Password" />
             <div className='pb-16 lg:px-0 md:px-0 px-4'>
                 < div className="lg:w-[500px] md:w-[500px] w-full p-8 mx-auto border-2 border-gray-200 bg-white items-center text-center shadow-sm">

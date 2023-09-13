@@ -4,7 +4,7 @@ const ShippingPolicy = () => {
     return (
         <div>
           <h1 className='text-lg font-bold mb-2'>Shipping Policy</h1>
-            At SHOPPABLE, we strive to provide a seamless shopping experience for our valued customers. Please take a moment to review our shipping policy to understand how we handle the delivery of your orders.
+            At ShopNest, we strive to provide a seamless shopping experience for our valued customers. Please take a moment to review our shipping policy to understand how we handle the delivery of your orders.
             <h1 className='text-lg font-bold my-2'>Processing Time</h1> 
             Orders are typically processed within 7 business days after payment confirmation. <br/>
             During peak seasons or promotions, processing times may be slightly extended, and we appreciate your patience.        

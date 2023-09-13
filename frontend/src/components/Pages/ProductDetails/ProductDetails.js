@@ -38,7 +38,7 @@ const ProductDetails = () => {
 
     return (
         <>
-            <Meta title={`${product?.name} - Shoppable`} />
+            <Meta title={`${product?.name} - ShopNest`} />
             {isLoading ? (
                 <Loader />
             ) : (

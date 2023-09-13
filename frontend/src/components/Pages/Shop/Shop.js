@@ -37,7 +37,7 @@ const Shop = () => {
 
     return (
         <div>
-            <Meta title={"Shop - Shoppable"} />
+            <Meta title={"Shop - ShopNest"} />
             {isLoading ? (
                 <Loader />
             ) : (

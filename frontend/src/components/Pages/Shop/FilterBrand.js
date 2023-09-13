@@ -28,7 +28,7 @@ const FilterBrand = ({ productBrands }) => {
                     productBrands?.map((brand) => (
                         <li key={brand._id} className='w-full border-b border-gray-200 py-2'>
                             <Link
-                                to={`${location.pathname}?category=${encodeURIComponent(brand.title)}`}
+                                to={`${location.pathname}?brand=${encodeURIComponent(brand.title)}`}
                                 className="p-4"
                                 onClick={() => handleFilterBrand(brand.title)}
                             >
