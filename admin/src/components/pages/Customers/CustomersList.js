@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Space, Table } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { BiTrash, BiEdit } from 'react-icons/bi';
-import { getUsers } from '../../../features/customers/customerSlice';
+import { getUsers } from '../../../redux/features/customers/customerSlice';
 
 const columns = [
     {

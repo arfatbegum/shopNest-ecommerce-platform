@@ -6,13 +6,13 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { getBrands } from "../../../../features/brand/brandSlice";
-import { getCategories } from "../../../../features/productCategories/productCategorySlice";
-import { getColors } from "../../../../features/color/colorSlice";
+import { getBrands } from "../../../../redux/features/brand/brandSlice";
+import { getCategories } from "../../../../redux/features/productCategories/productCategorySlice";
+import { getColors } from "../../../../redux/features/color/colorSlice";
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
-import { delImg, uploadImg } from "../../../../features/upload/uploadSlice";
-import { createAProduct, getProducts, resetState } from "../../../../features/product/productSlice";
+import { delImg, uploadImg } from "../../../../redux/features/upload/uploadSlice";
+import { createAProduct, getProducts, resetState } from "../../../../redux/features/product/productSlice";
 let schema = yup.object().shape({
   name: yup.string().required("Title is Required"),
   description: yup.string().required("Description is Required"),

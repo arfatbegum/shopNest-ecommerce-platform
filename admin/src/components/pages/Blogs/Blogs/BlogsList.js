@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import UpdateBlog from './UpdateBlog';
-import { deleteABlog, getBlogs, resetState } from '../../../../features/blog/blogSlice';
+import { deleteABlog, getBlogs, resetState } from '../../../../redux/features/blog/blogSlice';
+
 
 const columns = [
     {

@@ -3,7 +3,7 @@ import { Drawer, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteABrand, getBrands, resetState } from "../../../../features/brand/brandSlice.js";
+import { deleteABrand, getBrands, resetState } from "../../../../redux/features/brand/brandSlice.js";
 import UpdateBrand from './UpdateBrand.js';
 
 const columns = [

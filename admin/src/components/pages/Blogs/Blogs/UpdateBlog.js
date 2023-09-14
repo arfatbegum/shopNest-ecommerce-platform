@@ -2,12 +2,12 @@ import { React, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
-import { delImg, uploadImg } from "../../../../features/upload/uploadSlice";
+import { delImg, uploadImg } from "../../../../redux/features/upload/uploadSlice";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { getABlog, getBlogs, resetState, updateABlog } from "../../../../features/blog/blogSlice";
-import { getCategories } from "../../../../features/blogCategories/blogCategorySlice";
+import { getABlog, getBlogs, resetState, updateABlog } from "../../../../redux/features/blog/blogSlice";
+import { getCategories } from "../../../../redux/features/blogCategories/blogCategorySlice";
 
 const UpdateBlog = ({ blogId, onClose }) => {
     const dispatch = useDispatch();

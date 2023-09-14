@@ -3,7 +3,7 @@ import { Drawer, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAColor, getColors } from "../../../../features/color/colorSlice";
+import { deleteAColor, getColors } from "../../../../redux/features/color/colorSlice";
 import UpdateColor from './UpdateColor';
 
 const columns = [

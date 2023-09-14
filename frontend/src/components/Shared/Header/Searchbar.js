@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { getWishlists } from '../../../redux/features/user/userSlice';
 import Select from 'react-select';
 import { getAllProducts } from '../../../redux/features/products/productSlice';
-
+import logo from '../../Assets/logo.png';
 
 const Searchbar = () => {
     const navigate = useNavigate();
@@ -45,7 +45,9 @@ const Searchbar = () => {
         <div className="lg:navbar md:navbar p-4 lg:py-4 lg:px-10 md:py-4 md:px-10 navbar-none ">
             <div className='lg:navbar-start flex'>
                 <div className="flex-1 py-4 lg:py-0">
-                    <Link to="/" className="font-bold text-2xl">ShopNest</Link>
+                    <Link to="/" className="font-bold text-2xl">
+                        <img className="w-72" src={logo} alt="" />
+                    </Link>
                 </div>
                 <div className='lg:hidden flex'>
                     <ul className="menu menu-horizontal">

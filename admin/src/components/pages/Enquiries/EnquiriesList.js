@@ -3,7 +3,7 @@ import { Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash } from 'react-icons/bi';
 import { FaSearchPlus } from 'react-icons/fa';
-import { deleteAEnquiry, updateAEnquiry, getEnquiries, resetState } from '../../../features/enquiry/enquirySlice';
+import { deleteAEnquiry, updateAEnquiry, getEnquiries, resetState } from '../../../redux/features/enquiry/enquirySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 

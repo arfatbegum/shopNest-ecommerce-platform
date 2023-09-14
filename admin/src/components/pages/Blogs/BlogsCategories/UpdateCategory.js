@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { getABlogCategory, getCategories, resetState, updateABlogCategory } from '../../../../features/blogCategories/blogCategorySlice';
+import { getABlogCategory, getCategories, resetState, updateABlogCategory } from '../../../../redux/features/blogCategories/blogCategorySlice';
 
 const UpdateCategory = ({ categoryId, onClose }) => {
     const dispatch = useDispatch();

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { getABrand, getBrands, resetState } from "../../../../features/brand/brandSlice.js";
-import { updateABrand } from '../../../../features/brand/brandSlice';
+import { getABrand, getBrands, resetState } from "../../../../redux/features/brand/brandSlice.js";
+import { updateABrand } from '../../../../redux/features/brand/brandSlice';
 
 const UpdateBrand = ({ brandId, onClose }) => {
     const dispatch = useDispatch();

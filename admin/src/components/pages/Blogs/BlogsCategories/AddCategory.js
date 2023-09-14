@@ -7,7 +7,7 @@ import {
   createNewblogCategory,
   getCategories,
   resetState,
-} from "../../../../features/blogCategories/blogCategorySlice.js";
+} from "../../../../redux/features/blogCategories/blogCategorySlice.js";
 
 let schema = yup.object().shape({
   title: yup.string().required("Category Name is Required"),

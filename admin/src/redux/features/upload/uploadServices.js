@@ -1,6 +1,6 @@
 import axios from "axios";
-import { config } from "../../utils/axiosconfig";
-import { base_url } from "../../utils/baseUrl";
+import { config } from "../../../utils/axiosconfig";
+import { base_url } from "../../../utils/baseUrl";
 
 const uploadImg = async (data) => {
   console.log(data)

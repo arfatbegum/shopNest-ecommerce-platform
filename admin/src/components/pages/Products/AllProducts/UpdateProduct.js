@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { getProducts, updateAProduct } from '../../../../features/product/productSlice';
+import { getProducts, updateAProduct } from '../../../../redux/features/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBrands, resetState } from '../../../../features/brand/brandSlice';
-import { getCategories } from '../../../../features/productCategories/productCategorySlice';
-import { getColors } from '../../../../features/color/colorSlice';
+import { getBrands, resetState } from '../../../../redux/features/brand/brandSlice';
+import { getCategories } from '../../../../redux/features/productCategories/productCategorySlice';
+import { getColors } from '../../../../redux/features/color/colorSlice';
 import { useFormik } from 'formik';
 import ReactQuill from 'react-quill';
 import { Select } from 'antd';
 import Dropzone from 'react-dropzone';
-import { delImg, uploadImg } from '../../../../features/upload/uploadSlice';
+import { delImg, uploadImg } from '../../../../redux/features/upload/uploadSlice';
 import { toast } from 'react-toastify';
 
 const UpdateProduct = ({ productId, onClose }) => {

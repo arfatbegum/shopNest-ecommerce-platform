@@ -5,13 +5,13 @@ import Twitter from '../../Assets/icons/twitter.svg';
 import Instagram from '../../Assets/icons/instagram.svg';
 import Linkedin from '../../Assets/icons/linkedin.svg';
 import Github from '../../Assets/icons/github.svg';
-
+import logo from '../../Assets/logo-blue.png';
 const FooterTop = () => {
     return (
         <div className="container lg:px-12 py-16 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col text-gray-500">
             <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
                 <Link to="/" className="flex title-font font-extrabold items-center md:justify-start justify-center text-primary">
-                    <span className="text-3xl font-bold text-primary">SHOPPALBLE</span>
+                <img className="w-50" src={logo} alt="" />
                 </Link>
                 <p className="mt-2 text-sm">They key is to have every key, the key to open every door. the key to open every. the key to open every.</p>
                 <div className="flex justify-center mt-4">

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getACoupon, getAllCoupon, resetState, updateACoupon } from '../../../../features/coupon/couponSlice';
+import { getACoupon, getAllCoupon, resetState, updateACoupon } from '../../../../redux/features/coupon/couponSlice';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';

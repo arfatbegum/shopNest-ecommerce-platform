@@ -6,7 +6,6 @@ import Dashboard from "./components/pages/Dashboard/Dashboard";
 import Orders from "./components/pages/Orders/Orders";
 import MainLayout from "./components/pages/MainLayout/MainLayout";
 import Customers from "./components/pages/Customers/Customers";
-import OurStaff from "./components/pages/OurStaff/OurStaff";
 import Colors from "./components/pages/Catalog/Colors/Colors";
 import Brands from "./components/pages/Catalog/Brands/Brands";
 import Coupons from "./components/pages/Catalog/Coupons/Coupons";
@@ -38,7 +37,6 @@ function App() {
           <Route path="customers" element={<Customers />}></Route>
           <Route path="orders" element={<Orders />}></Route>
           <Route path="orderDetails" element={<OrderDetails />}></Route>
-          <Route path="staff" element={<OurStaff />}></Route>
           <Route path="enquiries" element={<Enquiries />}></Route>
           <Route path="enquiryDetails/:id" element={<EnquiryDetails />}></Route>
         </Route>

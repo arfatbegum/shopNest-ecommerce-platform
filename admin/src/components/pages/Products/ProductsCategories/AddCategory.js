@@ -7,7 +7,7 @@ import {
   createCategory,
   getCategories,
   resetState,
-} from "../../../../features/productCategories/productCategorySlice.js";
+} from "../../../../redux/features/productCategories/productCategorySlice.js";
 
 let schema = yup.object().shape({
   title: yup.string().required("Category Name is Required"),

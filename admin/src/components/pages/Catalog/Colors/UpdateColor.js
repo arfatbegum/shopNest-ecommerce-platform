@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { getAColor, getColors, resetState, updateAColor } from '../../../../features/color/colorSlice';
+import { getAColor, getColors, resetState, updateAColor } from '../../../../redux/features/color/colorSlice';
 
 const UpdateColor = ({ colorId, onClose }) => {
     const dispatch = useDispatch();

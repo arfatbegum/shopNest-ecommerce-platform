@@ -3,7 +3,7 @@ import { Drawer, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteABlogCategory, getCategories, resetState } from '../../../../features/blogCategories/blogCategorySlice';
+import { deleteABlogCategory, getCategories, resetState } from '../../../../redux/features/blogCategories/blogCategorySlice';
 import UpdateCategory from './UpdateCategory';
 const columns = [
     {

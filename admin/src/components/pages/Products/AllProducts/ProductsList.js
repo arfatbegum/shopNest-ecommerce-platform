@@ -3,7 +3,7 @@ import { Drawer, Modal, Space, Switch, Table } from 'antd';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { FaSearchPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAProduct, getProducts } from '../../../../features/product/productSlice';
+import { deleteAProduct, getProducts } from '../../../../redux/features/product/productSlice';
 import UpdateProduct from './UpdateProduct';
 
 

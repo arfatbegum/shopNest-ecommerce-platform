@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
-import { getAEnquiry, resetState, updateAEnquiry } from '../../../features/enquiry/enquirySlice';
+import { getAEnquiry, resetState, updateAEnquiry } from '../../../redux/features/enquiry/enquirySlice';
 
 const EnquiryDetails = () => {
   const location = useLocation();

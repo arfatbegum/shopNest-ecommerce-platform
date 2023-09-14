@@ -4,7 +4,7 @@ import { BsEyeSlash } from "@react-icons/all-files/bs/BsEyeSlash";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { signin } from '../../../features/auth/authSlice';
+import { signin } from '../../../redux/features/auth/authSlice';
 
 let schema = yup.object().shape({
     email: yup

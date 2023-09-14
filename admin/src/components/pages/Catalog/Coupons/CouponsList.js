@@ -3,7 +3,7 @@ import { Drawer, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteACoupon, getAllCoupon } from "../../../../features/coupon/couponSlice";
+import { deleteACoupon, getAllCoupon } from "../../../../redux/features/coupon/couponSlice";
 import UpdateCoupon from './UpdateCoupon';
 
 const columns = [

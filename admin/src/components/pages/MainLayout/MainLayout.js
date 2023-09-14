@@ -3,7 +3,7 @@ import { Outlet, useNavigate, Link } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { AiOutlineAppstore, AiOutlineCompass, AiOutlineEdit } from 'react-icons/ai';
 import { BiStore, BiColor, BiCategory } from 'react-icons/bi';
-import { FiSlack, FiUsers } from 'react-icons/fi';
+import { FiSlack } from 'react-icons/fi';
 import { FaShoppingBasket } from 'react-icons/fa';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -104,11 +104,6 @@ const MainLayout = () => {
               label: 'Orders',
             },
             {
-              key: 'staff',
-              icon: <FiUsers />,
-              label: 'Our Staff',
-            },
-            {
               key: 'enquiries',
               icon: <BiStore />,
               label: 'Enquiries',
@@ -116,7 +111,7 @@ const MainLayout = () => {
             {
               key: 'store',
               icon: <BiStore />,
-              label: <Link to="">Online Store</Link>,
+              label: <Link to="https://shoppable-ecommerce.netlify.app/">Online Store</Link>,
             },
           ]}
         />

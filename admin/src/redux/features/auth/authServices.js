@@ -2,6 +2,7 @@ import axios from "axios";
 import { base_url } from "../../../utils/baseUrl";
 import { config } from "../../../utils/axiosconfig";
 
+
 const signin = async (user) => {
   const response = await axios.post(`${base_url}user/signin-admin`, user);
   if (response.data) {
@@ -11,15 +12,23 @@ const signin = async (user) => {
 };
 
 const getOrders = async () => {
-  const response = await axios.get(`${base_url}user/orders`, config);
-
+  const response = await axios.get(`${base_url}user/all-orders`, config);
   return response.data;
 };
 
 const getOrder = async (id) => {
-  const response = await axios.post(
+  const response = await axios.get(
     `${base_url}user/order/${id}`,
-    "",
+    config
+  );
+
+  return response.data;
+};
+
+const updateOrderStatus = async (id, newStatus) => {
+  const response = await axios.put(
+    `${base_url}user/orders/update-order/${id}`,
+    { status: newStatus },
     config
   );
 
@@ -31,7 +40,8 @@ const getOrder = async (id) => {
 const authService = {
   signin,
   getOrders,
-  getOrder
+  getOrder,
+  updateOrderStatus
 };
 
 export default authService;

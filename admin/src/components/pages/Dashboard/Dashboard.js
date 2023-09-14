@@ -1,14 +1,15 @@
 import React from 'react';
 import OverviewCards from './OverviewCards';
 import Charts from './Charts';
-import Orders from './Orders';
+import OrdersList from '../Orders/OrdersList';
+
 
 const Dashboard = () => {
   return (
     <div>
       <OverviewCards />
       <Charts />
-      <Orders/>
+      <OrdersList/>
     </div>
   );
 };

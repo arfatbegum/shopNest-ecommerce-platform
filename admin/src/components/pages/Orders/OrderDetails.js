@@ -2,8 +2,8 @@ import { Space, Table } from 'antd';
 import React, { useEffect } from 'react';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { getOrderByUser } from '../../../features/auth/authSlice';
+import { useLocation } from 'react-router-dom';
+import { getOrderByUser } from '../../../redux/features/auth/authSlice';
 
 const columns = [
     {
@@ -48,7 +48,7 @@ const OrderDetails = () => {
     const userId = location.pathname.split("/")[3];
     useEffect(() => {
         dispatch(getOrderByUser(userId));
-    }, []);
+    }, [dispatch,userId]);
     const orderState = useSelector((state) => state.auth.orderbyuser[0].products);
     const data1 = [];
     for (let i = 0; i < 3; i++) {

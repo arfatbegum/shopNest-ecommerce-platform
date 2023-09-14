@@ -3,13 +3,13 @@ import { React, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
-import { delImg, uploadImg } from "../../../../features/upload/uploadSlice";
+import { delImg, uploadImg } from "../../../../redux/features/upload/uploadSlice";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { getCategories } from "../../../../features/blogCategories/blogCategorySlice";
-import { getBlogs, createBlogs, resetState } from "../../../../features/blog/blogSlice";
+import { getCategories } from "../../../../redux/features/blogCategories/blogCategorySlice";
+import { getBlogs, createBlogs, resetState } from "../../../../redux/features/blog/blogSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),

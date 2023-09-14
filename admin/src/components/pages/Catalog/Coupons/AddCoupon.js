@@ -7,7 +7,7 @@ import {
   createCoupon,
   getAllCoupon,
   resetState,
-} from "../../../../features/coupon/couponSlice.js";
+} from "../../../../redux/features/coupon/couponSlice.js";
 
 let schema = yup.object().shape({
   name: yup.string().required("Coupon Name is Required"),
