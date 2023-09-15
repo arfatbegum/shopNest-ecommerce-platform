@@ -470,6 +470,21 @@ const getOrders = asyncHandler(async (req, res) => {
     res.json(orders);
 });
 
+// Get a single Order
+const getOrder = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    validateMongoDbId(id);
+
+    try {
+        const getOrder = await Order.findById(id);
+        res.json({
+            getOrder,
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
 // Update order 
 const updateOrderStatus = asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -514,6 +529,7 @@ module.exports = {
     createOrder,
     getOrders,
     getUserOrders,
+    getOrder,
     updateOrderStatus,
     getComparelist
 

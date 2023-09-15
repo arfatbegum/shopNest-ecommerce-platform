@@ -1,9 +1,10 @@
-import { Space, Table } from 'antd';
+import { Table } from 'antd';
 import React, { useEffect } from 'react';
-import { BiEdit, BiTrash } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { getOrderByUser } from '../../../redux/features/auth/authSlice';
+import { FaBackspace, FaBackward } from 'react-icons/fa';
+import { BiArrowBack, BiArrowFromRight, BiRightArrow } from 'react-icons/bi';
 
 const columns = [
     {
@@ -19,22 +20,17 @@ const columns = [
         dataIndex: "brand",
     },
     {
-        title: "Count",
-        dataIndex: "count",
-    },
-    {
         title: "Color",
         dataIndex: "color",
     },
     {
-        title: "Amount",
-        dataIndex: "amount",
+        title: "Price",
+        dataIndex: "price",
     },
     {
-        title: "Date",
-        dataIndex: "date",
+        title: "Qunatity",
+        dataIndex: "quantity",
     },
-
     {
         title: "Action",
         dataIndex: "action",
@@ -44,29 +40,26 @@ const columns = [
 const OrderDetails = () => {
     const location = useLocation();
     const dispatch = useDispatch();
-
     const userId = location.pathname.split("/")[3];
+    const orderState = useSelector((state) => state?.auth?.orderbyuser?.getOrder);
+    const orderItems = orderState?.orderItems || [];
+
     useEffect(() => {
         dispatch(getOrderByUser(userId));
-    }, [dispatch,userId]);
-    const orderState = useSelector((state) => state.auth.orderbyuser[0].products);
+    }, [dispatch, userId]);
+
     const data1 = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < orderItems.length; i++) {
         data1.push({
             key: i + 1,
-            name: orderState[i].product.title,
-            brand: orderState[i].product.brand,
-            count: orderState[i].count,
-            amount: orderState[i].product.price,
-            color: orderState[i].product.color,
-            date: orderState[i].product.createdAt,
+            name: orderItems[i].productId?.name,
+            brand: orderItems[i].productId?.brand,
+            price: orderItems[i].price,
+            quantity: orderItems[i].quantity,
             action: (
-                <>
-                    <Space size="middle">
-                        <BiEdit className='text-[#2f60b5] text-xl' />
-                        <BiTrash className='text-red-600 text-xl' />
-                    </Space>
-                </>
+                <Link className='flex items-center gap-2 text-blue-700 font-semibold' to="/admin/orders">
+                   Go Orders<BiRightArrow/>
+                </Link>
             ),
         });
     }
