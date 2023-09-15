@@ -23,27 +23,27 @@ export const createAProduct = createAsyncThunk(
 );
 
 export const updateAProduct = createAsyncThunk(
-    "product/update-product",
-    async (product, thunkAPI) => {
-      try {
-        return await productServices.updateProduct(product);
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error);
-      }
+  "product/update-product",
+  async (product, thunkAPI) => {
+    try {
+      return await productServices.updateProduct(product);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
     }
-  );
-  
-  export const deleteAProduct = createAsyncThunk(
-    "product/delete-product",
-    async (id, thunkAPI) => {
-      try {
-        return await productServices.deleteProduct(id);
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error);
-      }
-    }
+  }
 );
-  
+
+export const deleteAProduct = createAsyncThunk(
+  "product/delete-product",
+  async (id, thunkAPI) => {
+    try {
+      return await productServices.deleteProduct(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const resetState = createAction("Reset_all");
 
 const initialState = {
@@ -96,7 +96,16 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.updatedProduct = action.payload;
+        state.productName = action.payload.name;
+        state.productDescription = action.payload.description;
+        state.productPrice = action.payload.price;
+        state.salePrice = action.payload.salePrice;
+        state.brand = action.payload.brand;
+        state.category = action.payload.category;
+        state.tags = action.payload.tags;
+        state.color = action.payload.color;
+        state.quantity = action.payload.quantity;
+        state.images = action.payload.images;
       })
       .addCase(updateAProduct.rejected, (state, action) => {
         state.isLoading = false;

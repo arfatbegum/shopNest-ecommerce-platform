@@ -141,7 +141,7 @@ const ProductsList = () => {
             >
                 Are you sure you want to delete this brand?
             </Modal>
-            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
+            <Drawer title="Update Product" width={700} placement="right" onClose={onClose} open={openDrawer}>
                 <UpdateProduct productId={productId} onClose={onClose} />
             </Drawer>
             <Table  columns={columns} dataSource={data} />

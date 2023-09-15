@@ -1,1 +1,1 @@
-export const base_url = "https://shoppable-server.vercel.app/api/";
+export const base_url = "http://localhost:5000/api/";

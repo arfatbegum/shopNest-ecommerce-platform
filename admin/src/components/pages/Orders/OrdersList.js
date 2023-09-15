@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrders, updateOrderStatus } from "../../../redux/features/auth/authSlice";
+import { getOrders, updatedOrderStatus } from "../../../redux/features/auth/authSlice";
 import { FaSearchPlus } from 'react-icons/fa';
 const columns = [
     {
@@ -50,13 +50,13 @@ const columns = [
 const OrdersList = () => {
     const dispatch = useDispatch();
     const orderState = useSelector((state) => state.auth.orders);
-    console.log(orderState)
+
     useEffect(() => {
         dispatch(getOrders());
     }, [dispatch])
 
-    const handleStatusChange = (orderId, newStatus) => {
-        updateOrderStatus(orderId, newStatus);
+    const handleStatusChange = (id, orderStatus) => {
+        dispatch(updatedOrderStatus({ id, orderStatus }))
     };
 
     const data1 = [];

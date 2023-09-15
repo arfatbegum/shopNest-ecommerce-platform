@@ -4,29 +4,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBrands, resetState } from '../../../../redux/features/brand/brandSlice';
 import { getCategories } from '../../../../redux/features/productCategories/productCategorySlice';
 import { getColors } from '../../../../redux/features/color/colorSlice';
+import { delImg, uploadImg } from '../../../../redux/features/upload/uploadSlice';
 import { useFormik } from 'formik';
 import ReactQuill from 'react-quill';
 import { Select } from 'antd';
 import Dropzone from 'react-dropzone';
-import { delImg, uploadImg } from '../../../../redux/features/upload/uploadSlice';
 import { toast } from 'react-toastify';
 
 const UpdateProduct = ({ productId, onClose }) => {
     const dispatch = useDispatch();
-    const [color, setColor] = useState([]);
+    const [colors, setColors] = useState([]);
     const brandState = useSelector((state) => state.brand.brands);
     const catState = useSelector((state) => state.productCategory.pCategories);
     const colorState = useSelector((state) => state.color.colors);
     const imgState = useSelector((state) => state.upload.images);
     const updateProduct = useSelector((state) => state.product);
-    const { isSuccess, isError, isLoading, updatedProduct } = updateProduct;
-
-    useEffect(() => {
-        dispatch(getBrands());
-        dispatch(getCategories());
-        dispatch(getColors());
-    }, [dispatch]);
-
+    const {
+        isSuccess,
+        isError,
+        productName,
+        productDescription,
+        productPrice,
+        salePrice,
+        brand,
+        category,
+        tags,
+        color,
+        quantity,
+        images,
+        updatedProduct } = updateProduct;
+    console.log(updateProduct)
 
     useEffect(() => {
         if (productId !== undefined) {
@@ -37,13 +44,19 @@ const UpdateProduct = ({ productId, onClose }) => {
     }, [productId, dispatch]);
 
     useEffect(() => {
+        dispatch(getBrands());
+        dispatch(getCategories());
+        dispatch(getColors());
+    }, [dispatch]);
+
+    useEffect(() => {
         if (isSuccess && updatedProduct) {
             toast.success("Product Updated Successfullly!");
         }
         if (isError) {
             toast.error("Something Went Wrong!");
         }
-    }, [isSuccess, isError, isLoading, updatedProduct]);
+    }, [isSuccess, isError,updatedProduct]);
 
     const colorOption = [];
     colorState.forEach((i) => {
@@ -61,46 +74,46 @@ const UpdateProduct = ({ productId, onClose }) => {
         });
     });
 
-    useEffect(() => {
-        formik.values.color = color ? color : " ";
-        formik.values.images = img;
-    }, [formik.values.color, formik.values.images]);
-
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            name: "",
-            description: "",
-            price: "",
-            salePrice: "",
-            brand: "",
-            category: "",
-            tags: "",
-            color: "",
-            quantity: "",
-            images: "",
+            name: productName || "",
+            description: productDescription || "",
+            price: productPrice || "",
+            salePrice: salePrice || "",
+            brand: brand || "",
+            category: category || "",
+            tags: tags || "",
+            color: color || "",
+            quantity: quantity || "",
+            images: images || "",
         },
         onSubmit: (values) => {
             if (productId !== undefined) {
                 const data = { id: productId, productData: values };
                 dispatch(updateAProduct(data));
-                formik.resetForm();
                 onClose();
-                setColor(null);
+                setColors(null);
                 setTimeout(() => {
                     dispatch(resetState());
                     dispatch(getProducts());
-                }, 3000);
+                }, 1000);
             }
+
         }
     });
 
+    useEffect(() => {
+        formik.values.color = colors ? colors : " ";
+        formik.values.images = img;
+    }, [formik.values.color, formik.values.images]);
+
     const handleColors = (e) => {
-        setColor(e);
+        setColors(e);
     };
 
     return (
         <div>
-            <h3 className="mb-4 title">Update Product</h3>
             <div>
                 <form
                     className="px-8 pb-8 mb-4"
@@ -113,7 +126,6 @@ const UpdateProduct = ({ productId, onClose }) => {
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
-                            label="Enter Product Title"
                             name="name"
                             onChange={formik.handleChange("name")}
                             onBlur={formik.handleBlur("name")}
@@ -124,7 +136,7 @@ const UpdateProduct = ({ productId, onClose }) => {
                         </p>
                     </div>
                     <div className="">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                             Product Description
                         </label>
                         <ReactQuill
@@ -138,13 +150,12 @@ const UpdateProduct = ({ productId, onClose }) => {
                         </p>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
                             Product Price
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="number"
-                            label="Enter Product Price"
                             name="price"
                             onChange={formik.handleChange("price")}
                             onBlur={formik.handleBlur("price")}
@@ -250,7 +261,7 @@ const UpdateProduct = ({ productId, onClose }) => {
                             allowClear
                             className="w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Select colors"
-                            defaultValue={color}
+                            defaultValue={colors}
                             onChange={(i) => handleColors(i)}
                             options={colorOption}
                         />
@@ -297,7 +308,7 @@ const UpdateProduct = ({ productId, onClose }) => {
                         </div>
                     </div>
                     <div className="showimages flex flex-wrap gap-3">
-                        {imgState && imgState.length > 0 &&imgState?.map((i, j) => {
+                        {imgState && imgState.length > 0 && imgState?.map((i, j) => {
                             return (
                                 <div className=" position-relative" key={j}>
                                     <button

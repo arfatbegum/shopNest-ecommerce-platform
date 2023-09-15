@@ -25,17 +25,14 @@ const getOrder = async (id) => {
   return response.data;
 };
 
-const updateOrderStatus = async (id, newStatus) => {
+const updateOrderStatus = async (id, orderStatus) => {
   const response = await axios.put(
     `${base_url}user/orders/update-order/${id}`,
-    { status: newStatus },
+    { orderStatus },
     config
   );
-
   return response.data;
 };
-
-
 
 const authService = {
   signin,

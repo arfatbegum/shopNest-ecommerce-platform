@@ -15,7 +15,7 @@ const UpdateBlog = ({ blogId, onClose }) => {
     const blogCategoryState = useSelector((state) => state.blogCategory.blogCategories);
     const updatedBlog = useSelector((state) => state.blog);
     const { isSuccess, isError, blogName, blogDesc, blogCategory, blogImages, updateBlog } = updatedBlog;
-
+    console.log(updatedBlog)
 
     useEffect(() => {
         if (blogId !== undefined) {
@@ -87,7 +87,7 @@ const UpdateBlog = ({ blogId, onClose }) => {
                             name="title"
                             onChange={formik.handleChange("title")}
                             onBlur={formik.handleBlur("title")}
-                            val={formik.values.title}
+                            value={formik.values.title}
                         />
                         <p className="text-red-500 text-xs italic text-start mb-5">
                             {formik.touched.title && formik.errors.title}
