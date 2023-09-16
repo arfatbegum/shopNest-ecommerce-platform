@@ -5,6 +5,7 @@ import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAColor, getColors } from "../../../../redux/features/color/colorSlice";
 import UpdateColor from './UpdateColor';
+import Loader from '../../../Loader/Loader';
 
 const columns = [
     {
@@ -54,6 +55,7 @@ const ColorsList = () => {
     }, [dispatch]);
 
     const colorState = useSelector((state) => state.color.colors);
+    const isLoading = useSelector((state) => state.color.isLoading);
 
     const data1 = [];
     for (let i = 0; i < colorState.length; i++) {
@@ -85,25 +87,32 @@ const ColorsList = () => {
         }, 1000);
     };
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteColor(colorId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this Color?
-            </Modal>
-            <Drawer title="Update Color" width={700} placement="right" onClose={onClose} open={openDrawer}>
-                <UpdateColor colorId={colorId} onClose={onClose} />
-            </Drawer>
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteColor(colorId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this Color?
+                    </Modal>
+                    <Drawer title="Update Color" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                        <UpdateColor colorId={colorId} onClose={onClose} />
+                    </Drawer>
+                </div>
+            )}
+        </>
+
     );
 };
 export default ColorsList;

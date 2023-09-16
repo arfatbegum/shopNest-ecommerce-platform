@@ -37,8 +37,11 @@ code {
   background-color: transparent !important;
 }
 .ant-layout-sider-collapsed .icon{
-  display: block;
+  display: block !important;
   }
+.ant-layout-sider .icon{
+    display: none;
+ }
 .ant-layout-sider-collapsed .name{
 display: none;
 }

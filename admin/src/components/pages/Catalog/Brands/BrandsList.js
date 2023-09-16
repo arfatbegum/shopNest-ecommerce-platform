@@ -5,6 +5,7 @@ import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteABrand, getBrands, resetState } from "../../../../redux/features/brand/brandSlice.js";
 import UpdateBrand from './UpdateBrand.js';
+import Loader from '../../../Loader/Loader.js';
 
 const columns = [
     {
@@ -53,6 +54,7 @@ const BrandsList = () => {
     }, [dispatch]);
 
     const brandState = useSelector((state) => state.brand.brands);
+    const isLoading = useSelector((state) => state.brand.isLoading);
 
     const data1 = [];
     for (let i = 0; i < brandState.length; i++) {
@@ -84,25 +86,31 @@ const BrandsList = () => {
     };
 
     return (
-        <div>
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteBrand(brandId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this brand?
-            </Modal>
-            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
-                <UpdateBrand brandId={brandId} onClose={onClose} />
-            </Drawer>
-            <Table columns={columns} dataSource={data1} />
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteBrand(brandId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this brand?
+                    </Modal>
+                    <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                        <UpdateBrand brandId={brandId} onClose={onClose} />
+                    </Drawer>
+                    <Table columns={columns} dataSource={data1} />
+                </div>
+            )}
+        </>
     );
 };
 export default BrandsList;

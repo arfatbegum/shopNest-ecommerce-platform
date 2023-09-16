@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders, updatedOrderStatus } from "../../../redux/features/auth/authSlice";
 import { FaSearchPlus } from 'react-icons/fa';
+import Loader from '../../Loader/Loader';
 const columns = [
     {
         title: 'SL. NO',
@@ -50,6 +51,7 @@ const columns = [
 const OrdersList = () => {
     const dispatch = useDispatch();
     const orderState = useSelector((state) => state.auth.orders);
+    const isLoading = useSelector((state) => state.auth.isLoading);
 
     useEffect(() => {
         dispatch(getOrders());
@@ -91,9 +93,15 @@ const OrdersList = () => {
         });
     }
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                </div>
+            )}
+        </>
     );
 };
 export default OrdersList;

@@ -5,6 +5,7 @@ import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAProductCategory, getCategories, resetState } from '../../../../redux/features/productCategories/productCategorySlice';
 import UpdateCategory from './UpdateCategory';
+import Loader from '../../../Loader/Loader';
 const columns = [
     {
         title: 'SL. NO',
@@ -51,6 +52,7 @@ const CategoryList = () => {
     }, [dispatch]);
 
     const productCategoryStat = useSelector((state) => state.productCategory.pCategories);
+    const isLoading = useSelector((state) => state.productCategory.isLoading);
 
     const data1 = [];
     for (let i = 0; i < productCategoryStat.length; i++) {
@@ -81,25 +83,31 @@ const CategoryList = () => {
         }, 1000);
     }
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteCategory(productCategoryId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this Product Category?
-            </Modal>
-            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
-                <UpdateCategory categoryId={productCategoryId} onClose={onClose} />
-            </Drawer>
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteCategory(productCategoryId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this Product Category?
+                    </Modal>
+                    <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                        <UpdateCategory categoryId={productCategoryId} onClose={onClose} />
+                    </Drawer>
+                </div>
+            )}
+        </>
     );
 };
 export default CategoryList;

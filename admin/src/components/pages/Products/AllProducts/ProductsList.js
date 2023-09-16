@@ -6,6 +6,7 @@ import { FaSearchPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAProduct, getProducts } from '../../../../redux/features/product/productSlice';
 import UpdateProduct from './UpdateProduct';
+import Loader from '../../../Loader/Loader';
 
 
 const columns = [
@@ -56,7 +57,7 @@ const columns = [
 ];
 
 const ProductsList = () => {
-    
+
     const [open, setOpen] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
     const [productId, setProductId] = useState("");
@@ -86,6 +87,7 @@ const ProductsList = () => {
     }, [dispatch]);
 
     const productState = useSelector((state) => state.product.products);
+    const isLoading = useSelector((state) => state.product.isLoading);
 
     const data = [];
     for (let i = 0; i < productState.length; i++) {
@@ -105,19 +107,19 @@ const ProductsList = () => {
             published: <div className='text-center'><Switch size="small" defaultChecked /></div>,
             actions: (
                 <Space size="middle">
-                  <BiEdit
-                    className='text-[#2f60b5] text-xl'
-                    onClick={() => showDrawer(i)}
-                  />
-                  <BiTrash
-                    className='text-red-600 text-xl'
-                    onClick={() => showModal(productState[i]._id)}
-                  />
-                  <Link to={`https://shoppable-ecommerce.netlify.app/product-details/${productState[i]._id}`}>
-                    <FaSearchPlus className='text-[#2f60b5] text-lg' />
-                  </Link>
+                    <BiEdit
+                        className='text-[#2f60b5] text-xl'
+                        onClick={() => showDrawer(i)}
+                    />
+                    <BiTrash
+                        className='text-red-600 text-xl'
+                        onClick={() => showModal(productState[i]._id)}
+                    />
+                    <Link to={`https://shoppable-ecommerce.netlify.app/product-details/${productState[i]._id}`}>
+                        <FaSearchPlus className='text-[#2f60b5] text-lg' />
+                    </Link>
                 </Space>
-              ),              
+            ),
         });
     }
 
@@ -131,25 +133,31 @@ const ProductsList = () => {
     };
 
     return (
-        <div>
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteProduct(productId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this brand?
-            </Modal>
-            <Drawer title="Update Product" width={700} placement="right" onClose={onClose} open={openDrawer}>
-                <UpdateProduct productId={productId} onClose={onClose} />
-            </Drawer>
-            <Table  columns={columns} dataSource={data} />
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteProduct(productId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this brand?
+                    </Modal>
+                    <Drawer title="Update Product" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                        <UpdateProduct productId={productId} onClose={onClose} />
+                    </Drawer>
+                    <Table columns={columns} dataSource={data} />
+                </div>
+            )}
+        </>
     );
 };
 export default ProductsList;

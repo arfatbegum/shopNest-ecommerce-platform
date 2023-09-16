@@ -5,6 +5,7 @@ import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteACoupon, getAllCoupon } from "../../../../redux/features/coupon/couponSlice";
 import UpdateCoupon from './UpdateCoupon';
+import Loader from '../../../Loader/Loader';
 
 const columns = [
     {
@@ -39,11 +40,12 @@ const CouponsList = () => {
     const [couponId, setcouponId] = useState("");
     const dispatch = useDispatch();
     const couponState = useSelector((state) => state.coupon.coupons);
+    const isLoading = useSelector((state) => state.coupon.isLoading);
 
     useEffect(() => {
         dispatch(getAllCoupon());
     }, [dispatch]);
-    
+
     const showModal = (e) => {
         setOpen(true);
         setcouponId(e);
@@ -93,25 +95,32 @@ const CouponsList = () => {
     };
 
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteCoupon(couponId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this Coupon?
-            </Modal>
-            <Drawer title="Update Coupon" width={700} placement="right" onClose={onClose} open={openDrawer}>
-                <UpdateCoupon couponId={couponId} onClose={onClose} />
-            </Drawer>
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteCoupon(couponId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this Coupon?
+                    </Modal>
+                    <Drawer title="Update Coupon" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                        <UpdateCoupon couponId={couponId} onClose={onClose} />
+                    </Drawer>
+                </div>
+            )}
+        </>
+
     );
 };
 export default CouponsList;

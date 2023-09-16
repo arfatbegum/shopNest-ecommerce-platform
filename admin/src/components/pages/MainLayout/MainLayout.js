@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Outlet, useNavigate, Link } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { AiOutlineAppstore, AiOutlineCompass, AiOutlineEdit } from 'react-icons/ai';
-import { BiStore, BiColor, BiCategory } from 'react-icons/bi';
+import { BiStore, BiColor, BiCategory, BiLogOut, BiEnvelopeOpen } from 'react-icons/bi';
 import { FiSlack } from 'react-icons/fi';
-import { FaShoppingBasket } from 'react-icons/fa';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdOutlineLocalGroceryStore, MdNotificationsNone } from 'react-icons/md';
@@ -13,7 +12,8 @@ import { HiOutlineUserGroup } from 'react-icons/hi';
 import { TbBrand4Chan } from 'react-icons/tb';
 import { Layout, Menu, Button, theme, Avatar, Badge } from 'antd';
 import Search from 'antd/es/transfer/search';
-
+import logo from './../../../Assests/logo-blue.png';
+import logoIcon from './../../../Assests/logo-icon.png'
 
 const { Header, Sider, Content } = Layout;
 
@@ -34,7 +34,8 @@ const MainLayout = () => {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo text-white text-center font-bold py-4 text-xl flex items-center justify-center"><FaShoppingBasket className='icon text-3xl text-[#e6bd00]' /><span className="name ml-2">ShopNest</span></div>
+      <div className="logo text-white text-center font-bold py-4 text-xl flex items-center justify-center"> <img className="w-50 p-5 icon" src={logoIcon} alt="" /><span className="name ml-2"><img className="w-50 p-5" src={logo} alt="" /></span></div>
+
         <Menu
           theme="dark"
           mode="inline"
@@ -112,7 +113,7 @@ const MainLayout = () => {
             },
             {
               key: 'enquiries',
-              icon: <BiStore />,
+              icon: <BiEnvelopeOpen />,
               label: 'Enquiries',
             },
             {
@@ -121,6 +122,7 @@ const MainLayout = () => {
               label: <Link to="https://shoppable-ecommerce.netlify.app/">Online Store</Link>,
             },
             {
+              icon: <BiLogOut />,
               label: <button onClick={handleSignOut} className='w-full my-2 rounded bg-[#2f60b5] text-white font-bold' >Log Out</button>,
             },
           ]}

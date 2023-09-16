@@ -5,6 +5,7 @@ import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteABlogCategory, getCategories, resetState } from '../../../../redux/features/blogCategories/blogCategorySlice';
 import UpdateCategory from './UpdateCategory';
+import Loader from '../../../Loader/Loader';
 const columns = [
     {
         title: 'SL. NO',
@@ -24,7 +25,7 @@ const CategoryList = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [open, setOpen] = useState(false);
     const [blogCategoryId, setBlogCategoryId] = useState("");
-   
+
     const showDrawer = (e) => {
         setOpenDrawer(true);
         setBlogCategoryId(blogCategoryState[e]._id);
@@ -51,7 +52,8 @@ const CategoryList = () => {
     }, [dispatch]);
 
     const blogCategoryState = useSelector((state) => state.blogCategory.blogCategories);
-
+    const isLoading = useSelector((state) => state.blogCategory.isLoading);
+    
     const data1 = [];
     for (let i = 0; i < blogCategoryState.length; i++) {
         data1.push({
@@ -81,25 +83,31 @@ const CategoryList = () => {
         }, 1000);
     }
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteCategory(blogCategoryId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this Blog Category?
-            </Modal>
-            <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
-                <UpdateCategory categoryId={blogCategoryId} onClose={onClose} />
-            </Drawer>
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteCategory(blogCategoryId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this Blog Category?
+                    </Modal>
+                    <Drawer title="Update Category" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                        <UpdateCategory categoryId={blogCategoryId} onClose={onClose} />
+                    </Drawer>
+                </div>
+            )}
+        </>
     );
 };
 export default CategoryList;

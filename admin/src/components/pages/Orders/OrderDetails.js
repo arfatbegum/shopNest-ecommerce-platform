@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { getOrderByUser } from '../../../redux/features/auth/authSlice';
 import { BiRightArrow } from 'react-icons/bi';
+import Loader from '../../Loader/Loader';
 
 const columns = [
     {
@@ -41,6 +42,7 @@ const OrderDetails = () => {
     const dispatch = useDispatch();
     const userId = location.pathname.split("/")[3];
     const orderState = useSelector((state) => state?.auth?.orderbyuser?.getOrder);
+    const isLoading = useSelector((state) => state.auth.isLoading);
     const orderItems = orderState?.orderItems || [];
 
     useEffect(() => {
@@ -65,9 +67,13 @@ const OrderDetails = () => {
     return (
         <div>
             <h3 className="font-bold text-xl text-black uppercase mb-5">Order Details</h3>
-            <div>
-                <Table columns={columns} dataSource={data1} />
-            </div>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                </div>
+            )}
         </div>
     );
 };

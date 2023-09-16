@@ -4,45 +4,45 @@ import { Tooltip, Legend, BarChart, Bar, CartesianGrid, XAxis, YAxis } from 'rec
 const data = [
     {
         name: 'Page A',
-        sell: 4000,
-        orders: 2400,
-        amt: 2400,
+        sell: 40,
+        orders: 24,
+        amt: 24,
     },
     {
         name: 'Page B',
-        sell: 3000,
-        orders: 1398,
-        amt: 2210,
+        sell: 30,
+        orders: 13,
+        amt: 22,
     },
     {
         name: 'Page C',
-        sell: 2000,
-        orders: 9800,
-        amt: 2290,
+        sell: 20,
+        orders: 98,
+        amt: 22,
     },
     {
         name: 'Page D',
-        sell: 2780,
-        orders: 3908,
-        amt: 2000,
+        sell: 27,
+        orders: 39,
+        amt: 20,
     },
     {
         name: 'Page E',
-        sell: 1890,
-        orders: 4800,
-        amt: 2181,
+        sell: 18,
+        orders: 40,
+        amt: 21,
     },
     {
         name: 'Page F',
-        sell: 2390,
-        orders: 3800,
-        amt: 2500,
+        sell: 23,
+        orders: 38,
+        amt: 25,
     },
     {
         name: 'Page G',
-        sell: 3490,
-        orders: 4300,
-        amt: 2100,
+        sell: 34,
+        orders: 40,
+        amt: 21,
     },
 ];
 const BarCharts = () => {
@@ -65,8 +65,8 @@ const BarCharts = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="orders" stackId="a" fill="#2563EB" />
-                <Bar dataKey="sell" stackId="a" fill="#f1c40f" />
+                <Bar dataKey="orders" stackId="a" fill="#CCE5FF" />
+                <Bar dataKey="sell" stackId="a" fill="#99CCFF" />
             </BarChart>
         </div>
     );

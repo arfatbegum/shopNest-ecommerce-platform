@@ -2,13 +2,15 @@ import React from 'react';
 import { PieChart, Pie, Cell, Legend } from 'recharts';
 
 const data = [
-  { name: 'Watch', value: 400 },
-  { name: 'Necklace', value: 300 },
-  { name: 'Trousers', value: 300 },
-  { name: 'Tops', value: 200 },
+  { name: 'Watch', value: 40 },
+  { name: 'Laptops', value: 30 },
+  { name: 'Shoes', value: 30 },
+  { name: 'Smart Phone', value: 20 },
+  { name: 'Perfumes', value: 10 },
+  { name: 'Fashion', value: 25 },
 ];
 
-const COLORS = ['#2563EB', '#FBBF24', '#82ca9d', '#FF8042'];
+const COLORS = ['#2563EB', '#FBBF24', '#82ca9d', '#FF8042','#FF0000', '#00CC66'];
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;

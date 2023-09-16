@@ -5,6 +5,7 @@ import { BiTrash, BiEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from "react-redux";
 import UpdateBlog from './UpdateBlog';
 import { deleteABlog, getBlogs, resetState } from '../../../../redux/features/blog/blogSlice';
+import Loader from '../../../Loader/Loader';
 
 
 const columns = [
@@ -57,6 +58,8 @@ const BrandsList = () => {
     }, [dispatch]);
 
     const blogState = useSelector((state) => state.blog.blogs);
+    const isLoading = useSelector((state) => state.blog.isLoading);
+
     const data1 = [];
     for (let i = 0; i < blogState.length; i++) {
         data1.push({
@@ -77,7 +80,7 @@ const BrandsList = () => {
             ),
         });
     }
-    
+
     const deleteBlog = (e) => {
         dispatch(deleteABlog(e));
         setOpen(false);
@@ -87,25 +90,31 @@ const BrandsList = () => {
     };
 
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteBlog(blogId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this Blog?
-            </Modal>
-            <Drawer title="Update Blog" width={700} placement="right" onClose={onClose} open={openDrawer}>
-                <UpdateBlog blogId={blogId} onClose={onClose} />
-            </Drawer>
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteBlog(blogId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this Blog?
+                    </Modal>
+                    <Drawer title="Update Blog" width={700} placement="right" onClose={onClose} open={openDrawer}>
+                        <UpdateBlog blogId={blogId} onClose={onClose} />
+                    </Drawer>
+                </div>
+            )}
+        </>
     );
 };
 export default BrandsList;

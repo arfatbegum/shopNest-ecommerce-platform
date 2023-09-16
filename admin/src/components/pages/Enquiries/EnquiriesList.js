@@ -6,6 +6,7 @@ import { FaSearchPlus } from 'react-icons/fa';
 import { deleteAEnquiry, updateAEnquiry, getEnquiries, resetState } from '../../../redux/features/enquiry/enquirySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
+import Loader from '../../Loader/Loader';
 
 const columns = [
     {
@@ -58,6 +59,7 @@ const EnquiriesList = () => {
     }, [dispatch]);
 
     const enquiryState = useSelector((state) => state.enquiry.enquiries);
+    const isLoading = useSelector((state) => state.enquiry.isLoading);
 
     const data1 = [];
     for (let i = 0; i < enquiryState.length; i++) {
@@ -109,22 +111,28 @@ const EnquiriesList = () => {
     };
 
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-            <Modal
-                title="Confirmation"
-                centered
-                open={open}
-                onOk={() => {
-                    deleteEnquiry(enquiryId);
-                }}
-                onCancel={hideModal}
-                okText="Ok"
-                cancelText="Cancel"
-            >
-                Are you sure you want to delete this brand?
-            </Modal>
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                    <Modal
+                        title="Confirmation"
+                        centered
+                        open={open}
+                        onOk={() => {
+                            deleteEnquiry(enquiryId);
+                        }}
+                        onCancel={hideModal}
+                        okText="Ok"
+                        cancelText="Cancel"
+                    >
+                        Are you sure you want to delete this brand?
+                    </Modal>
+                </div>
+            )}
+        </>
     );
 };
 export default EnquiriesList;

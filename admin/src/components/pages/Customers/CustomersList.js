@@ -3,6 +3,7 @@ import { Space, Table } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { getUsers } from '../../../redux/features/customers/customerSlice';
+import Loader from '../../Loader/Loader';
 
 const columns = [
     {
@@ -39,6 +40,7 @@ const CustomersList = () => {
     }, [dispatch]);
 
     const customerstate = useSelector((state) => state.customer.customers);
+    const isLoading = useSelector((state) => state.customer.isLoading);
 
     const data1 = [];
     for (let i = 0; i < customerstate.length; i++) {
@@ -60,9 +62,16 @@ const CustomersList = () => {
     }
 
     return (
-        <div>
-            <Table columns={columns} dataSource={data1} />
-        </div>
+        <>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Table columns={columns} dataSource={data1} />
+                </div>
+            )}
+        </>
+
     );
 };
 export default CustomersList;
