@@ -16,6 +16,7 @@ import Blogs from "./components/pages/Blogs/Blogs/Blogs";
 import BlogCategories from "./components/pages/Blogs/BlogsCategories/BlogCategories";
 import EnquiryDetails from "./components/pages/Enquiries/EnquiryDetails";
 import OrderDetails from "./components/pages/Orders/OrderDetails";
+import PrivateRoute from "./routes/PrivateRoutes";
 
 
 function App() {
@@ -26,19 +27,19 @@ function App() {
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="/admin" element={<MainLayout />} >
-          <Route index element={<Dashboard />}></Route>
-          <Route path="all-products" element={<Products />}></Route>
-          <Route path="product-categories" element={<ProductCategories />}></Route>
-          <Route path="all-blogs" element={<Blogs />}></Route>
-          <Route path="blog-categories" element={<BlogCategories />}></Route>
-          <Route path="colors" element={<Colors />}></Route>
-          <Route path="brands" element={<Brands />}></Route>
-          <Route path="coupons" element={<Coupons />}></Route>
-          <Route path="customers" element={<Customers />}></Route>
-          <Route path="orders" element={<Orders />}></Route>
-          <Route path="orderDetails/:id" element={<OrderDetails />}></Route>
-          <Route path="enquiries" element={<Enquiries />}></Route>
-          <Route path="enquiryDetails/:id" element={<EnquiryDetails />}></Route>
+          <Route index element={<PrivateRoute><Dashboard /></PrivateRoute>}></Route>
+          <Route path="all-products" element={<PrivateRoute><Products /></PrivateRoute>}></Route>
+          <Route path="product-categories" element={<PrivateRoute><ProductCategories /></PrivateRoute>}></Route>
+          <Route path="all-blogs" element={<PrivateRoute><Blogs /></PrivateRoute>}></Route>
+          <Route path="blog-categories" element={<PrivateRoute><BlogCategories /></PrivateRoute>}></Route>
+          <Route path="colors" element={<PrivateRoute><Colors /></PrivateRoute>}></Route>
+          <Route path="brands" element={<PrivateRoute><Brands /></PrivateRoute>}></Route>
+          <Route path="coupons" element={<PrivateRoute><Coupons /></PrivateRoute>}></Route>
+          <Route path="customers" element={<PrivateRoute><Customers /></PrivateRoute>}></Route>
+          <Route path="orders" element={<PrivateRoute><Orders /></PrivateRoute>}></Route>
+          <Route path="orderDetails/:id" element={<PrivateRoute><OrderDetails /></PrivateRoute>}></Route>
+          <Route path="enquiries" element={<PrivateRoute><Enquiries /></PrivateRoute>}></Route>
+          <Route path="enquiryDetails/:id" element={<PrivateRoute><EnquiryDetails /></PrivateRoute>}></Route>
         </Route>
       </Routes>
     </div>

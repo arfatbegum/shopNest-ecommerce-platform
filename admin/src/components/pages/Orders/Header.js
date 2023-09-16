@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <>
       <div className='flex justify-between items-center mb-4'>
-        <Search placeholder="Search Staff" onSearch={onSearch} width={700} height={40} />
+        <Search placeholder="Search Orders" onSearch={onSearch} width={700} height={40} />
         <Select
           defaultValue="Featured"
           className='ml-2'

@@ -22,8 +22,15 @@ const MainLayout = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
   const onSearch = (value) => console.log(value);
-  const navigate = useNavigate();
+
+  const navigate = useNavigate(); 
+
+  const handleSignOut = () => {
+    localStorage.clear();
+    window.location.reload();
+};
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -112,6 +119,9 @@ const MainLayout = () => {
               key: 'store',
               icon: <BiStore />,
               label: <Link to="https://shoppable-ecommerce.netlify.app/">Online Store</Link>,
+            },
+            {
+              label: <button onClick={handleSignOut} className='w-full my-2 rounded bg-[#2f60b5] text-white font-bold' >Log Out</button>,
             },
           ]}
         />
