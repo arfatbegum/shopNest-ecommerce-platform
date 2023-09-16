@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Drawer, Modal, Space, Switch, Table } from 'antd';
+import { Link } from 'react-router-dom';
 import { BiTrash, BiEdit } from 'react-icons/bi';
 import { FaSearchPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +56,7 @@ const columns = [
 ];
 
 const ProductsList = () => {
+    
     const [open, setOpen] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
     const [productId, setProductId] = useState("");
@@ -103,17 +105,19 @@ const ProductsList = () => {
             published: <div className='text-center'><Switch size="small" defaultChecked /></div>,
             actions: (
                 <Space size="middle">
-                    <BiEdit className='text-[#2f60b5] text-xl'
+                  <BiEdit
+                    className='text-[#2f60b5] text-xl'
                     onClick={() => showDrawer(i)}
-                    />
-                    <BiTrash
-                        className='text-red-600 text-xl'
-                        onClick={() => showModal(productState[i]._id)}
-                    />
+                  />
+                  <BiTrash
+                    className='text-red-600 text-xl'
+                    onClick={() => showModal(productState[i]._id)}
+                  />
+                  <Link to={`https://shoppable-ecommerce.netlify.app/product-details/${productState[i]._id}`}>
                     <FaSearchPlus className='text-[#2f60b5] text-lg' />
+                  </Link>
                 </Space>
-            ),
-
+              ),              
         });
     }
 

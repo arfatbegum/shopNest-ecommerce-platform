@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getProducts, updateAProduct } from '../../../../redux/features/product/productSlice';
+import { getProductById, getProducts, updateAProduct } from '../../../../redux/features/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBrands, resetState } from '../../../../redux/features/brand/brandSlice';
 import { getCategories } from '../../../../redux/features/productCategories/productCategorySlice';
@@ -19,24 +19,11 @@ const UpdateProduct = ({ productId, onClose }) => {
     const colorState = useSelector((state) => state.color.colors);
     const imgState = useSelector((state) => state.upload.images);
     const updateProduct = useSelector((state) => state.product);
-    const {
-        isSuccess,
-        isError,
-        productName,
-        productDescription,
-        productPrice,
-        salePrice,
-        brand,
-        category,
-        tags,
-        color,
-        quantity,
-        images,
-        updatedProduct } = updateProduct;
+    const { isSuccess, isError, name, description, price, salePrice, brand, category, tags, color, quantity, images, updatedProduct } = updateProduct;
 
     useEffect(() => {
         if (productId !== undefined) {
-            dispatch(getProducts(productId));
+            dispatch(getProductById(productId));
         } else {
             dispatch(resetState());
         }
@@ -55,7 +42,7 @@ const UpdateProduct = ({ productId, onClose }) => {
         if (isError) {
             toast.error("Something Went Wrong!");
         }
-    }, [isSuccess, isError,updatedProduct]);
+    }, [isSuccess, isError, updatedProduct]);
 
     const colorOption = [];
     colorState.forEach((i) => {
@@ -76,9 +63,9 @@ const UpdateProduct = ({ productId, onClose }) => {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            name: productName || "",
-            description: productDescription || "",
-            price: productPrice || "",
+            name: name || "",
+            description: description || "",
+            price: price || "",
             salePrice: salePrice || "",
             brand: brand || "",
             category: category || "",
@@ -103,9 +90,12 @@ const UpdateProduct = ({ productId, onClose }) => {
     });
 
     useEffect(() => {
-        formik.values.color = colors ? colors : " ";
-        formik.values.images = img;
-    }, [formik.values.color, formik.values.images]);
+        formik.setValues({
+            ...formik.values,
+            color: colors ? colors : " ",
+            images: img,
+        });
+    }, []);
 
     const handleColors = (e) => {
         setColors(e);

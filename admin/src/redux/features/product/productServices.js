@@ -2,11 +2,19 @@ import axios from "axios";
 import { config } from "../../../utils/axiosconfig";
 import { base_url } from "../../../utils/baseUrl";
 
-const getProducts = async () => {
-    const response = await axios.get(`${base_url}product/`);
+const getProducts = async (filters) => {
+    const response = await axios.get(`${base_url}product/`, { params: filters });
 
     return response.data;
 };
+
+const getProduct = async (productId) => {
+    const response = await axios.get(`${base_url}product/${productId}`);
+    if (response.data) {
+        return response.data;
+    }
+};
+
 const createProduct = async (product) => {
     const response = await axios.post(`${base_url}product/`, product, config);
 
@@ -42,6 +50,7 @@ const deleteProduct = async (id) => {
 
 const productService = {
     getProducts,
+    getProduct,
     createProduct,
     updateProduct,
     deleteProduct

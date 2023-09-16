@@ -3,9 +3,9 @@ import productServices from "./productServices";
 
 export const getProducts = createAsyncThunk(
   "product/get-products",
-  async (thunkAPI) => {
+  async (filters,thunkAPI) => {
     try {
-      return await productServices.getProducts();
+      return await productServices.getProducts(filters);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -16,6 +16,17 @@ export const createAProduct = createAsyncThunk(
   async (productData, thunkAPI) => {
     try {
       return await productServices.createProduct(productData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getProductById = createAsyncThunk(
+  "product/getProductById",
+  async (productId, thunkAPI) => {
+    try {
+      return await productServices.getProduct(productId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -89,16 +100,16 @@ export const productSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(updateAProduct.pending, (state) => {
+      .addCase(getProductById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateAProduct.fulfilled, (state, action) => {
-        state.isLoading = false;
+      .addCase(getProductById.fulfilled, (state, action) => {
         state.isError = false;
+        state.isLoading = false;
         state.isSuccess = true;
-        state.productName = action.payload.name;
-        state.productDescription = action.payload.description;
-        state.productPrice = action.payload.price;
+        state.name = action.payload.name;
+        state.description = action.payload.description;
+        state.price = action.payload.price;
         state.salePrice = action.payload.salePrice;
         state.brand = action.payload.brand;
         state.category = action.payload.category;
@@ -106,6 +117,21 @@ export const productSlice = createSlice({
         state.color = action.payload.color;
         state.quantity = action.payload.quantity;
         state.images = action.payload.images;
+      })
+      .addCase(getProductById.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        state.isLoading = false;
+      })
+      .addCase(updateAProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateAProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedProduct = action.payload;
       })
       .addCase(updateAProduct.rejected, (state, action) => {
         state.isLoading = false;
