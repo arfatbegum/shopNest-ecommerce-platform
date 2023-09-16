@@ -106,6 +106,7 @@ export const productCategorySlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
+        state.categoryName = action.payload.title;
         state.updatedCategory = action.payload;
       })
       .addCase(updateAProductCategory.rejected, (state, action) => {
@@ -121,7 +122,7 @@ export const productCategorySlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.deletedCategory = action.payload; // Assign the deleted category
+        state.deletedCategory = action.payload;
       })
       .addCase(deleteAProductCategory.rejected, (state, action) => {
         state.isLoading = false;

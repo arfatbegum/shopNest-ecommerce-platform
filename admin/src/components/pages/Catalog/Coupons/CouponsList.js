@@ -37,6 +37,13 @@ const CouponsList = () => {
     const [open, setOpen] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
     const [couponId, setcouponId] = useState("");
+    const dispatch = useDispatch();
+    const couponState = useSelector((state) => state.coupon.coupons);
+
+    useEffect(() => {
+        dispatch(getAllCoupon());
+    }, [dispatch]);
+    
     const showModal = (e) => {
         setOpen(true);
         setcouponId(e);
@@ -54,13 +61,6 @@ const CouponsList = () => {
     const onClose = () => {
         setOpenDrawer(false);
     };
-
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllCoupon());
-    }, [dispatch]);
-
-    const couponState = useSelector((state) => state.coupon.coupons);
 
     const data1 = [];
     for (let i = 0; i < couponState.length; i++) {
@@ -86,11 +86,10 @@ const CouponsList = () => {
     }
     const deleteCoupon = (e) => {
         dispatch(deleteACoupon(e));
-
         setOpen(false);
         setTimeout(() => {
             dispatch(getAllCoupon());
-        }, 100);
+        }, 1000);
     };
 
     return (

@@ -25,7 +25,7 @@ const Cart = () => {
         toast.success("Remove from cart Successfully!")
         setTimeout(() => {
             dispatch(getCart());
-        }, 200)
+        }, 1000)
     }
 
     return (

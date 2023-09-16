@@ -80,7 +80,7 @@ const BrandsList = () => {
         setOpen(false);
         setTimeout(() => {
             dispatch(getBrands());
-        }, 100);
+        }, 1000);
     };
 
     return (

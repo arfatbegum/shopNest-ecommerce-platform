@@ -33,7 +33,6 @@ const UpdateProduct = ({ productId, onClose }) => {
         quantity,
         images,
         updatedProduct } = updateProduct;
-    console.log(updateProduct)
 
     useEffect(() => {
         if (productId !== undefined) {

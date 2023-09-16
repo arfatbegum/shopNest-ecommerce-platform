@@ -170,7 +170,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     } catch (error) {
         throw new Error(error);
-        console.log(error)
     }
 });
 
@@ -532,5 +531,4 @@ module.exports = {
     getOrder,
     updateOrderStatus,
     getComparelist
-
 };

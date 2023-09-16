@@ -42,7 +42,7 @@ export const getACoupon = createAsyncThunk(
   }
 );
 export const updateACoupon = createAsyncThunk(
-  "color/update-coupon",
+  "coupon/update-coupon",
   async (coupon, thunkAPI) => {
     try {
       return await couponServices.updateCoupon(coupon);
@@ -118,9 +118,9 @@ export const couponSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.couponName = action.payload[0].name;
-        state.couponDiscount = action.payload[0].discount;
-        state.couponExpiry = action.payload[0].expiry;
+        state.couponName = action.payload.name;
+        state.couponDiscount = action.payload.discount;
+        state.couponExpiry = action.payload.expiry;
       })
       .addCase(getACoupon.rejected, (state, action) => {
         state.isLoading = false;
@@ -135,9 +135,7 @@ export const couponSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.couponName = action.payload[0].name;
-        state.couponDiscount = action.payload[0].discount;
-        state.couponExpiry = action.payload[0].expiry;
+        state.updatedCoupon = action.payload;
       })
       .addCase(updateACoupon.rejected, (state, action) => {
         state.isLoading = false;

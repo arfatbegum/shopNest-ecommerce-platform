@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const UpdateCoupon = ({ couponId, onClose }) => {
     const dispatch = useDispatch();
-    const updateCoupon = useSelector((state) => state.coupon);
+    const updateCoupon = useSelector((state) => state?.coupon);
     const {
         isSuccess,
         isError,
@@ -16,6 +16,7 @@ const UpdateCoupon = ({ couponId, onClose }) => {
         couponExpiry,
         updatedCoupon,
     } = updateCoupon;
+
     const changeDateFormet = (date) => {
         const newDate = new Date(date).toLocaleDateString();
         const [month, day, year] = newDate.split("/");
@@ -37,7 +38,7 @@ const UpdateCoupon = ({ couponId, onClose }) => {
         if (isError && couponName && couponDiscount && couponExpiry) {
             toast.error("Something Went Wrong!");
         }
-    }, [isSuccess, isError, isLoading, updatedCoupon, couponName, couponDiscount, couponExpiry]);
+    }, [isSuccess, isError, isLoading, couponName, couponDiscount, couponExpiry, updatedCoupon]);
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -46,6 +47,7 @@ const UpdateCoupon = ({ couponId, onClose }) => {
             expiry: changeDateFormet(couponExpiry) || "",
             discount: couponDiscount || "",
         },
+
         onSubmit: (values) => {
             if (couponId !== undefined) {
                 const data = { id: couponId, couponData: values };
@@ -54,7 +56,7 @@ const UpdateCoupon = ({ couponId, onClose }) => {
                 setTimeout(() => {
                     dispatch(resetState());
                     dispatch(getAllCoupon());
-                }, 300);
+                }, 1000);
             }
         },
     });

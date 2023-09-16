@@ -15,7 +15,6 @@ const UpdateBlog = ({ blogId, onClose }) => {
     const blogCategoryState = useSelector((state) => state.blogCategory.blogCategories);
     const updatedBlog = useSelector((state) => state.blog);
     const { isSuccess, isError, blogName, blogDesc, blogCategory, blogImages, updateBlog } = updatedBlog;
-    console.log(updatedBlog)
 
     useEffect(() => {
         if (blogId !== undefined) {

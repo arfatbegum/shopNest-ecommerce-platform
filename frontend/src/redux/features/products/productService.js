@@ -59,7 +59,6 @@ const addToComparelist = async (productId) => {
 
 const rating = async (data) => {
     const response = await axios.put(`${base_url}product/rating`, data, config);
-    console.log(rating)
     if (response.data) {
         return response.data;
     }

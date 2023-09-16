@@ -5,7 +5,6 @@ import { Select } from 'antd';
 const Header = () => {
   const onSearch = (value) => console.log(value);
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
   };
   return (
     <>

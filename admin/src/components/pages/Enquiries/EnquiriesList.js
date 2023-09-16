@@ -95,7 +95,6 @@ const EnquiriesList = () => {
         });
     }
     const setEnquiryStatus = (e, i) => {
-        console.log(e, i);
         const data = { id: i, enqData: e };
         dispatch(updateAEnquiry(data));
     };
@@ -106,7 +105,7 @@ const EnquiriesList = () => {
         setOpen(false);
         setTimeout(() => {
             dispatch(getEnquiries());
-        }, 100);
+        }, 1000);
     };
 
     return (

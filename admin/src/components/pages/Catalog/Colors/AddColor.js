@@ -44,7 +44,7 @@ const AddBrand = ({ onClose }) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getColors());
-      }, 300);
+      }, 1000);
     },
   });
 

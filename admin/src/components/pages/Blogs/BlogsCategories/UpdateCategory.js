@@ -45,7 +45,7 @@ const UpdateCategory = ({ categoryId, onClose }) => {
                 setTimeout(() => {
                   dispatch(resetState());
                   dispatch(getCategories());
-                }, 300);
+                }, 1000);
             }
         }
     });

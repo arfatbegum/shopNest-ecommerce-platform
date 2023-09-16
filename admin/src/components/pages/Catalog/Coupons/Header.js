@@ -20,7 +20,7 @@ const Header = () => {
         <Button
           type="text"
           onClick={showDrawer}
-          className='bg-[#2f60b5] text-white rounded font-medium mr-2 hover:bg-[#2f60b5]'
+          className='bg-[#2f60b5] text-white rounded font-medium ml-2 hover:bg-[#2f60b5]'
           style={{
             fontSize: '16px',
             width: 130,

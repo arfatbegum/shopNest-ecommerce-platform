@@ -103,7 +103,6 @@ const AddProduct = ({ onClose }) => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log(values)
       dispatch(createAProduct(values));
       formik.resetForm();
       onClose();
@@ -111,7 +110,7 @@ const AddProduct = ({ onClose }) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getProducts());
-      }, 200);
+      }, 1000);
     },
   });
 

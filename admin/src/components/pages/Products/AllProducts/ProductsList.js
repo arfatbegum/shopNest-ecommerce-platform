@@ -123,7 +123,7 @@ const ProductsList = () => {
         setOpen(false);
         setTimeout(() => {
             dispatch(getProducts());
-        }, 100);
+        }, 1000);
     };
 
     return (

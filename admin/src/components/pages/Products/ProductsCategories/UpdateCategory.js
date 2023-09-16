@@ -6,14 +6,13 @@ import { getAProductCategory, getCategories, resetState, updateAProductCategory 
 
 const UpdateCategory = ({ categoryId, onClose }) => {
     const dispatch = useDispatch();
-    const updateCategory = useSelector((state) => state.productCategory.pCategories);
+    const updateCategory = useSelector((state) => state.productCategory);
     const {
         isSuccess,
         isError,
         categoryName,
         updatedCategory,
     } = updateCategory;
-
     useEffect(() => {
         if (categoryId !== undefined) {
             dispatch(getAProductCategory(categoryId));
@@ -44,7 +43,7 @@ const UpdateCategory = ({ categoryId, onClose }) => {
                 setTimeout(() => {
                     dispatch(resetState());
                     dispatch(getCategories());
-                }, 300);
+                }, 1000);
             }
         }
     });

@@ -19,7 +19,6 @@ const ResetPassword = () => {
     const [showPass, setShowPass] = useState(false);
     const location = useLocation()
     const getToken = location.pathname.split("/")[2];
-    console.log(getToken);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const formik = useFormik({

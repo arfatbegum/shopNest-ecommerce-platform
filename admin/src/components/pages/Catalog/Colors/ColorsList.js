@@ -82,7 +82,7 @@ const ColorsList = () => {
         setOpen(false);
         setTimeout(() => {
             dispatch(getColors());
-        }, 100);
+        }, 1000);
     };
     return (
         <div>

@@ -27,7 +27,6 @@ const ShippingDetails = () => {
         },
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-            console.log(values)
             toast.success("Your Address is saved Successfully!")
             resetForm();
         },

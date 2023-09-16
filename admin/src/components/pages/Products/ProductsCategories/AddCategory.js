@@ -44,7 +44,7 @@ const AddProductCategory = ({ onClose }) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getCategories());
-      }, 300);
+      }, 1000);
     }
   });
   return (

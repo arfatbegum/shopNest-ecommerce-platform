@@ -8,7 +8,6 @@ import { updateABrand } from '../../../../redux/features/brand/brandSlice';
 const UpdateBrand = ({ brandId, onClose }) => {
     const dispatch = useDispatch();
     const UpdateBrand = useSelector((state) => state.brand);
-    console.log(UpdateBrand)
     const {
         isSuccess,
         isError,
@@ -46,7 +45,7 @@ const UpdateBrand = ({ brandId, onClose }) => {
                 setTimeout(() => {
                     dispatch(resetState());
                     dispatch(getBrands());
-                }, 300);
+                }, 1000);
             }
 
         }

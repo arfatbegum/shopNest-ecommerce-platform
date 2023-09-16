@@ -3,8 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { getOrderByUser } from '../../../redux/features/auth/authSlice';
-import { FaBackspace, FaBackward } from 'react-icons/fa';
-import { BiArrowBack, BiArrowFromRight, BiRightArrow } from 'react-icons/bi';
+import { BiRightArrow } from 'react-icons/bi';
 
 const columns = [
     {

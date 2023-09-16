@@ -78,7 +78,7 @@ const CategoryList = () => {
         setOpen(false);
         setTimeout(() => {
             dispatch(getCategories());
-        }, 100);
+        }, 1000);
     }
     return (
         <div>

@@ -59,7 +59,7 @@ const AddCoupon = ({onClose}) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getAllCoupon());
-      }, 300);
+      }, 1000);
     },
   });
 

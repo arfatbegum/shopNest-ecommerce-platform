@@ -42,7 +42,7 @@ const AddBrand = ({ onClose }) => {
       setTimeout(() => {
         dispatch(resetState());
         dispatch(getBrands());
-      }, 300);
+      }, 1000);
     },
   });
 

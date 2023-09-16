@@ -47,7 +47,7 @@ const UpdateColor = ({ colorId, onClose }) => {
                 setTimeout(() => {
                     dispatch(resetState());
                     dispatch(getColors());
-                }, 300);
+                }, 1000);
             }
 
         }
